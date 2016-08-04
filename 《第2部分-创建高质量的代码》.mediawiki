@@ -1,0 +1,16 @@
+=== 参加人员 ===
+王程程  黄文文  李婷婷  陶晓鸣  刘炯  霍琦  戎祥  何茂森  董飞  李洋
+
+=== 第5章 软件构建中的设计（王程程）===
+====xxxxxxx心得====
+心得1的详细说明YYYYYYYYYYYYYYYYYYYY
+====xxxxxx心得2====
+心得2的详细说明YYYYYYYYYYYYYYYYYYYY
+
+
+
+=== 第6章 可以工作的类（黄文文）===
+====xxxxxxx心得====
+心得1的详细说明YYYYYYYYYYYYYYYYYYYY
+====xxxxxx心得2====
+心得2的详细说明YYYYYYYYYYYYYYYYYYYY
