@@ -19,7 +19,27 @@
 **改动不会影响到ADT外程序的其余部分
 **让程序的正确性更显而易见，且更具自我说明性
 **无须在程序内到处传递数据
-
+====6.2 良好的类接口（李洋）====
+====6.2.1 什么是良好的类接口====
+*类接口的抽象能力非常有价值，因为接口中的每个子程序都在朝着这个一致的目标而工作。
+*类的接口要展现一直的抽象层次，好的办法是把类看作一种用来实现ADT的机制，且每一个类仅实现唯一一个ADT。
+*坏的例子：
+ class EmployeeCensus：public ListContainer{
+ public：
+ void AddEmployee( Employee employee )；
+ void RemoveEmployee( Employee employee )；
+ Employee NextItemInList()；
+ Employee FirstItem()；
+ Employee LastItem()；
+ }
+*好的例子：
+ class Program{
+ public：
+ void InitializeUserInterface()；
+ void ShutdownUserInterface()；
+ void InitializeReports()；
+ void ShutdownReports()；
+ }
 ====6.4-6.5（陶晓鸣）====
 === 第7章 高质量的子程序（刘炯 黄文文 董飞）===
 ====7.1-7.2（刘炯）====
