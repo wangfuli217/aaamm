@@ -61,8 +61,6 @@ End Type
 常量全部大写并以下划线分隔（ALL_USER_SQL）;变量名和方法名第一个单词首字母小写后续单词首字母大写且不以下划线分（variableOrRoutineName);访问子程序使用get与set前缀
 
 *命名规则没有绝对的，但是规范起来可以让它变得更好。
-====xxxxxx心得2====
-心得2的详细说明YYYYYYYYYYYYYYYYYYYY
 
 
 
