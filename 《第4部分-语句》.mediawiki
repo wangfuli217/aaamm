@@ -109,7 +109,7 @@ travelData.Print();
 ====16.1 选择循环的种类           （徐杰）====
 ======常见的循环有计数循环、连续求值的循环、无限循环和迭代器循环。======
 *计数循环执行的次数是一定的。
-*'''计数循环Java示例代码'''
+'''计数循环Java示例代码'''
 <pre> 
    public static void main(String[] args) {
         int count = 0;//定义一个计数器变量
@@ -123,7 +123,7 @@ travelData.Print();
     }
 </pre>
 *连续求值的循环预先并不知道要执行多少次，它会在每次循环遍历时判断是否应该结束。
-*'''连续求值的循环Java示例代码'''
+'''连续求值的循环Java示例代码'''
 <pre>
     public static void main(String[] args) {
 	for (int i = 1; i < 10; i = i + 1) {
@@ -132,14 +132,14 @@ travelData.Print();
     }
 </pre>
 *无限循环一旦启动就会一直执行。多用在心中起搏器、微波炉和导航控制仪中。
-*'''无限循环Java示例代码'''
+'''无限循环Java示例代码'''
 <pre>
      for(int i=1;;i++){
 	System.out.println(i);
      }
 </pre>
 *迭代器循环对容器类里面的每个元素执行一次操作。
-*'''迭代器循环Java示例代码'''
+'''迭代器循环Java示例代码'''
 <pre>
        public static void main(String[] args) {
 		ArrayList<Integer> arrayList = new ArrayList<Integer>();
