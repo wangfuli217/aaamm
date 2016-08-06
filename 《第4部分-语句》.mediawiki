@@ -283,20 +283,30 @@ do{
 =====不要使用复杂的逻辑代码=====
 *当遇到想把字符、划分为字母、标点符号、和数字三类，使用复杂的逻辑链是错误的。
 **如下：
-If((('a'<=inputChar)&&( inputChar<='z'))||
-(('A'<=inputChar)&&( inputChar<='Z'))){
-CharType=CharacterType.Letter;}
-Else if ((inputchar==' ')||(inputChar==',')||
-(inputChar=='.')|| (inputChar=='!')|| (inputChar=='(')|| (inputChar==')') 
-|| (inputChar==':') || (inputChar==';') || (inputChar=='?') || (inputChar=='-')){
-CharType=CharacterType.Punctuation；
-}
-else if (('0'<= inputChar)&&( inputChar<='9')){
-CharType= CharacterType.Digit;
+	If(
+   	  (('a'<=inputChar)&&( inputChar<='z'))
+		||(('A'<=inputChar)&&( inputChar<='Z')))
+	{
+ 		CharType=CharacterType.Letter;
+	}
+		Else if (
+		(inputchar==' ')||(inputChar==',')
+		||(inputChar=='.')|| (inputChar=='!')
+		|| (inputChar=='(')|| (inputChar==')') 
+		|| (inputChar==':') || (inputChar==';')
+		|| (inputChar=='?') || (inputChar=='-')
+		        )
+	  {
+		CharType=CharacterType.Punctuation；
+	  }
+		else if (('0'<= inputChar)&&( inputChar<='9'))
+	  {
+		CharType= CharacterType.Digit;
+	  }
 =====解决方法=====
 *把每一个字符的类型保存在一个用字符编码访问的数组里。
 **如下：
-CharType= CharTypeTable[inputChar];
+		CharType= CharTypeTable[inputChar];
 ====18.2 直接访问表              （梁运）====
 ====18.3 索引访问表              （黄佳欣）====
 ====18.4 阶梯访问表              （黄佳欣）====
