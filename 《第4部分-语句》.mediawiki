@@ -40,7 +40,7 @@ ComputePersonnelExpense<br>
 //调用了四个子程序访问了ExpenseData数据成员后的数据<br>
 DispalyExpenseSummary<br>
 
-二、加参数明确显示依赖关系（推荐）<br>
+二、'''*加参数明确显示依赖关系（推荐）'''<br>
 expenData = InitializeExpenseData（expenData）;<br>
 marketingExpenData = ComputeMarketingExpense（expenData）;<br>
 salesExpenData = ComputeSalesExpense（expenData）;<br>
