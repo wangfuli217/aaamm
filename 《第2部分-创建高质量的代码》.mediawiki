@@ -25,7 +25,7 @@
 ====7.1-7.2（刘炯）====
 ====7.3-7.4（陶晓鸣）====
 ====7.5-7.7（董飞）====
-=====7.5 如何使用子程序参数=====
+=====7.5 如何使用子程序参数（董飞）=====
 
 ======不要把子程序的参数用作工作变量======
 *'''坏代码'''
@@ -40,7 +40,7 @@ int Sample (int inputVal){
 int Sample (int inputVal){
       int workingVal = inputVal;  //引入新的变量workingVal，消除了误用inputVal的可能  
       workingVal = workingVal * CurrentMultiplier ( workingVal );
-      ...           //在次处或者其他地方还可以使用inputVal最初传入的值
+      ...           //在此处或者其他地方还可以使用inputVal最初传入的值
       return workingVal;
 }
 </pre>
