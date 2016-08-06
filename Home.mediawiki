@@ -46,8 +46,8 @@ Welcome to the 2016-LKI-3BU wiki!
 
 ===心得的例子===
 
-#不要在循环中生成对象
-#*'''''坏代码'''''
+====不要在循环中生成对象====
+*'''''坏代码'''''
 <pre>
 for (int i = 0; i < max; i++) {
     StringBuilder sb = new StringBuilder();
@@ -56,7 +56,7 @@ for (int i = 0; i < max; i++) {
     System.out.println(sb.toString());
 }
 </pre>
-#*'''''好代码'''''
+*'''''好代码'''''
 <pre>
 StringBuilder sb = new StringBuilder();  /* ループ外に出した */
 for (int i = 0; i < max; i++) {
