@@ -88,17 +88,17 @@ int Sample (int inputVal){
 ====8.1-8.3心得 （戎祥）====
 *1.检查所有来源于外部数据的值心得
 ====对于JAVA中传值我想对于有点JAVA基础的人都会知道的，因此我们在大学时候传值通常都是这样的：====
-'''''void method1()
+ void method1()
 
-{int x=0;this.change(x);
+ {int x=0;this.change(x);
 
-System.out.println(x);
-}'''''
+ System.out.println(x);
+ }
 
-'''''void change(int i)
-{
-i=1;
-}'''''
+ void change(int i)
+ {
+ i=1;
+ }
 
 可能在那时候我们会觉得这毫无问题，但是现在我们进入工作接触到业务了，那么我们在传参的时候就不能这么不小心了
 
@@ -114,13 +114,13 @@ i=1;
 
 并不是能找出所有的错误的，所以余下的问题要在代码里解决，比如我们常遇到的try和catch
 
-try{
+ try{
 
 
 
-}catch(){
+ }catch(){
 
-}
+ }
 但是我刚才所说的往往我们心里想的是这些都是可有可无的，写不写无所谓，但是如果我以后写的时候
 
 再不注意这个细节我觉得我迟早会遇到麻烦的，所以养成加保险的习惯一定会对我们有所帮助的，切记切记
@@ -133,7 +133,7 @@ try{
 
 的断言====
 
-'''''assert denominator !0 : "denominator is unexpectedly equal to 0."'''''
+ assert denominator !0 : "denominator is unexpectedly equal to 0.“
 
 上述断言声明denominator 不会等于0.其中第一个参数，denominator ！=0，是个布尔表达式，其结果为true或者false
 
