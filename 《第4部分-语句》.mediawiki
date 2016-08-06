@@ -173,7 +173,60 @@ APL示例：数组乘法
 ====17.1 子程序中的多处返回       （郭思）==== 
 ====17.2 递归                   （郭思）====
 ====17.3 goto                   （兰杰）====
+=====goto使用心得=====
+要在'''特定场合下谨慎地'''使用goto，而不是不问青红皂白的用
+
+*goto的坏处
+**还有goto的代码很难安排好格式，影响逻辑结构
+**goto会破换编译器的优化特性，使流程变得难以分析
+*goto的好处
+**如果位置恰当，goto可以减少重复的代码
+**某些情况下会让代码的运行速度更快，体积更小
+**goto用在执行清理操作，可以减少忘记释放资源的可能
+=====goto代码重写心得=====
+goto代码重写很容易'''出错'''
+
+*'''''C++示例：看上去很容易就能重写为不使用goto是代码'''''
+<pre>
+do{
+   GetData( inputFile, data );
+   if ( eof( inputFile ) ) {
+      goto LOOP_EXIT;
+    }
+    Dosomething( data );
+}  whlie ( data ！= -1);
+LOOP_EXIT;
+</pre>
+
+*'''''去掉了goto的所谓等价代码'''''
+<pre>
+ GetData( inputFile, data );
+while ( ( !eof(inputFile) ) && ( ( data ! = -1 ) ) ) { //检测到-1，退出循环而不执行Dosomething（）
+   Dosomething( data );
+   GetData( inputFile, data ); 
+}
+</pre>
+
+*'''''去掉了goto的真正等价代码'''''
+<pre>
+do{
+   GetData( inputFile, data );
+   if ( eof( inputFile ) )  {
+      Dosomething( data );//检测到-1之前，执行Dosomething（）
+   }
+}while { ( data != -1 ) && ( !eof( inputFile ) ) );
+</pre>
 ====17.4 针对不常见控制结构的观点  （兰杰）====
+=====对不常见控制结构的心得=====
+对非传统的控制结构应持'''怀疑态度'''
+
+*不加限制地使用goto
+*能动态计算出goto跳转目标并且执行跳转
+*通foto从一个子程序中部跳到另一个子程序中部
+*根据行数或标号调用子程序，从而允许代码从子程序中间某个位置开始执行
+*具备让应用程序动态生成代码并且执行这些代码的能力
+    这些想法看起来离奇，但曾经都被认为是可以接受的。很大程度上，软件开大这一领域实在限制程序员
+对代码的使用中得到发展的。
 
 
 === 第18章 表驱动法===
