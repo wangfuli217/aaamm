@@ -7,8 +7,7 @@
 
 ====14.1 必须有明确顺序的语句      （陈渊）====
 14.1 必须有明确的语句顺序心得:
-14.1 必须有明确的语句顺序心得:
-那么有明确语句顺序的代码好处在哪呢，下面通过一个有明确顺序的代码和没有明确顺序代码的实例，我们会一目了然的发现有明确顺序的代码的优点。<br>
+*那么有明确语句顺序的代码好处在哪呢，下面通过一个有明确顺序的代码和没有明确顺序代码的实例，我们会一目了然的发现有明确顺序的代码的优点。<br>
 <pre>
 例1（有明确顺序）
 date = ReadData();
@@ -22,9 +21,9 @@ revenue.ComputeQuarterly();
 revenue.ComputeAnnual();
 </pre>
 
-从上面的两个例子可以很好地看出例的优势，通俗易懂，而且逻辑方面也层层相扣，大大提高了代码的正确性，可读性和可维护性。
+*从上面的两个例子可以很好地看出例的优势，通俗易懂，而且逻辑方面也层层相扣，大大提高了代码的正确性，可读性和可维护性。
 
-那我我们所要做的就是讲自己写的代码有意识的携程有顺序条理清晰的的代码现在，通过一个例子的展现如何改进写的代码的可读性。<br>
+*那我我们所要做的就是讲自己写的代码有意识的携程有顺序条理清晰的的代码现在，通过一个例子的展现如何改进写的代码的可读性。<br>
 <pre>
 InitializeExpenseData
 ComputeMarketingExpense
@@ -34,7 +33,7 @@ ComputePersonnelExpense
 DispalyExpenseSummary
 </pre>
 
-一、加注释对不清晰的依赖关系进行说明<br>
+*加注释对不清晰的依赖关系进行说明<br>
 <pre>
 InitializeExpenseData//计算Expense数据
 ComputeMarketingExpense//四个子程序访问了ExpenseData数据成员
@@ -44,7 +43,7 @@ ComputePersonnelExpense
 DispalyExpenseSummary//调用了四个子程序访问了ExpenseData数据成员后的数据
 </pre>
 
-二、'''*加参数明确显示依赖关系（推荐）'''<br>
+*'''加参数明确显示依赖关系（推荐）'''<br>
 <pre>
 expenData = InitializeExpenseData（expenData）;
 marketingExpenData = ComputeMarketingExpense（expenData）;
@@ -54,7 +53,7 @@ personnelExpenseData = ComputePersonnelExpense（expenData）;
 DispalyExpenseSummary（marketingExpenData,salesExpenData,travelExpenseData,personnelExpenseData）;
 </pre>
 
-三、用断言或者错误处理代码来检查依赖关系<br>
+*用断言或者错误处理代码来检查依赖关系<br>
 就是可以再在类的成员变量里将isExpenseDataInitialized设为false,然后再InitializeExpenseData（）中将isExpenseDataInitialized设为true,在下面四个函数对expenData进行操作之前，看看isExpenseDataInitialized是否为true,但是我觉得因为引入新的变量、新的初始化，就变得复杂也不是很好理解，还会增加错误，所以不是很推荐。
 
 ====14.2 顺序无关的语句           （陈渊）====
@@ -79,7 +78,7 @@ travelData.Print();
 marketingData.Print();
 </pre>
 
-上面的代码跳来跳去的让人看了很不舒服，如果放在一大堆的代码里，读者估计得花很长时间去搜寻他想要的信息如果想知道travelData是怎么来的，那他就得全局去搜，而且还会想，用到的地方是不是就仅仅只有这几个呢，给阅读带来了很大的不便，要是我们能做到把相关的操作放一起，那效果就不一样了。<br>
+*上面的代码跳来跳去的让人看了很不舒服，如果放在一大堆的代码里，读者估计得花很长时间去搜寻他想要的信息如果想知道travelData是怎么来的，那他就得全局去搜，而且还会想，用到的地方是不是就仅仅只有这几个呢，给阅读带来了很大的不便，要是我们能做到把相关的操作放一起，那效果就不一样了。<br>
 <pre>
 MarketingData marketingData;
 marketingData.computeQuarterly();
@@ -97,7 +96,7 @@ travelData.computeAnnual();
 travelData.Print();
 </pre>
 
-如过我们改成了上面的代码，把相关的的语句组织到一起，放在一起，那么对代码的可读性、可维护性有了大大的提升
+*如过我们改成了上面的代码，把相关的的语句组织到一起，放在一起，那么对代码的可读性、可维护性有了大大的提升
 
 === 第15章 使用条件语句===
 
