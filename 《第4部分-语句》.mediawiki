@@ -54,7 +54,6 @@ DispalyExpenseSummary（marketingExpenData,salesExpenData,travelExpenseData,pers
 在下面四个函数对expenData进行操作之前，看看isExpenseDataInitialized是否为true
 但是我觉得因为引入新的变量、新的初始化，就变得复杂也不是很好理解，还会增加错误，所以不是很推荐
 
-
 ====14.2 顺序无关的语句           （陈渊）====
 
 
