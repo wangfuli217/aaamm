@@ -170,6 +170,48 @@ APL示例：数组乘法
 === 第17章 不常见的控制结构===
 
 ====17.1 子程序中的多处返回       （郭思）==== 
+　　程序可以通过return和exit在任何时候退出子程序。比如C++和Java中的return，VB中的Exit Sub和Exit Function。Java中的return一般就是在有返回值的方法中，用来返回方法指定类型的值，同时结束方法执行；也可以在返回值为void的方法中，用来终止方法运行。
+====使用return增强可读性====
+　　如果得到了想要的答案，就可以立即返回该值到调用方子程序，让读者更容易理解。
+*'''''好代码'''''
+<pre>
+Comparison Compare(int value1,int value2){  //返回Comparison枚举类型
+  if(value1<value2){
+     return Comparison_LessThan;  //小于
+  }
+  if(value1>value2){
+     return Comparison_GreaterThan;  //大于
+  }
+  return Comparison_Equal;  //相等
+}
+</pre>
+====用防卫子句（早返回或早退出）简化复杂的错误处理====
+　　当遇到复杂的错误处理，比如在执行某段正常代码之前要进行大量的错误条件检测时，如果用if...End if...循环嵌套的话，代码的缩进层次会过深，并且正常代码不容易查看。
+*'''''坏代码'''''
+<pre>
+if file.validName() Then
+   if file.Open() Then
+      if encryptionKey.vaild() Then
+         if file.Decrypt(encryptionKey) Then
+            'lost of code //正常执行的代码;被遮蔽了
+            ...
+         End if
+      End if
+   End if
+End if
+</pre>
+　　这时，我们可以在执行正常代码之前先检查错误条件，有错误则停止当前子程序的运行。这样，代码的布局清晰，画面美观。
+*'''''好代码'''''
+<pre>
+if Not file.validName() Then Exit Sub
+if Not file.Open() Then Exit Sub
+if Not encryptionKey.vaild() Then Exit Sub
+if Not file.Decrypt(encryptionKey) Then Exit Sub
+'lost of code  //正常执行的代码
+...
+</pre>
+====减少子程序中return的数量====
+　　如果读子程序的后部时，没有意识到前面某个地方返回的可能性，就很难理解这个子程序。只有在可以增强可读性的时候使用return，尽可能少的使用return。
 ====17.2 递归                   （郭思）====
 ====17.3 goto                   （兰杰）====
 =====goto使用心得=====
