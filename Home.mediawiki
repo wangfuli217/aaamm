@@ -56,7 +56,6 @@ for (int i = 0; i < max; i++) {
     System.out.println(sb.toString());
 }
 </pre>
-
 #*'''''好代码'''''
 <pre>
 StringBuilder sb = new StringBuilder();  /* ループ外に出した */
