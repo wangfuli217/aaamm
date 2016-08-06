@@ -7,48 +7,48 @@
 
 ====14.1 必须有明确顺序的语句      （陈渊）====
 14.1 必须有明确的语句顺序心得:
-那么有明确语句顺序的代码好处在哪呢，下面通过一个有明确顺序的代码和没有明确顺序代码的实例，我们会一目了然的发现有明确顺序的代码的优点。
+那么有明确语句顺序的代码好处在哪呢，下面通过一个有明确顺序的代码和没有明确顺序代码的实例，我们会一目了然的发现有明确顺序的代码的优点。<br>
 例1（有明确顺序）<br>
 date = ReadData();<br>
 results = =CalculateResultsFromData(date );<br>
 PrintResults(results );<br>
 
-例2（没有明确顺序）
-revenue.ComputeMonthly();
-revenue.ComputeQuarterly();
-revenue.ComputeAnnual();
+例2（没有明确顺序）<br>
+revenue.ComputeMonthly();<br>
+revenue.ComputeQuarterly();<br>
+revenue.ComputeAnnual();<br>
 
 从上面的两个例子可以很好地看出例的优势，通俗易懂，而且逻辑方面也层层相扣，大大提高了代码的正确性，可读性和可维护性。
 
-那我我们所要做的就是讲自己写的代码有意识的携程有顺序条理清晰的的代码现在，通过一个例子的展现如何改进写的代码的可读性
+那我我们所要做的就是讲自己写的代码有意识的携程有顺序条理清晰的的代码现在，通过一个例子的展现如何改进写的代码的可读性。<br>
 
-InitializeExpenseData
-ComputeMarketingExpense
-ComputeSalesExpense
-ComputeTravelExpense
-ComputePersonnelExpense
-DispalyExpenseSummary
+InitializeExpenseData<br>
+ComputeMarketingExpense<br>
+ComputeSalesExpense<br>
+ComputeTravelExpense<br>
+ComputePersonnelExpense<br>
+DispalyExpenseSummary<br>
 
-一、加注释对不清晰的依赖关系进行说明
-//计算Expense数据
-InitializeExpenseData
-//四个子程序访问了ExpenseData数据成员
-ComputeMarketingExpense
-ComputeSalesExpense
-ComputeTravelExpense
-ComputePersonnelExpense
-//调用了四个子程序访问了ExpenseData数据成员后的数据
-DispalyExpenseSummary
+一、加注释对不清晰的依赖关系进行说明<br>
+//计算Expense数据<br>
+InitializeExpenseData<br>
+//四个子程序访问了ExpenseData数据成员<br>
+ComputeMarketingExpense<br>
+ComputeSalesExpense<br>
+ComputeTravelExpense<br>
+ComputePersonnelExpense<br>
+//调用了四个子程序访问了ExpenseData数据成员后的数据<br>
+DispalyExpenseSummary<br>
 
-二、加参数明确显示依赖关系（推荐）
-expenData = InitializeExpenseData（expenData）;
-marketingExpenData = ComputeMarketingExpense（expenData）;
-salesExpenData = ComputeSalesExpense（expenData）;
-travelExpenseData = ComputeTravelExpense（expenData）;
-personnelExpenseData = ComputePersonnelExpense（expenData）;
-DispalyExpenseSummary（marketingExpenData,salesExpenData,travelExpenseData,personnelExpenseData）;
+二、加参数明确显示依赖关系（推荐）<br>
+expenData = InitializeExpenseData（expenData）;<br>
+marketingExpenData = ComputeMarketingExpense（expenData）;<br>
+salesExpenData = ComputeSalesExpense（expenData）;<br>
+travelExpenseData = ComputeTravelExpense（expenData）;<br>
+personnelExpenseData = ComputePersonnelExpense（expenData）;<br>
+DispalyExpenseSummary（marketingExpenData,salesExpenData,travelExpenseData,personnelExpenseData）;<br>
 
-三、用断言或者错误处理代码来检查依赖关系
+三、用断言或者错误处理代码来检查依赖关系<br>
 就是可以再在类的成员变量里将isExpenseDataInitialized设为false
 然后再InitializeExpenseData（）中将isExpenseDataInitialized设为true
 在下面四个函数对expenData进行操作之前，看看isExpenseDataInitialized是否为true
