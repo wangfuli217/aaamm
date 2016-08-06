@@ -8,10 +8,10 @@
 ====14.1 必须有明确顺序的语句      （陈渊）====
 14.1 必须有明确的语句顺序心得:
 那么有明确语句顺序的代码好处在哪呢，下面通过一个有明确顺序的代码和没有明确顺序代码的实例，我们会一目了然的发现有明确顺序的代码的优点。
-例1（有明确顺序）
-date = ReadData();
-results = =CalculateResultsFromData(date );
-PrintResults(results );
+例1（有明确顺序）<br>
+date = ReadData();<br>
+results = =CalculateResultsFromData(date );<br>
+PrintResults(results );<br>
 
 例2（没有明确顺序）
 revenue.ComputeMonthly();
