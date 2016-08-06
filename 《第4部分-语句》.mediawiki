@@ -102,6 +102,47 @@ travelData.Print();<br>
 === 第16章 控制循环===
 
 ====16.1 选择循环的种类           （徐杰）====
+======常见的循环有计数循环、连续求值的循环、无限循环和迭代器循环。======
+*'''计数循环Java示例代码'''
+<pre> 
+   public static void main(String[] args) {
+        int count = 0;//定义一个计数器变量
+        for (int i = 1; i <= 1000; i++) {
+            if (i % 3 == 1 && i % 5 == 3 && i % 7 == 5) {
+                System.out.println(i);
+                count++;//每次符合要求后计数器都+1
+            }
+        }
+        System.out.println(count);
+    }
+</pre>
+*'''连续求值的循环Java示例代码'''
+<pre>
+    public static void main(String[] args) {
+	for (int i = 1; i < 10; i = i + 1) {
+		System.out.println(i);
+	}
+    }
+</pre>
+*'''无限循环Java示例代码'''
+<pre>
+     for(int i=1;;i++){
+	System.out.println(i);
+     }
+</pre>
+*'''迭代器循环Java示例代码'''
+<pre>
+       public static void main(String[] args) {
+		ArrayList<Integer> arrayList = new ArrayList<Integer>();
+		arrayList.add(1);
+		arrayList.add(2);
+		arrayList.add(3);
+		Iterator iterator = arrayList.iterator();
+		while (iterator.hasNext()) {  //迭代器遍历查询，判断是否还有值可以显示
+			System.out.println(iterator.next());
+		}
+	}
+</pre>
 ====16.2 循环控制                （徐杰）====
 ====16.3 轻松创建循环——由内而外   （刘思）====
 ====16.4 循环和数组的关系         （刘思）==== 
