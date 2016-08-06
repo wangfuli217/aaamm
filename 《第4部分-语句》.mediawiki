@@ -8,12 +8,12 @@
 ====14.1 必须有明确顺序的语句      （陈渊）====
 14.1 必须有明确的语句顺序心得:
 那么有明确语句顺序的代码好处在哪呢，下面通过一个有明确顺序的代码和没有明确顺序代码的实例，我们会一目了然的发现有明确顺序的代码的优点。
-例1（有明确顺序）
+*例1（有明确顺序）
 date = ReadData();
 results = =CalculateResultsFromData(date );
 PrintResults(results );
 
-例2（没有明确顺序）
+*例2（没有明确顺序）
 revenue.ComputeMonthly();
 revenue.ComputeQuarterly();
 revenue.ComputeAnnual();
@@ -29,7 +29,7 @@ ComputeTravelExpense
 ComputePersonnelExpense
 DispalyExpenseSummary
 
-一、加注释对不清晰的依赖关系进行说明
+*加注释对不清晰的依赖关系进行说明
 //计算Expense数据
 InitializeExpenseData
 //四个子程序访问了ExpenseData数据成员
@@ -40,7 +40,7 @@ ComputePersonnelExpense
 //调用了四个子程序访问了ExpenseData数据成员后的数据
 DispalyExpenseSummary
 
-二、加参数明确显示依赖关系（推荐）
+*加参数明确显示依赖关系（推荐）
 expenData = InitializeExpenseData（expenData）;
 marketingExpenData = ComputeMarketingExpense（expenData）;
 salesExpenData = ComputeSalesExpense（expenData）;
@@ -48,7 +48,7 @@ travelExpenseData = ComputeTravelExpense（expenData）;
 personnelExpenseData = ComputePersonnelExpense（expenData）;
 DispalyExpenseSummary（marketingExpenData,salesExpenData,travelExpenseData,personnelExpenseData）;
 
-三、用断言或者错误处理代码来检查依赖关系
+*用断言或者错误处理代码来检查依赖关系
 就是可以再在类的成员变量里将isExpenseDataInitialized设为false
 然后再InitializeExpenseData（）中将isExpenseDataInitialized设为true
 在下面四个函数对expenData进行操作之前，看看isExpenseDataInitialized是否为true
