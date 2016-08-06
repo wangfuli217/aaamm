@@ -32,19 +32,16 @@ ComputeSalesExpense
 ComputeTravelExpense
 ComputePersonnelExpense
 DispalyExpenseSummary
-<pre>
+</pre>
 
 一、加注释对不清晰的依赖关系进行说明<br>
 <pre>
-//计算Expense数据
-InitializeExpenseData
-//四个子程序访问了ExpenseData数据成员
-ComputeMarketingExpense
+InitializeExpenseData//计算Expense数据
+ComputeMarketingExpense//四个子程序访问了ExpenseData数据成员
 ComputeSalesExpense
 ComputeTravelExpense
 ComputePersonnelExpense
-//调用了四个子程序访问了ExpenseData数据成员后的数据
-DispalyExpenseSummary
+DispalyExpenseSummary//调用了四个子程序访问了ExpenseData数据成员后的数据
 </pre>
 
 二、'''*加参数明确显示依赖关系（推荐）'''<br>
