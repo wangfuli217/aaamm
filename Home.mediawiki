@@ -50,7 +50,7 @@ Welcome to the 2016-LKI-3BU wiki!
 *'''''坏代码'''''
 <pre>
 for (int i = 0; i < max; i++) {
-    StringBuilder sb = new StringBuilder();
+    StringBuilder sb = new StringBuilder();  //不要在循环中new这样的对象
     sb.append("loop: ")
       .append(i);
     System.out.println(sb.toString());
@@ -58,9 +58,9 @@ for (int i = 0; i < max; i++) {
 </pre>
 *'''''好代码'''''
 <pre>
-StringBuilder sb = new StringBuilder();  /* ループ外に出した */
+StringBuilder sb = new StringBuilder();  //要放在循环外面去new
 for (int i = 0; i < max; i++) {
-    sb.append("loop: ")
+    sb.append("loop: ")     //这样循环里面就不用new，节省了资源
       .append(i);
     System.out.println(sb.toString());
     sb.setLength(0);  /* 使い回すので内容をクリア */
