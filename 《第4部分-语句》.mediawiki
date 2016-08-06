@@ -284,31 +284,33 @@ do{
 ====18.1 表驱动法使用总则         （梁运）====
 =====不要使用复杂的逻辑代码=====
 *当遇到想把字符、划分为字母、标点符号、和数字三类，使用复杂的逻辑链是错误的。
-**如下：
-	If(
-   	  (('a'<=inputChar)&&( inputChar<='z'))
-		||(('A'<=inputChar)&&( inputChar<='Z')))
+'''错误示例代码'''
+<pre>
+If(
+  (('a'<=inputChar)&&( inputChar<='z'))||(('A'<=inputChar)&&( inputChar<='Z')))
+{
+ CharType=CharacterType.Letter;
+}
+Else if ((inputchar==' ')||(inputChar==',')
+	 ||(inputChar=='.')|| (inputChar=='!')
+	 || (inputChar=='(')|| (inputChar==')') 
+	 || (inputChar==':') || (inputChar==';')
+	 || (inputChar=='?') || (inputChar=='-')
+        )
 	{
- 		CharType=CharacterType.Letter;
+	 CharType=CharacterType.Punctuation;
 	}
-		Else if (
-		(inputchar==' ')||(inputChar==',')
-		||(inputChar=='.')|| (inputChar=='!')
-		|| (inputChar=='(')|| (inputChar==')') 
-		|| (inputChar==':') || (inputChar==';')
-		|| (inputChar=='?') || (inputChar=='-')
-		        )
-	  {
-		CharType=CharacterType.Punctuation；
-	  }
-		else if (('0'<= inputChar)&&( inputChar<='9'))
-	  {
-		CharType= CharacterType.Digit;
-	  }
+	 else if (('0'<= inputChar)&&( inputChar<='9'))
+	{
+	 CharType= CharacterType.Digit;
+	}
+</pre>
 =====解决方法=====
 *把每一个字符的类型保存在一个用字符编码访问的数组里。
-**如下：
-		CharType= CharTypeTable[inputChar];
+'''正确示例代码'''
+<pre>
+CharType= CharTypeTable[inputChar];
+</pre>
 ====18.2 直接访问表              （梁运）====
 ====18.3 索引访问表              （黄佳欣）====
 ====索引访问表心得====
