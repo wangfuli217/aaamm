@@ -346,7 +346,7 @@ SELECT NAME FROM TABLE_TEST WHERE ID = '10000';。<br>
 ====19.1 布尔表达式              （李腾飞）====
 *在布尔表达式中要用标识符true和false，而不是0和1等数值，隐式地比较布尔值与true和false。
 '''错误示例代码'''
-<per>
+<pre>
 Dim printerError As Integer
 Dim reportSelected As Integer
 Dim summarySelected As Integer
@@ -358,9 +358,9 @@ If reportSelected = 1 Then PrintReport ()
 If summarySelected = 1 Then PrintSummary ()
 
 If printerError = 0 Then CleanupPrinter ()
-</per>
+</pre>
 '''正确示例代码'''
-<per>
+<pre>
 Dim printerError As Boolean
 Dim reportSelected As ReportType
 Dim summarySelected As Boolean
@@ -372,26 +372,26 @@ If ( reportSelected = ReportType_First ) Then PrintReport ()
 If ( summarySelected ) Then PrintSummary ()
 
 If ( Not printerError ) Then CleanupPrinter ()
-</per>
+</pre>
 通过这样可以明确你在执行一个布尔判断，使用隐式比较能减少阅读代码时需要记住的项数。
 ====19.2 复合语句（语句块）       （李腾飞）====
 ====把括号对一起写出，用括号来把条件表达清楚====
 *先写块的开始和结束部分，之后填充中间部分。
 例如：
 *先写
-<per>
+<pre>
 for ( i = 0; i < maxLines; i++ )
-</per>
+</pre>
 *再写
-<per>
+<pre>
 for ( i = 0; i < maxLines; i++ ) { }
-</per>
+</pre>
 *最后写
-<per>
+<pre>
 for ( i = 0; i < maxLines; i++ ) {
    // whatever goes in here ...
 }
-</per>
+</pre>
 这种方法适用于所有的块结构，用语句块时一定要清楚的表达你的用意，无论块内的代码行数是1还是20.
 ====19.3 空语句                  （时昌彬）====
 =====空语句并不多见，因此应突出这种用法=====
