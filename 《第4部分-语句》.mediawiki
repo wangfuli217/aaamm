@@ -366,6 +366,44 @@ while（ recordArray.Read（ index++ ）!= recordArray.EmptyRecord（））{
 }
 </pre>
 ====19.4 驯服危险的深层嵌套        （时昌彬）====
+=====避免使用超过3到4层的嵌套=====
+很少有人能够理解超过3层的if嵌套，很多研究人员建议避免使用超过3到4层的嵌套。
+*把嵌套if转换成一组if-then-else语句
+'''Java实例：坏代码'''
+<pre>
+if (10 < quantity){
+	if(100 < quantity）{
+		if(1000 < quantity){
+			discount = 0.01;
+    		}
+		else{
+			discount = 0.05;
+		}
+	}
+	else{
+		discount = 0.025;
+	}
+else{
+	discount = 0.0
+}
+</pre>
+出现多层嵌套的原因是其中的判断逻辑组织的很差，这些判断中有许多冗余。当判断了quantity是否大于1000的时候，
+就不需要再去判断他是否大于100并且大于10。因此可以重新组织这段代码：
+'''Java实例： 好代码'''
+<pre>
+if (1000 < quantity){
+	discount = 0.01;
+}
+else if (100 < quantity){
+	discount = 0.05;
+}
+else if (10 <quantity){
+	discount = 0.025;
+}
+else{
+discount = 0.0;
+}
+</pre>
 ====19.5 编程基础：结构化编程      （陈欢欢）====
 *“结构化”包括结构化分析、结构化设计以及结构化混日子
 **'''*除了都创建于“结构化”被广泛推崇的时代之外，这些状态各异的结构化方法学之间并没有多少相互联系'''
