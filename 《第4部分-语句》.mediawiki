@@ -326,31 +326,31 @@ Else
 ====16.3 轻松创建循环——由内而外   （刘思）====
 =====从简单情况开始并由内向外生成代码能轻松创建循环。=====
 所谓由内而外就是从一种情况开始，用字面量（literal）来编写代码。然后缩进它，在外面加上一个循环然后用循环下标或计算表达式替换那些字面量。最后加上所需要的初始化。比如需要写一个能从列表中取得每个人的费率并累加的循环。
-首先，在注释里写下循环体要执行的操作步骤。先不考虑语法，下标等细节，把要做的事情先写下来。
+*首先，在注释里写下循环体要执行的操作步骤。先不考虑语法，下标等细节，把要做的事情先写下来。
  第1步：由内而外创建循环（伪代码示例）
  --get rate from table    (从表中取得费率)
  --add rate to total      (将费率加到总和上)
-然后，尽可能把循环体内注释转化成代码。
+*然后，尽可能把循环体内注释转化成代码。
  第2步：由内而外创建循环（伪代码示例）
   rate = table[]     //table为存有费率数据的数组，现在table还没任何下标，
   totalRate = totalRate + rate //rate为表中取出的个人费率，totalRate为存储总费用
-接下来，往table数组里加入下标：
+*接下来，往table数组里加入下标：
  第3步：由内而外创建循环（伪代码示例）
  rate = table[census.Age][census.Gender] //census存储个人信息的结构体
  totalRate = totalRate + rate
-接下来是给现有语句加上一层循环。缩进现有代码，并放在一个begin-end对里。
+*接下来是给现有语句加上一层循环。缩进现有代码，并放在一个begin-end对里。
  第4步：由内而外创建循环（伪代码示例）
  For person = firstPerson to lastPerson
   rate = table[census.Age][census.Gender]
   totalRate = totalRate + rate
  End For
-本列中，census变量随person而变，所以要适当推广（generalized）它。
+*本列中，census变量随person而变，所以要适当推广（generalized）它。
  第5步：由内而外创建循环（伪代码示例）
  For person = firstPerson to lastPerson
   rate = table[census[person].Age][census[person].Gender]
   totalRate = totalRate + rate
  End For
-最后，写出必要的初始化代码
+*最后，写出必要的初始化代码
  最后一步：由内而外创建循环（伪代码示例）
  totalRate = 0
  For person = firstPerson to lastPerson
