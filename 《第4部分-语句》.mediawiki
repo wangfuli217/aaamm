@@ -624,13 +624,14 @@ discount = 0.0;
 *执行方式是有序的且有规则的
 *结构化编程的三个组成部分
 **顺序
-<pre>Java示例：顺序
-//a sequence 	of assignment statements
+<pre>
+Java示例：顺序
+//a sequence of assignment statements
 a=”1”;
 b=”2”;
 c=”3”;
 
-//a sequence 	of calls to routines
+//a sequence of calls to routines
 System.out.println(a);
 System.out.println(b);
 System.out.println(c);
