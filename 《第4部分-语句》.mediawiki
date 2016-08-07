@@ -716,7 +716,7 @@ while（ recordArray.Read（ index++ ）!= recordArray.EmptyRecord（））{
 	;
 }
 </pre>
-=====为空语句创建一个DoNothing（）预处理宏或者内联函数======
+=====为空语句创建一个DoNothing（）预处理宏或者内联函数=====
 *这条语句什么也不做，但却能毫无争议的表明“这里希望不做任何事情”的用意。下面就是C++中如何使用#define来定义空语句
 '''C++实例： 用DoNothing（）来强调空语句'''
 <pre>
@@ -768,7 +768,7 @@ discount = 0.0;
 }
 </pre>
 
-=====把嵌套if转换成case语句======
+=====把嵌套if转换成case语句=====
 *你可以用case语句重写一些判断，特别是那些含有整数的判断，而不是去用一长串if和else。
 '''Visual Basic实例：将嵌套if语句转换成case语句'''
 <pre>
