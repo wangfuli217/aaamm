@@ -157,6 +157,100 @@ travelData.Print();
 *如果是放在中间检查，那么检查前面的那一部分至少执行一次，检查后面部分就不一定会执行到。
 ======循环次数不确定时用while循环。======
 *while循环有do while（直到型循环）和while（当型循环）
+当你需要一个灵活的循环且该循环至少被执行一次，那么你就可是用一个在结尾处做条件检测的while循环。
+======灵活度和检查位置决定选择循环的种类。======
+*循环的种类列表如下：
+{| class="wikitable"
+! 语言
+! 循环的种类
+! 灵活度
+! 检查位置
+|-
+| Visual Basic
+| For-Next
+| 严格
+| 开始
+|- 
+| 
+| While-Wend
+| 灵活
+| 开始
+|- 
+| 
+| Do-Loop-While
+| 灵活
+| 开始或结尾
+|- 
+| 
+| For-Each
+| 严格
+| 开始
+|- 
+| C,C++,C#,Java
+| for
+| 灵活
+| 开始
+|- 
+| 
+| While
+| 灵活
+| 开始
+|- 
+| 
+| do-While
+| 灵活
+| 结尾
+|- 
+| 
+| foreach
+| 严格
+| 开始
+|}
+======当循环条件检测在循环开始或结尾处时，我们就要用带退出的循环。======
+*带退出的循环就是循环终止条件出现在循环中间而不是在开始或者结尾处。
+**C++,C和Java中可以用break语句退出当前循环。在其他语言中也可以用goto实现。正常的带退出循环由循环头、循环体（包括终止条件）和循环尾组成。
+**Java中使用循环语句时，只有循环条件表达式的
+值为false时，才能结束循环。有时，我们想提前
+中断循环，要实现这一点，只需要在循环语句块中添加break或continue语句。break（退出
+
+整个循环）、continue（退出本次循环，进入下一次循环）。“break;”语句：可以出现在while、do…while、for、switch语句体中。“continue;” 语句：只能出现在循环语句while、do
+
+…while、for中。
+**'''坏代码'''
+<pre> 
+   // Compute scores and ratings.
+   score = 0;
+   GetNextRating( &ratingIncrement );
+   rating = rating + ratingIncrement;
+   While ( (score < targetScore ) && ( ratingIncrement != 0 ) ) {
+        GetNextScore( &scoreIncrement )
+        score = score + scoreIncrement;
+        GetNextRating( &ratingIncrement);
+        rating = rating + ratingIncrement; 
+        //7，8行与上面的3,4行重复，维护时会出现问题（上下两组代码需同步修改容易忘记）。解决办法写个带退出的条件。
+    }
+</pre>
+**'''好代码'''
+<pre> 
+   // Compute scores and ratings.The code uses an infinite loop
+   // and a break statement to emulate a loop-with-exit loop.
+   score = 0;
+   While ( true ) {
+        GetNextRating( &ratingIncrement);
+        rating = rating + ratingIncrement;
+
+        if ( !( (score < targetScore ) && ( ratingIncrement != 0 ) ) ) { //写了退出循环的条件，容易维护。
+            break;  //满足if条件时退出循环。
+        }
+
+        GetNextScore( &scoreIncrement )
+        score = score + scoreIncrement;
+    }
+</pre>
+======循环次数固定时用for循环。======
+*用for循环来执行那些不需要循环内部控制的简单操作。
+**使用for循环的好处是你在循环头处写好它之后就可以忘掉它了，无需在循环的内部做任何事情去控制它。
+**不要在for循环里通过直接修改下标值得方式迫使它终止，这种情况应该用while循环。
 ====16.2 循环控制                （徐杰）====
 ====16.3 轻松创建循环——由内而外   （刘思）====
 ====16.4 循环和数组的关系         （刘思）==== 
