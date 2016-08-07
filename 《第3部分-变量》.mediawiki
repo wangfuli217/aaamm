@@ -60,6 +60,55 @@ End Type
 *易拆分
 当变量的多次引用靠的非常近，那么把相关代码拆分重构成子程序时，难度大大降低。
 
+=====减小作用域的做法=====
+*在循环开始前就对变量进行初始化
+这种做法的好处是，在你修改循环时，会很容易记住要对循环的初始化代码进行修改，并且当需要在循环之外再加一层循环时，这样的初始化对循环的每一个执行都是有效的。
+
+*在变量即将使用时为其赋值
+这种做法的好处是，很方便就找出这个变量的赋值处。
+ C++良好示例：良好的变量声明与初始化
+ int receiptIndex = 0;
+ float dailyReceipts = TodaysReceipts();
+ double totalReceipts = TotalReceipts( dailyReceipts );
+
+*相关的语句集中到一起
+这样做的好处是，更容易方便的寻找它们。
+ C++坏例子：使用两套变量——让人困惑的做法
+ void SummarizeData( ... ) {
+  ...
+  GetOldData( oldData, &numOldData );
+  GetNewData( newData, &numNewData );
+  totalOldData = Sum( oldData, numOldData );
+  totalNewData = Sum( newData, numNewData );
+  PrintOldDataSummary( oldData, totalOldData, numOldData );
+  PrintNewDataSummary( newData, totalNewData, numNewData );
+  SavaOldDataSummary( totalOldData, numOldData );
+  SavaNewDataSummary( totalNewData, numNewData );
+ }
+在上例中，需同时关注6个变量。
+
+ C++好例子：使用两套变量——更容易理解的做法
+ void SummarizeData( ... ) {
+  GetOldData( oldData, &numOldData );
+  totalOldData = Sum( oldData, numOldData );
+  PrintOldDataSummary( oldData, totalOldData, numOldData);
+  SaveOldDataSummary( totalOldData, numOldData );
+  ...
+  GetNewData( newData, &numNewData );
+  totalNewData = Sum( newData, numNewData );
+  PrintNewDataSummary( newData, totalNewData, numNewData);
+  SaveNewDataSummary( totalNewData, numNewData ); 
+  ...
+ }
+这段代码就更容易理解。
+
+*相关语句拆分、提取组成成单独的子程序
+其他条件相同，一个较短子程序中的变量通常比较长子程序中变量的跨度和存活时间要短，那么把一组相关语句拆分组成小的子程序，自然作用域也会缩小。
+
+*变量的作用域由小变大
+减少作用域的方法之一就是尽量将变量局部化。但是与扩充变量的作用域相比，减少变量的作用域是非常困难的。所以在一开始考虑变量的作用域时，先将其局限于某个特定循环，然后是某个子程序，其次成为某个类的private变量，protected变量，再其次对package可见，最后才是全局变量。
+
+
 
 
 === 第11章 变量名的力量===
