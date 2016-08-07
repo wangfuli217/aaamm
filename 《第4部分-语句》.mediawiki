@@ -349,15 +349,15 @@ SELECT NAME FROM TABLE_TEST WHERE ID = '10000';。<br>
 ====把括号对一起写出，用括号来把条件表达清楚====
 *先写块的开始和结束部分，之后填充中间部分。
 例如：
-**先写
+*先写
 <per>
 for ( i = 0; i < maxLines; i++ )
 </per>
-**再写
+*再写
 <per>
 for ( i = 0; i < maxLines; i++ ) { }
 </per>
-**最后写
+*最后写
 <per>
 for ( i = 0; i < maxLines; i++ ) {
    // whatever goes in here ...
