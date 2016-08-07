@@ -223,8 +223,7 @@ if Not file.Decrypt(encryptionKey) Then Exit Sub
 　　如果读子程序的后部时，没有意识到前面某个地方返回的可能性，就很难理解这个子程序。只有在可以增强可读性的时候使用return，尽可能少的使用return。
 ====17.2 递归                   （郭思）====
 ====17.3 goto                   （兰杰）====
-=====goto使用心得=====
-要在'''特定场合下谨慎地'''使用goto，而不是不问青红皂白的用
+=====要在特定场合下谨慎地使用goto=====
 
 *goto的坏处
 **还有goto的代码很难安排好格式，影响逻辑结构
@@ -233,8 +232,8 @@ if Not file.Decrypt(encryptionKey) Then Exit Sub
 **如果位置恰当，goto可以减少重复的代码
 **某些情况下会让代码的运行速度更快，体积更小
 **goto用在执行清理操作，可以减少忘记释放资源的可能
-=====goto代码重写心得=====
-goto代码重写很容易'''出错'''
+
+=====goto代码重写很容易出错=====
 
 *'''''C++示例：看上去很容易就能重写为不使用goto是代码'''''
 <pre>
@@ -266,9 +265,78 @@ do{
    }
 }while { ( data != -1 ) && ( !eof( inputFile ) ) );
 </pre>
+
+=====分配和清理时使用goto利大于弊=====
+<pre>
+*'''''Visual Basic示例：处理错误以及释放资源的带goto代码'''''
+errorState = fileStatus_Sussess
+fileIndex = 0
+While { fileIndex < numFilesToPurge } //获得一个需要清除的文件列表时检测错误状态
+       fileIndex = fileIndex + 1
+	If Not ( FindFile ( fileList ( fileIndex),numFilesToPurge ) )Then
+  	    errorState = FileStatus_FileFindError
+   	GoTo END_PROC
+     End If
+	If Not OpenFile( fileToPurge ) Then   //打开文件列表时检测错误状态
+       		errorState = FileStatus_FileOpenError
+   	GoTo END_PROC
+      End If  
+	If Not OverWriteFile( fileToPurge ) Then  //覆盖其内容时检测错误状态
+       		errorState = FileStatus_FileOverWriteError
+   	GoTo END_PROC
+      End If 
+	If Not Erase( fileToPurge ) Then     //删除时检测错误状态
+       		errorState = FileStatus_FileEraseError
+   	GoTo END_PROC
+       End If
+    End While
+
+END_PROC:     //这是goto的label
+    DeletePurageFileList( fileList, numFileToPurge ) 
+
+</pre>
+
+当子程序需要为数据库连接、内存或临时文件执行分配和清理操作的时候，如果不用goto，
+通常就需要重复写出清理资源的代码。维护重复代码带来的麻烦比使用goto的弊端大。
+
+
+
+
+=====可以用if嵌套语句重写goto=====
+
+*'''''Visual Basic示例：利用嵌套的if语句消除goto代码'''''
+<pre>
+   errorPurgeFileList( fileList, numFileTopurge )
+   errorState = FileStatus_Success
+   fileIndex = 0
+   While ( fileIndex < numFilesToPurge And errorState = FileStatus_Success )
+       fileIndex = fileIndex + 1
+  If FindFile( fileList ( fileIndex),numFilesToPurge ) ) Then
+      If  OpenFile( fileToPurge ) Then
+          If OverWriteFile( fileToPurge ) Then
+             If Not Erase( fileToPurge ) Then
+                errorState = FileStatus_FileEraseError
+          End If
+      Else 
+          errorState = FileStatus_FileOverWriteError
+      End If
+  Else
+      errorState = FileStatus_FileOpenError
+  End If
+Else
+    errorState = FileStatus_FileFindError
+End If
+
+End While
+DeletePurageFileList( fileList, numFileToPurge )
+
+</pre>
+如示例这样嵌套，使嘚仅当一条if语句检测成功时才执行下一条if语句，这是标准的消除goto的编程方法。
+这样做最大的缺点在于嵌套太深，必须把整个嵌套装入大脑才能理解。
+
+
 ====17.4 针对不常见控制结构的观点  （兰杰）====
-=====对不常见控制结构的心得=====
-对非传统的控制结构应持'''怀疑态度'''
+=====对非传统的控制结构应持怀疑态度=====
 
 *不加限制地使用goto
 *能动态计算出goto跳转目标并且执行跳转
@@ -277,6 +345,13 @@ do{
 *具备让应用程序动态生成代码并且执行这些代码的能力
 这些想法看起来离奇，但曾经都被认为是可以接受的。很大程度上，软件开大这一领域实在限制程序员
 对代码的使用中得到发展的。
+
+=====不常见控制结构使用时应多加小心=====
+*多个return可增加程序的可读性和可维护性，同时可以避免产生很深的嵌套逻辑。但是使用它的时候要多加小心，
+如果在读子程序后期时，你没有意识到它从前面某个地方返回的可能性，想理解这个子程序就很困难。
+*递归能够很优雅的解决一小部分问题。但对于大多数问题，它所带来的解将是极其复杂的，对它的使用也要倍加小心。
+*在少数情况下，goto是编写可读性和可维护代码的最佳方法，但这种情况非常罕见。除非万不得以，不要使用goto。
+
 
 
 === 第18章 表驱动法===
