@@ -185,21 +185,21 @@ End Type
   sum +=0.1；//sum是10*0.1，应当等于1.0
   }
   if（nomainal == sum）{//这是错误的比较
-	System.out.println(“Numbers are the same.”）；
+  System.out.println(“Numbers are the same.”）；
   }
   else{
-	System.out.println(“Numbers are different.”）；
+  System.out.println(“Numbers are different.”）；
   }
 结果是Numbers are different.
 好代码
   final double ACCEPTABLE_DELTA =0.00001；
   boolean Equals(double Term1,double Term2){
-	if (Math.abs(Term1-Term2)<ACCEPTABLE_DELTA){
-	return true;
+  if (Math.abs(Term1-Term2)<ACCEPTABLE_DELTA){
+  return true;
   }
   else{
-	return false；
-	}
+  return false；
+  }
   }
 结果是Numbers are the same.
 *处理舍入误差问题。
