@@ -677,6 +677,55 @@ else if (('0'<= inputChar)&&( inputChar<='9'))
 charType= CharTypeTable[inputChar];
 </pre>
 ====18.2 直接访问表              （梁运）====
+*当需要计算每个月的天数时，笨拙的方法就是直接写一个大的IF语句。
+更简单容易的方法就是把这些数据存到一张表里面。在Microsoft Basic里面，需要首先创建这张表：
+现在，无须再写那条长得
+'''错误示例代码'''
+<pre>
+IF(month=1)Then
+  days=31
+ElseIf(month=2)Then
+  days=28
+ElseIf(month=3)Then
+  days=31
+ElseIf(month=4)Then
+  days=30
+ElseIf(month=5)Then
+  days=31
+ElseIf(month=6)Then
+  days=30
+ElseIf(month=7)Then
+  days=31
+ElseIf(month=8)Then
+  days=31
+ElseIf(month=9)Then
+  days=30
+ElseIf(month=10)Then
+  days=31
+ElseIf(month=11)Then
+  days=30
+ElseIf(month=12)Then
+  days=31
+End If
+</pre>
+=====解决方法===== 
+*更简单容易的方法就是把这些数据存到一张表里面。在Microsoft Basic里面，需要首先创建这张表：
+<pre>
+' Initialize Table of "Days Per Month" Data
+Dim daysPerMonth() As Integer = _
+    { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }
+</pre>
+*现在，你无须在写那么长的if语句，只需要用一条简单的数组访问语句就可以得出每个月中的天数了。
+'''正确示例代码'''
+<pre>
+days = daysPerMonth( month-1 )
+</pre>
+*如果你想把查表的版本中再把闰年考虑进去，那么代码仍然会很简单，建设LeapYearIndex()的取值要么为0，要么为1；
+<pre>
+days = daysPerMonth( month-1, LeapYearIndex() )
+</pre>
+*如果把闰年也考虑进来，那么长长的if句将会变得更为复杂了。
+*计算每月的天数是一个很适合用直接访问表描述 的例子，因为你可以用month变量去表里面查询记录。一般来说，你可以用原本控制着很多if语句的书记去直接访问表。
 ====18.3 索引访问表              （黄佳欣）====
 =====索引访问表心得1=====
 *数据库检索方法索引访问介绍：
