@@ -182,7 +182,7 @@ End Type
   double nominal =1.0；//变量nominal是个64位实数
   double sum =0.0；
   for （int i =0；i <10；i++ ） {
-	sum +=0.1；//sum是10*0.1，应当等于1.0
+  sum +=0.1；//sum是10*0.1，应当等于1.0
   }
   if（nomainal == sum）{//这是错误的比较
 	System.out.println(“Numbers are the same.”）；
