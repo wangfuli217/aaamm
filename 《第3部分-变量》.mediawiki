@@ -196,13 +196,35 @@ End Type
 1 结构体类型： C/C++中允许用户定义一组包含若干个类型不同（或相同）的数据项的数据类型，称之为结构体。
 
 2 结构体的作用:
-*用结构体来明确数据关系。结构体把相关联的一组数据项聚集在一起。例如，可以把学号，姓名，性别，班级，成绩等与学生有关的变量定义在一个结构体中。
+*用结构体来明确数据关系。结构体把相关联的一组数据项聚集在一起。
+::坏代码
+ //下面一组变量很难看懂
+ name=inputName
+ address=inputAddress
+ phone=inputPhone
+ title=inputTitle
+ department=inputDepartment
+ bonus=inputBonus
+
+::好代码
+ //下面代码引入结构体使得数据关系变得更加清晰
+ employee.name=inputName  //雇员信息
+ employee.address=inputAddress //雇员信息
+ employee.phone=inputPhone  //雇员信息
+
+ supervisor.title=inputTitle  //主管信息
+ supervisor.department=inputDepartment //主管信息
+ supervisor.bonus=inputBonus //主管信息
 *拥结构体简化对数据块的操作。对结构体执行操作要比对各个元素执行同样的操作容易的多。
 *用结构体来简化参数列表。我们可以将相关的元素组织到一个结构体中，把他当做一个整体传递出去。
+::坏代码
+ HardWayRoutine(name,address,phone,ssn) //笨拙的子程序调用，容易犯错
+::好代码
+ EasyWayRoutine(employee) //优雅的子程序调用，降低犯错概率
 *用结构体减少维护。对结构体的修改只会导致对程序做很小的修改，减少错误。
-3 声明符号：通过 struct 关键字。
+3声明符号：通过 struct 关键字。
 
-4 一般形式：struct 结构体类型名{成员列表}
+4定义结构体变量的方法：struct 结构体类型名{成员列表}
 *其中“结构体类型名”用来作结构类型的标志。
 *每个“成员”也称为一个域，成员表又叫做“域表”。
 例如：
@@ -213,7 +235,11 @@ struct stu / *定义学生结构体类型* /
     long num; / *学号* /
     float score[3]; / * 三科考试成绩* /
  };
+5声明结构体类型的位置一般放在文件开头，在所有函数之前，是一种良好的编程风格。
 
+6类型与变量是不同的概念：只能对结构体中的成员赋值，不能对结构体类型赋值。
+
+7结构体变量中的成员（即“域”）可以单独使用，它的作用与地位相当于同类型的普通变量。
 ====13.3 全局数据(范子高)====
 全局数据区别于类中的全局变量。
 =====全局数据的常用问题=====
