@@ -216,7 +216,7 @@ travelData.Print();
 整个循环）、continue（退出本次循环，进入下一次循环）。“break;”语句：可以出现在while、do…while、for、switch语句体中。“continue;” 语句：只能出现在循环语句while、do
 
 …while、for中。
-**'''坏代码'''
+*'''坏代码'''
 <pre> 
    // Compute scores and ratings.
    score = 0;
@@ -230,7 +230,7 @@ travelData.Print();
         //7，8行与上面的3,4行重复，维护时会出现问题（上下两组代码需同步修改容易忘记）。解决办法写个带退出的条件。
     }
 </pre>
-**'''好代码'''
+*'''好代码'''
 <pre> 
    // Compute scores and ratings.The code uses an infinite loop
    // and a break statement to emulate a loop-with-exit loop.
