@@ -346,6 +346,25 @@ SELECT NAME FROM TABLE_TEST WHERE ID = '10000';。<br>
 ====19.1 布尔表达式              （李腾飞）====
 ====19.2 复合语句（语句块）       （李腾飞）====
 ====19.3 空语句                  （时昌彬）====
+=====空语句并不多见，因此应突出这种用法=====
+*空语句，即一条仅含有分号的语句
+'''C++实例：传统的空语句'''
+<pre>
+while（ recordArray.Read（ index++ ）!= recordArray.EmptyRecord（））
+;
+</pre>
+*空语句并不多见，因此应突出这种用法，方法之一是用一组空的括号来强调空语句。
+'''C++实例：加以强调的空语句'''
+<pre>
+while（ recordArray.Read（ index++ ）!= recordArray.EmptyRecord（））{ }
+</pre>
+*另外可以让空语句中的分号自占一行，并加以缩进来强调空语句。		
+'''C++实例： 加以强调的空语句'''
+<pre>
+while（ recordArray.Read（ index++ ）!= recordArray.EmptyRecord（））{
+	;
+}
+</pre>
 ====19.4 驯服危险的深层嵌套        （时昌彬）====
 ====19.5 编程基础：结构化编程      （陈欢欢）====
 *“结构化”包括结构化分析、结构化设计以及结构化混日子
