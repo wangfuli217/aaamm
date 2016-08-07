@@ -209,13 +209,7 @@ travelData.Print();
 ======当循环条件检测在循环开始或结尾处时，我们就要用带退出的循环。======
 *带退出的循环就是循环终止条件出现在循环中间而不是在开始或者结尾处。
 **C++,C和Java中可以用break语句退出当前循环。在其他语言中也可以用goto实现。正常的带退出循环由循环头、循环体（包括终止条件）和循环尾组成。
-**Java中使用循环语句时，只有循环条件表达式的
-值为false时，才能结束循环。有时，我们想提前
-中断循环，要实现这一点，只需要在循环语句块中添加break或continue语句。break（退出
-
-整个循环）、continue（退出本次循环，进入下一次循环）。“break;”语句：可以出现在while、do…while、for、switch语句体中。“continue;” 语句：只能出现在循环语句while、do
-
-…while、for中。
+**Java中使用循环语句时，只有循环条件表达式的值为false时，才能结束循环。有时，我们想提前中断循环，要实现这一点，只需要在循环语句块中添加break或continue语句。break（退出整个循环）、continue（退出本次循环，进入下一次循环）。“break;”语句：可以出现在while、do…while、for、switch语句体中。“continue;” 语句：只能出现在循环语句while、do…while、for中。
 *'''坏代码'''
 <pre> 
    // Compute scores and ratings.
