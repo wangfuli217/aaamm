@@ -735,8 +735,8 @@ discount = 0.0;
 **一个应用程序应该只采用一些单入单出的控制结构（也称单一入口、单一出口的控制结构）
 ***'''*单入单出的控制结构指一个代码块，只有一个执行开始点与执行结束点'''
 *执行方式是有序的且有规则的
-*结构化编程的三个组成部分
-**顺序
+*结构化编程的三个组成部分:顺序、选择、迭代
+*顺序
 <pre>
 Java示例：顺序
 //a sequence of assignment statements
@@ -749,7 +749,7 @@ System.out.println(a);
 System.out.println(b);
 System.out.println(c);
 </pre>
-**选择是一种有选择的执行语句的控制结构:if-then-else,case<pre>Java示例：选择
+*选择是一种有选择的执行语句的控制结构:if-then-else,case<pre>Java示例：选择
 //selection in an if sttement
 If(totalAmount>0.0){
   //do something
@@ -775,7 +775,7 @@ default:
 DisplayInternalError(“Internal  Error 905:Call customer support”);
 }
 </pre>
-**迭代——是一组语句多次执行的控制结构（也称循环）
+*迭代——是一组语句多次执行的控制结构（也称循环）
 <pre>
 Visual Basic示例：迭代
 ‘ example of iteration using a For loop
@@ -806,10 +806,14 @@ Loop
 *控制流是影响复杂度的大因素之一
 **'''*与控制流有关的复杂度非常重要——与不可靠的代码和频繁出现的错误息息相关'''
 *度量复杂度——计算子程序的“决策点”的数量来衡量复杂度
-**决策点初始值为1；
-**遇到一次if，while，repeat，for，and，or决策点就加1
-**Case语句中的每一种情况加1
 <pre>
+决策点的计算方式：
+(1)决策点初始值为1；
+(2)遇到一次if，while，repeat，for，and，or决策点就加1
+(3)Case语句中的每一种情况加1
+</pre>
+<pre>
+处理复杂度的度量结果
 （1）0-5 子程序可能还不错
 （2）6-10 得想办法简化子程序了
 （3）10+ 把子程序的某一部分拆分成另一个子程序并调用它
