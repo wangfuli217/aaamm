@@ -179,14 +179,14 @@ Else
     在修改后的例子里，可以通过阅读if条件测试的主流程来找到正常的情况。这一修改使认得注意力集中到了阅读代码的主流程上，而不是费力的去理解那些异常处理情况，因此整体代码更容易阅读。嵌套条件语句的下面积累了全部的错误情况，这是良好错误处理代码的一个标志。	
 
 ====15.2 case语句                （何刚）====
-====为case选择最有效的列顺序====
+=====为case选择最有效的列顺序=====
 *'''按字母顺序或按数字顺序排列各种情况'''
     如果所有情况的重要性都相同，那么就把它们按A-B-C的顺序加以排列，以便提高可读性。
 *'''把正常的情况放在前面'''
     如果有一个正常情况和多个异常情况，那么把那个正常的情况放在最前面。用注释来说明它是正常情况，而其他的属于非正常情况。
 *'''按执行频率排列case子句'''
     把最经常执行的情况放在最前面，最不常执行的放在最后面。这样做有两方面的好处。首先阅读程序的人可以很容易的找出最常见的情况。那些检索情况列表，找出某个具体情况的读者很可能对最常见的情况感兴趣，而把最常见的情况放在代码的上部会加速这种检索。
-====使用case语句的诀窍====
+=====使用case语句的诀窍=====
 *'''简化每种情况对应的操作'''
     使得每种情况有关的代码短小精悍。简短的情况处理代码会使case语句的结构更加清晰。如果某种情况执行的操作非常复杂，那么就写一个子程序，并在该情况对应的case子句中调用它。
 *'''不要为了使用case语句而刻意制造一个变量'''
@@ -196,18 +196,19 @@ Else
 <pre>
 Switch ( commandShortcutLetter ) {
   case ‘a’ :
-  PrintAnnualReport () ;
-  Break;
+    PrintAnnualReport () ;
+    Break;
   case ‘p :
-   //No action required, but case was considered
+    //No action required, but case was considered
+    Break;
   case ‘q’ :
-  PrintQuarterlyReport () ;
-  Break;
+    PrintQuarterlyReport () ;
+    Break;
   case ‘s’ :
-  PrintSummaryReport () ;
-  Break;
+    PrintSummaryReport () ;
+    Break;
   default:
-  DisplayTnternalError(
+    DisplayTnternalError(
             “Internal Error 905: Call customer support.”)  
 }
 </pre>
