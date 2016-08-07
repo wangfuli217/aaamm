@@ -130,23 +130,23 @@ If ( status = Status_Error ) Then
 Else 
   ReadFile ( inputFile, fileData, status )    //正常情况
   If ( status = Status_Success ) Then    
-SummarizeFileData ( fileData, summaryData, status )    //正常情况
-If ( status = Status_Error ) Then 
-  errorType = ErrorType_DataSummaryError          //出错情况
-Else 
-  PrintSummary( summaryData )                   //正常情况
-  SaveSummaryData( summaryData, status )
-  If ( status = Status_Error ) Then
-    errorType = ErrorType_SummarySavaError        //出错情况
+    SummarizeFileData ( fileData, summaryData, status )    //正常情况
+    If ( status = Status_Error ) Then 
+      errorType = ErrorType_DataSummaryError          //出错情况
+    Else 
+      PrintSummary( summaryData )                   //正常情况
+      SaveSummaryData( summaryData, status )
+      If ( status = Status_Error ) Then
+        errorType = ErrorType_SummarySavaError        //出错情况
+      Else 
+        UpdateALLAccounts ( )                        //正常情况
+        EraseUndoFile ( )
+        errorType = ErrorType_None
+      End If
+    End If
   Else 
-    UpdateALLAccounts ( )                        //正常情况
-    EraseUndoFile ( )
-errorType = ErrorType_None
-End If
-End If
-Else 
   errorType = ErrorType_FileReadError
-End if
+  End if
 End If
 </pre>
     这段代码很难理解，因为它把正常的情况和出错的情况混在了一起。很难从中找出正常代码的路径来。除此之外，因为错误条件有的时候是在If子句而不是else中处理，所以很难判断到底哪个if子句检测了与之相关的正常情况。
@@ -157,19 +157,19 @@ If ( status = Status_Success ) Then
   ReadFile ( inputFile, fileData, status )      //正常情况
   If ( status = Status_Success ) Then 
     SummarizeFileData ( fileData, summaryData, status )    //正常情况
-If ( status = Status_Success ) Then
-  PrintSummary( summaryData )                   //正常情况
-  SaveSummaryData( summaryData, status )
-  If ( status = Status_Success ) Then
-    UpdateALLAccounts ( )                        //正常情况
-    EraseUndoFile ( )
-    errorType = ErrorType_None
-  Else
-    errorType = ErrorType_SummarySavaError        //出错情况
-  End If
-Else
-  errorType = ErrorType_DataSummaryError          //出错情况
-End If
+    If ( status = Status_Success ) Then
+      PrintSummary( summaryData )                   //正常情况
+      SaveSummaryData( summaryData, status )
+      If ( status = Status_Success ) Then
+        UpdateALLAccounts ( )                        //正常情况
+        EraseUndoFile ( )
+        errorType = ErrorType_None
+      Else
+        errorType = ErrorType_SummarySavaError        //出错情况
+      End If
+    Else
+      errorType = ErrorType_DataSummaryError          //出错情况
+    End If
   Else
     errorType = ErrorType_FileReadError
   End If
@@ -179,7 +179,39 @@ Else
     在修改后的例子里，可以通过阅读if条件测试的主流程来找到正常的情况。这一修改使认得注意力集中到了阅读代码的主流程上，而不是费力的去理解那些异常处理情况，因此整体代码更容易阅读。嵌套条件语句的下面积累了全部的错误情况，这是良好错误处理代码的一个标志。	
 
 ====15.2 case语句                （何刚）====
-
+====为case选择最有效的列顺序====
+*'''按字母顺序或按数字顺序排列各种情况'''
+    如果所有情况的重要性都相同，那么就把它们按A-B-C的顺序加以排列，以便提高可读性。
+*'''把正常的情况放在前面'''
+    如果有一个正常情况和多个异常情况，那么把那个正常的情况放在最前面。用注释来说明它是正常情况，而其他的属于非正常情况。
+*'''按执行频率排列case子句'''
+    把最经常执行的情况放在最前面，最不常执行的放在最后面。这样做有两方面的好处。首先阅读程序的人可以很容易的找出最常见的情况。那些检索情况列表，找出某个具体情况的读者很可能对最常见的情况感兴趣，而把最常见的情况放在代码的上部会加速这种检索。
+====使用case语句的诀窍====
+*'''简化每种情况对应的操作'''
+    使得每种情况有关的代码短小精悍。简短的情况处理代码会使case语句的结构更加清晰。如果某种情况执行的操作非常复杂，那么就写一个子程序，并在该情况对应的case子句中调用它。
+*'''不要为了使用case语句而刻意制造一个变量'''
+    case语句应该用于处理简单，容易分类的数据。如果数据并不简单，那么就使用if-then-else语句串。
+*'''利用default子句来检测错误'''
+    如果一条case语句中的默认子句既没有用来做其他的处理，按照正常执行顺序也不太可能会发生，那么就向里面加入一条诊断消息：
+<pre>
+Switch ( commandShortcutLetter ) {
+  case ‘a’ :
+  PrintAnnualReport () ;
+  Break;
+  case ‘p :
+   //No action required, but case was considered
+  case ‘q’ :
+  PrintQuarterlyReport () ;
+  Break;
+  case ‘s’ :
+  PrintSummaryReport () ;
+  Break;
+  default:
+  DisplayTnternalError(
+            “Internal Error 905: Call customer support.”)  
+}
+</pre>
+    如果把默认子句用于错误检测以外的其他目的，那就意味着每一种情况的选择都是正确的。请仔细检查以确认每一个可能进入case语句的值都是合法的。如果发现一些不合法的值，那就重写这些语句，让默认子句去执行错误检测。
 
 === 第16章 控制循环===
 
