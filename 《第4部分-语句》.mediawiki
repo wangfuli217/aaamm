@@ -424,7 +424,7 @@ if Not file.Decrypt(encryptionKey) Then Exit Sub
 　　递归，就是在运行的过程中调用自己。它通常把一个大型复杂的问题转化成一个与原问题相似的规模较小的问题来求解，递归只需少量的程序就可以描述出多次的重复计算，大大的减少了程序的代码量。
 =====确认递归能够停止=====
 　　检查子程序，确认其中含有一条非递归的路径，防止产生无穷递归。这意味着子程序中有一条判断，可以让递归停止。
-'''示例：使用递归的排序算法'''
+*'''示例：使用递归的排序算法'''
 <pre>
 void QuickSort(int firstIndex,int lastIndex,String [] names){
      if (lastIndex > firstIndex){  //判断，当lastIndex<=firstIndex时，就会停止对自身的调用。
@@ -436,7 +436,7 @@ void QuickSort(int firstIndex,int lastIndex,String [] names){
 </pre>
 =====使用安全计数器防止出现无穷递归=====
 　　可以用安全计数器来防止无穷递归，该安全计数器必须是不随子程序调用而重新创建的变量，可以用一个类成员变量，或者作为参数传递。
-'''示例：用安全计数器避免无穷递归(作为参数传递)'''
+*'''示例：用安全计数器避免无穷递归(作为参数传递)'''
 <pre>
 Public Sub RecursiveProc(ByRef safetyCounter As Integer)
     If(safetyCounter > SAFETY_LIMIT) Then
@@ -455,7 +455,7 @@ End Sub
 #注意观察递归函数中局部变量的分配情况，特别留意内存消耗大的对象。
 =====不要用递归去计算阶乘或者斐波纳契数列=====
 　　在许多教科书的中都喜欢用计算阶乘和斐波那契数列来讲解递归，其实，把递归用在这两者中是很愚蠢的。
-'''示例：用递归计算阶乘，不合适'''
+*'''示例：用递归计算阶乘，不合适'''
 <pre>
 int Factorial(int number){
     if (number == 1){
@@ -467,7 +467,7 @@ int Factorial(int number){
 }
 </pre>
 　　这种情况下用递归运行速度慢，无法预测运行期间内存的使用情况，并且更不容易理解。
-'''示例：用循环计算阶乘'''
+*'''示例：用循环计算阶乘'''
 <pre>
 int Factorial(int number){
     int intermediateResult = 1;
