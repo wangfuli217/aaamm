@@ -88,7 +88,7 @@ End Type
 在上例中，需同时关注6个变量。
 
  C++好例子：使用两套变量——更容易理解的做法
- void SummarizeData( ... ) {
+  void SummarizeData( ... ) {
   GetOldData( oldData, &numOldData );
   totalOldData = Sum( oldData, numOldData );
   PrintOldDataSummary( oldData, totalOldData, numOldData);
@@ -179,28 +179,28 @@ End Type
 *避免数量级相差巨大的数之间的加减运算。32位浮点数，1000000.00+0.1可能会得到1000000.00，因为32位不能给你足够的有效位数包容。怎么解决呢，就是先从最小值开始相加，这样做并不能消除舍入问题，但是能使影响减少到最低。
 *避免等量判断。很多相等的浮点数值并不一定相等，用不同方法求同一数值结果不一定相同。
 坏代码
-double nominal =1.0；//变量nominal是个64位实数
-double sum =0.0；
-for （int i =0；i <10；i++ ） {
+  double nominal =1.0；//变量nominal是个64位实数
+  double sum =0.0；
+  for （int i =0；i <10；i++ ） {
 	sum +=0.1；//sum是10*0.1，应当等于1.0
-}
-if（nomainal == sum）{//这是错误的比较
+  }
+  if（nomainal == sum）{//这是错误的比较
 	System.out.println(“Numbers are the same.”）；
-}
-else{
+  }
+  else{
 	System.out.println(“Numbers are different.”）；
-}
+  }
 结果是Numbers are different.
 好代码
-final double ACCEPTABLE_DELTA =0.00001；
-boolean Equals(double Term1,double Term2){
+  final double ACCEPTABLE_DELTA =0.00001；
+  boolean Equals(double Term1,double Term2){
 	if (Math.abs(Term1-Term2)<ACCEPTABLE_DELTA){
 	return true;
-}
-else{
+  }
+  else{
 	return false；
 	}
-}
+  }
 结果是Numbers are the same.
 *处理舍入误差问题。
 1换用精准度更高的变量类型。<br>
