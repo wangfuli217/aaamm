@@ -276,7 +276,7 @@ Java中读取字符和读取字符串的差别？
 :::考虑创建有个累而不是使用typedef
 *为什么创建自己的类型的示例用pascal和ada写的
 :: Ada申明如下：
-::CurrentTemperature： INTEGER range 0..212
+::CurrentTemperature： INTEGER range 0..212;
 :包含了下列语句不具备的重要语句信息：
 ::int temperature；
 总结：写一行代码到创建的一个简单数据类型，到创建一个类，是很大的一步，要付出更多努力创建这个类。
