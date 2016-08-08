@@ -231,7 +231,7 @@ Debug.Assert(actionPerformed) ' Couldn't perform action
 
 *返回一个错误码
 -------------------------------------------------------------------------------------------
-===6.1抽象数据类型（戎祥）===
+====6.1抽象数据类型（戎祥）====
 ====抽象数据类型的心得====
 首先官方一点解释一下：<br/>
 是指一些数据以及对这些数据所进行的操作的集合。我想这么解释大家可能有点蒙圈。<br/>
@@ -251,7 +251,7 @@ Debug.Assert(actionPerformed) ' Couldn't perform action
  print{"Wind.play()" +n};
  }
 与之相似但又不似的便是接口了他们之间虽然功能都是差不多的，但是要求却不同:<br/>
-===接口与实现类的差别===
+====接口与实现类的差别====
 *从语法定义层面看abstract class 和 interface<br/> 
 *abstract class 在 Java 语言中表示的是一种继承关系，一个类只能使用一次继承关系。但是，一个类却可以实现多个interface。<br/> 
 *接口中的方法默认都是 public,abstract 类型的。<br/>
