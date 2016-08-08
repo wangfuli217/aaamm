@@ -24,8 +24,7 @@ for (int i = 0; i < max; i++) {
     sb.append("loop: ")     //这样循环里面就不用new，节省了资源
       .append(i);
     System.out.println(sb.toString());
-    sb.setLength(0);  /* 使い回すので内容をクリア */
-}
+    sb.setLength(0);  //用完之后把内容清空
 </pre>
 
 
