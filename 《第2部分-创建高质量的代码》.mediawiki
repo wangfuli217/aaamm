@@ -116,7 +116,6 @@ int Sample (int inputVal){
  void method1()
 
  {int x=0;this.change(x);
-
  System.out.println(x);
  }
 
