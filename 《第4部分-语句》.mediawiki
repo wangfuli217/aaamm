@@ -754,7 +754,47 @@ days = daysPerMonth( month-1 )
 days = daysPerMonth( month-1, LeapYearIndex() )
 </pre>
 *如果把闰年也考虑进来，那么长长的if句将会变得更为复杂了。
-*计算每月的天数是一个很适合用直接访问表描述 的例子，因为你可以用month变量去表里面查询记录。一般来说，你可以用原本控制着很多if语句的书记去直接访问表。  
+*计算每月的天数是一个很适合用直接访问表描述 的例子，因为你可以用month变量去表里面查询记录。一般来说，你可以用原本控制着很多if语句的书记去直接访问表。
+
+=====声明数据建表===== 
+*医疗保险费率的程序，是随着很多的不同情况在变化的，如果用逻辑结构就会很复杂，更好的方法是把这些费率都存入所有因素索引的数组里。
+'''正确示例代码'''：
+<pre>
+Public Enum SmokingStatus
+ SmokingStatus_First=0
+ SmokingStatus_Smoking=0
+ SmokingStatus_NonSmoking=1
+ SmokingStatus_Last=1
+End Enum
+Public Enum Gender
+ Gender_ First=0
+ Gender_Male=0
+ Gender_Female=1
+ Gender_Last=1
+End Enum
+Public Enum MaritalStatus
+ MaritalStatus_ First=0
+MaritalStatus_Single=0
+MaritalStatus_Married=1
+MaritalStatus_Last=1
+End Enum
+Const MAX_AGE As Integer=125
+Dim rateTable (SmokingStatus_Last,Gender_Last,MaritalStatus_Last,_MAX_AGE)As Double
+</pre>
+
+=====存数据的方法=====
+*声明之后，可使用赋值语句，读入数据、计算出这些数据、或者执行合适的操作。备好数据后，就可以用更简单的方法取而代之：
+'''示例代码'''
+<pre>
+rate =rateTable(smokingStatus,gender,maritalStatus,age)
+</pre>
+*这种方法可读性好，也更容易修改。
+
+=====灵活的消息格式=====
+*假如需要编写一个子程序，通常会有500条消息，每份文件大约有20中不同的消息。这些消息源于一些浮标，提供有关水温、浮标位置等信息。
+*每一条消息都有若干字段，并且每条消息都有一个消息头，其中有一个ID，告诉你该消息属于哪一种。
+*这些格式不是固定不变的，它们由你的客户来决定。
+  
 ====18.3 索引访问表              （黄佳欣）====
 ====索引访问表心得====
 *数据库检索方法索引访问介绍：
