@@ -346,12 +346,12 @@ Java中读取字符和读取字符串的差别？
 布尔变量一般使用时都是周围存在判断的时候，换言之将逻辑判断的结果以更加直观可找的某个字段来展现。
 //复杂的
 if(（document.add()） and ( not input()) and -((min _avg<=Count)and(Count<=min_max)) 
-  then 
+then 
 do.....
 //简化之后
  file=(document.add()) and (not input())
- leCount=(min_avg<=Count)and(Count<=min_max)
- then
+leCount=(min_avg<=Count)and(Count<=min_max)
+then
 do....
 当然再具体某些情况也可以定义自己的boolean类型，然别人能更直接的看明白你设定这个字段的意义。
 
