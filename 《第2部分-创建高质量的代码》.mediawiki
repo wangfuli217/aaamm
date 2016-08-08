@@ -17,21 +17,21 @@
 
 === 第6章 可以工作的类（李洋 陶晓明）===
 ====6.1 类的基础·抽象数据类型（ADTs）（李洋）====
-1.明确类的定义
-*类是（一组'''数据'''）和''''子程序'''的集合，并且这些数据和子程序共同拥有一组类聚的、明确定义的职责。
-*''成为高效程序员的一个关键点在于，当你开发程序任何一部分的代码时，都能安全的忽视程序中尽可能多的其余部分。''
-2.ADT的含义和益处
-*ADT（abstract data type）是指一些数据以及对这些数据进行的一些操作的集合。
-*使用ADT主要的好处：
-**可以隐藏实现细节
-**改动不会影响到ADT外程序的其余部分
-**让程序的正确性更显而易见，且更具自我说明性
-**无须在程序内到处传递数据
+#明确类的定义
+##类是（一组'''数据'''）和''''子程序'''的集合，并且这些数据和子程序共同拥有一组类聚的、明确定义的职责。
+##''成为高效程序员的一个关键点在于，当你开发程序任何一部分的代码时，都能安全的忽视程序中尽可能多的其余部分。''
+#ADT的含义和益处
+##ADT（abstract data type）是指一些数据以及对这些数据进行的一些操作的集合。
+##使用ADT主要的好处：
+###可以隐藏实现细节
+###改动不会影响到ADT外程序的其余部分
+###让程序的正确性更显而易见，且更具自我说明性
+###无须在程序内到处传递数据
 ====6.2 良好的类接口（李洋）====
-1.什么是良好的类接口
-*类接口的抽象能力非常有价值，因为接口中的每个子程序都在朝着这个一致的目标而工作。
-*类的接口要展现一直的抽象层次，好的办法是把类看作一种用来实现ADT的机制，且每一个类仅实现唯一一个ADT。
-*坏的例子：
+#什么是良好的类接口
+##类接口的抽象能力非常有价值，因为接口中的每个子程序都在朝着这个一致的目标而工作。
+##类的接口要展现一直的抽象层次，好的办法是把类看作一种用来实现ADT的机制，且每一个类仅实现唯一一个ADT。
+###坏的例子：
  class EmployeeCensus：public ListContainer{
  public：
  void AddEmployee( Employee employee )；
@@ -40,7 +40,7 @@
  Employee FirstItem()；
  Employee LastItem()；
  }
-*好的例子：
+###好的例子：
  class Program{
  public：
  void InitializeUserInterface()；
@@ -48,6 +48,41 @@
  void InitializeReports()；
  void ShutdownReports()；
  }
+#类应提供成对的服务
+##再设计一个类的时候，要检查每一个公用子程序，决定是否需要一个与其互补的操作（例如开关，新建删除等）。
+##不要盲目的添加创建相反的操作，但是一定要考虑是否需要。
+#尽可能让接口可编程，而不是表达语义
+##每一个接口都由一个可编程（programmatic）的部分和一个语义（semantic）部分组成。语义部分应通过注释说明，但要尽可能让接口不依赖于这些说明，因为一个接口中任何无法通过编译器强制实施的部分，就是一个可能被误用的部分，要想办法吧语义接口的元素转换为编程接口的元素。
+#谨防在修改时破坏接口的抽象
+##坏的例子
+ class Employee {
+ public:
+   FullName GetName() const;
+   Address GetAddress() const;
+   PhoneNumber GetPhoneNumber() const;
+   bool IsJobClassifcationValid( JobClassifcation JobClass );
+   bool IsZipCodeValid( Address address );
+   bool IsPhoneNameValid( PhoneNumber phoneNumber );
+   SqlQuery GetQueryTOCreateNewEmployee() const;
+   SqlQuery GetQueryToModifyEmployee() const;
+   SqlQuery GetQueryToRetrieveEmployee() const;
+ private:
+ }
+#剔除类中不相关的信息
+##当你发现某个类中一半子程序使用着该类的一半数据，另一半子程序使用着另一半数据，那么请把其中之一剔除，并明确类的定义。
+#尽可能降低可访问性(良好的封装)
+##让可访问性（accessibility）尽可能低是促成封装的原则之一。如果能确定暴露一个子程序不会让抽象变得不一致的话，这么做就很可能是可行的。如果不能确定，那么多隐藏通常比少隐藏要好！
+#不要公开暴露成员信息
+##暴露成员数据会破坏封装性，从而限制你对这个抽象的控制能力。
+###不好的暴露
+ float x;
+ float y;
+ float z;
+###可行的暴露
+ float GetX();
+ float GetY();
+ float GetZ();
+##以上第一种暴露，调用方代码可以自由地使用该类的数据，而该类甚至不知道这些数据什么时候被改动过。第二种暴露仅仅暴露了方法，但整体还是包装好的，别人无法得知这些数据如何用于底层实现的。
 ====6.4-6.5（陶晓鸣）====
 === 第7章 高质量的子程序（刘炯 黄文文 董飞）===
 ====7.1-7.2（刘炯）====
