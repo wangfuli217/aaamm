@@ -49,8 +49,6 @@ End Type
 *3把相关语句放在一起。
 *4把相关语句组提取成单独的子程序。
 *'''''坏代码'''''
-public void function()  
-{
    int a = 0;
    double b = 0;
    boolean c = false;
@@ -63,10 +61,7 @@ public void function()
    ...      //此时c有可能已经被修改了
    while(!c)   
    ...
-}
 *'''''好代码'''''
-public void function()  
-{
    int a = 0; 
    // code using a
    ...
@@ -77,7 +72,7 @@ public void function()
    // code using c
    while (!c)
    ...         //符合就近原则的初始化
-}
+
 ====10.4 作用域（徐超）====
 
 =====变量引用局部化的好处=====
