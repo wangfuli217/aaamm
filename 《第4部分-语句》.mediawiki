@@ -648,6 +648,93 @@ DeletePurageFileList( fileList, numFileToPurge )
 如示例这样嵌套，使嘚仅当一条if语句检测成功时才执行下一条if语句，这是标准的消除goto的编程方法。
 这样做最大的缺点在于嵌套太深，必须把整个嵌套装入大脑才能理解。
 
+=====可以用一个状态变量重写goto=====
+
+*'''''Visual Basic示例：利用状态变量消除goto代码'''''
+<pre>
+   errorPurgeFileList( fileList, numFileTopurge )
+   errorState = FileStatus_Success
+   fileIndex = 0
+   While ( fileIndex < numFilesToPurge And errorState = FileStatus_Success )// while判断增加了对errorstate的判断
+       fileIndex = fileIndex + 1
+  If Not ( FindFile ( fileList ( fileIndex),numFilesToPurge ) )Then
+  	    errorState = FileStatus_FileFindError
+   	GoTo END_PROC
+     End If
+     If ( errorState = FileStatus_Success ) Then //这里判断了状态变量
+	If Not OpenFile( fileToPurge ) Then   
+       		errorState = FileStatus_FileOpenError
+   	GoTo END_PROC
+      End If
+     If ( errorState = FileStatus_Success ) Then  //这里判断了状态变量
+	If Not OverWriteFile( fileToPurge ) Then  
+       		errorState = FileStatus_FileOverWriteError
+   	GoTo END_PROC
+      End If 
+     If ( errorState = FileStatus_Success ) Then//这里判断了状态变量
+	If Not Erase( fileToPurge ) Then     
+       		errorState = FileStatus_FileEraseError
+   	GoTo END_PROC
+       End If
+    End While
+    DeletePurageFileList( fileList, numFileToPurge )
+</pre>
+*这样做的优点在于，没有使用深层嵌套，读起来比较容易，同时，与嵌套if相比，if—then—else
+检测后面的操作与该检测的距离更近，避免使用了else子句。
+*缺点在于，使用状态变量的方法应用不够普遍。应该对它们的用法充分说明，否则别人可能
+不懂你的意思
+
+
+
+
+
+=====可以用try-finally重写goto=====
+
+*'''''Visual Basic示例：利用try-finally消除goto代码'''''
+<pre>
+  MakePurgeFileList( fileList, numFilesToPurge )
+  Try
+     fileIndex = 0
+     while ( fileIndex < numFilesToPurge )
+        fileIndex = fileIndex + 1
+        FindFile ( fileList ( fileIndex),numFilesToPurge ) 
+        OpenFile( filesToPurge)
+        OverwriteFile( FilesToPurge)
+        Erase（ FilesToPurge）
+      End While
+   Finally
+       DeletePurageFileList( fileList, numFileToPurge )
+End Try   
+</pre>
+*这种方法优点在于，它比使用goto简单的多，没有用到goto也没有用到深层嵌套结构
+*缺点在于，必须所有代码持续一致的使用这种方法，否则产生的代码会很复杂。
+
+
+
+
+=====使用这4种方法更有优劣=====
+
+{| border="1" style="border-collapse;"
+!方法
+!优点
+!缺点
+|-
+||使用goto
+||避免了深层嵌套和不必要的检测
+||使流程变得难以分析
+|-
+||嵌套if
+||避免了使用goto
+||增加了子程序的复杂度
+|-
+||状态变量
+||避免了使用goto和深层嵌套
+||引入了额外的检测
+|-
+||try-finally
+||避免了使用goto和深层嵌套
+||不是所有语言都支持
+|}
 
 ====17.4 针对不常见控制结构的观点  （兰杰）====
 =====对非传统的控制结构应持怀疑态度=====
