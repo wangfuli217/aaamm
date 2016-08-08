@@ -71,7 +71,30 @@
 在用这个子程序取代了之前代码之后，程序中的那几行代码就成了下面这样：
  maxNum = getmaxNum（num1,num2,num3）； 
 这行代码更具有可读性
-
+====7.2在子程序上的设计（刘炯）==== 
+在子程序的设计上有一个专业性的名字“内聚性”，对于子程序而言，内聚性指的是子程序中各个操作之间联系的紧密程度，而我们的目标是让一个子程序只把一件事做好，不再做其他任何事情，这样做的好处就是得到了更高的可靠性，而内聚性还有几个层次，接下来分别讨论。
+顺序上的内聚性和通信上的内聚性：<br />
+假设某个子程序需要按照给定出生年份来计算出员工的年龄和退休时间，假设员工55岁退休，对于这个按理可以用两种方法编写,如果子程序先计算员工的年龄，再根据他的年龄计算退休时间，那么它就具有顺序的内聚性，具体如下：<br />
+ void getageandRetirementtime （int datetime）｛
+    int age，Retirementtime；
+    time_t nowyear;
+    struct tm *timeinfo;
+    time( &nowyear );  //获取时间
+    timeinfo = localtime( &nowyear ); //转换时间格式
+    age = timeinfo->tm_year + 1900 - datetime;
+    Retirementtime = timeinfo->tm_year + 1900 + (age - 55)；
+ ｝
+而如果子程序先计算员工的年龄，然后再重新计算他的退休时间，两次计算只是碰巧使用了相同的出生年份，那么这个子程序就只具有通信上的内聚性，具体代码如下：<br />
+ void getageandRetirementtime （int datetime）｛
+    int age，Retirementtime；
+    time_t nowyear;
+    struct tm *timeinfo;
+    time( &nowyear );  //获取时间
+    timeinfo = localtime( &nowyear ); //转换时间格式
+    age = timeinfo->tm_year + 1900 - datetime;
+    Retirementtime = timeinfo->tm_year + 1900 + (timeinfo->tm_year + 1900 - datetime - 55)；
+ ｝
+这两个子函数包含两个特定的计算，他们需要共享数据，而且只有全部执行才可以完成一项完整的功能。<br />
 ====7.3-7.4（陶晓鸣）====
 ====7.5-7.7（董飞）====
 ====7.5 如何使用子程序参数心得 （董飞）====
