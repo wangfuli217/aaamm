@@ -1119,9 +1119,9 @@ While more message to read
   Else if the message header is type 20 then
     Print 1 type 20 message     
 </pre>
-=====面向对象的方法=====
-*如果你采用某种面向对象的方法，那么问题的逻辑将被隐藏在 对象继承结构里，但是基本结构还是同样复杂：
-*下面就是基于逻辑方法所采用的伪代码。
+=====面向对象的方法(梁运)=====
+*如果你采用某种面向对象的方法，那么问题的逻辑将被隐藏在 对象继承结构里，但是基本结构还是同样复杂。
+*下面就是基于逻辑方法所采用的伪代码：
 <pre>
 While  more message to read 
   Read a message header
