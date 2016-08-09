@@ -59,6 +59,7 @@ DispalyExpenseSummary（marketingExpenData,salesExpenData,travelExpenseData,pers
 ====14.2 顺序无关的语句           （陈渊）====
 
 14.2 顺序无关的语句心得
+=====是代码易于自上而下地阅读=====
 其中最最重要的一点就是：要把相关的操作都放在一起。要让别人轻松的读懂你的代码，就要让你的程序易于自上而下的阅读，不能让读者去大量的代码中去搜寻他想要的信息，举一个例子:<br>
 <pre>
 MarketingData marketingData;
