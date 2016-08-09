@@ -218,6 +218,32 @@ int Sample (int inputVal){
 <pre>
 #defin Cube(a) {{a}*{a}*{a}}
 </pre>
+*把含有多条语句的宏用大括号括起来
+一个宏可以含有多条语句，如果你把它只当做一条语句就会出错，因为它和常规函数的执行方式是不同的。
+*'''无法工作含有多条语句的宏'''
+<pre>
+#define LookupEntry(key,index)
+  index = (key-10)/5;
+  index = min(index,MAX_INDEX);
+  index = max(index,MIN_INDEX);
+  ...
+for(entryCount = 0;entryCount<numEntries;entryCount++)
+  LookupEntry(entryCount，tableIndex[entryCount]);
+</pre>
+在上面的代码中，for循环语句中只有宏的第一部分代码被执行。即“index = (key-10)/5；”被执行。
+*'''可以工作含有多条语句的宏'''
+<pre>
+#define LookupEntry(key,index){
+  index = (key-10)/5;
+  index = min(index,MAX_INDEX);
+  index = max(index,MIN_INDEX);
+}
+ ...
+for(entryCount = 0;entryCount<numEntries;entryCount++)
+  LookupEntry(entryCount，tableIndex[entryCount]);
+</pre>
+*用给子程序命名的方法给宏命名
+C++语言中给宏命名的方式是全部使用大写字母。如果能用子程序来代替宏，那么给宏命名的时候就应该采用给子程序命名的规则。这样当你想用子程序代替宏的时候，除了需要修改相关的子程序外，其他的不需要改动。
 === 第8章 防御式编程（戎祥 何茂森 李婷婷）===
 ====8.1-8.3（戎祥）====
 ====检查所有来源于外部数据的值心得====
