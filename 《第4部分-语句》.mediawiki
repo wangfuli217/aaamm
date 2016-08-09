@@ -1381,6 +1381,51 @@ End Select
 </pre>
 有些语言中你无法使用这种方法，但是对那些可以使用case的语言来说，这是一种功能强大的技术。
 
+=====把深层嵌套的代码抽取出来放进单独的子程序中=====
+'''C++实例：将嵌套代码分解到子程序的好代码'''
+<pre>
+while(!TransactionsComplete()){
+	//read Transaction record
+	transaction = ReadTransaction();
+	// process transaction depending on type of transaction
+	if (transaction.Type == TransactionType_Deposit){
+		ProcessDeposit(
+			Transaction.AccountType,
+			Transaction.AccountSubType,
+			Transaction.AccountNum,
+			Transaction.Amount
+		);			
+	}
+	else if (transaction.Type == TransactionType_Withdrawal){
+		ProcessWithdrawal(
+			Transaction.AccountType,
+			Transaction.AccountNum,
+			Transaction.Amount
+		);			
+	}
+	else if (transaction.Type == TransactionType_Transfer){
+		MakeFundsTransfer(
+			Transaction.SourceAccountType,
+			Transaction.TargetAccountType,
+			Transaction.AccountNum,
+			Transaction.Amount
+		);			
+	}
+	else{
+	//process unknown Transaction type
+	LogTransactionError("Unknown Transaction Type", transaction);
+	}
+}
+</pre>
+这里没有给出新的子程序。
+*把深层嵌套的代码抽取出来放进子程序，使代码结构更简单并容易理解。其次你可以在一个屏幕里阅读，修改和调试这个while循环——它不再跨越好几屏，或者超出打一字的边界。
+
+
+=====重新设计深层嵌套的代码=====
+*一些专家认为，在面向对象的程序设计中出现case语句，就说明代码没有做好分解，因此实际上极少有必要使用case语句。
+*更一般的说法是，复杂的代码表明你还没有充分的理解你的程序，所以无法简化它。深层嵌套是一个警告，他告诉你要么应该拆分出一个子程序，要么应该重新设计那部分复杂的代码。
+
+
 ====19.5 编程基础：结构化编程      （陈欢欢）====
 *“结构化”包括结构化分析、结构化设计以及结构化混日子
 **'''*除了都创建于“结构化”被广泛推崇的时代之外，这些状态各异的结构化方法学之间并没有多少相互联系'''
