@@ -1323,7 +1323,7 @@ while (recordArray.Read( index++) != recordArray.EmptyRecord()){
 }
 </pre>
 除了在空的while和for循环中使用DoNothing(),你也可以在switch语句中的无意义选项中使用它；加入DoNothing()表明你已经考虑了这种case，并且的确不需要对该case做什么操作。
-=====用一个非空循环体可能会使代码更清晰======
+=====用一个非空循环体可能会使代码更清晰=====
 '''C++实例：更清晰的重写后的代码，采用非空循环体'''
 <pre>
 RecordType record = recordArray.Read( index );
