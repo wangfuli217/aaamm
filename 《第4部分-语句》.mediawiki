@@ -1323,6 +1323,19 @@ while (recordArray.Read( index++) != recordArray.EmptyRecord()){
 }
 </pre>
 除了在空的while和for循环中使用DoNothing(),你也可以在switch语句中的无意义选项中使用它；加入DoNothing()表明你已经考虑了这种case，并且的确不需要对该case做什么操作。
+=====用一个非空循环体可能会使代码更清晰======
+'''C++实例：更清晰的重写后的代码，采用非空循环体'''
+<pre>
+RecordType record = recordArray.Read( index );
+index++
+while (record != recordArray.EmptyRecord()){
+	record = recordArray.Read( index );
+	index++;
+}
+</pre>
+*这种方法引入了一个额外的循环控制变量，并要写更多的代码，但是它强调了直截了当的编程方法，而不是自作聪明的利用控制循环代码的副作用。
+这样强调对于产品代码是很可取的。
+
 
 ====19.4 驯服危险的深层嵌套        （时昌彬）====
 =====避免使用超过3到4层的嵌套=====
