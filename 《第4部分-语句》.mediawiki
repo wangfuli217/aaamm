@@ -1134,6 +1134,24 @@ If ( DocumentIsValid( document, lineCount, inputError ) ) Then
 End If
 </pre>
 假设ErrorProcessing()是一个可以表明当前处理状态的布尔函数，那么阅读代码时就可以忽略那个复杂判断，这样代码就会简洁易懂了。
+====19.1 布尔表达式              （陈欢欢）====
+*代码根本没有反映究竟1代表是真，0代表假，还是正好相反，甚至1和0是不是代表真假都不清楚。读到代码的时候，往往不能在第一时间，快速的了解代码所表达的含义
+*隐式地比较布尔值与true和false，把表达式当做布尔表达式，可以写出更清晰的判断语句，如下图的Visual Basic示例中的0和1代表的不是布尔标示
+<pre>
+Visual Basic示例，使用True和False代替数值来作判断用(很好，但不是最好)
+Dim printerError As Boolean
+Dim reportSelected As ReportType
+Dim summarySelected As Boolean
+...
+If ( Not printerError ) Then InitializePrinter ()//非布尔标示
+If ( printerError ) Then NotifyUserOfError ()
+
+If ( reportSelected = ReportType_First ) Then PrintReport ()//非布尔标示
+If ( summarySelected ) Then PrintSummary ()
+
+If ( Not printerError ) Then CleanupPrinter ()//非布尔标示
+</pre>
+*通过使用隐式表示，能够减少阅读代码所必须的项数，这样写出的表达式读起来也更加的简单易读懂。如上图所示的If ( Not printerError )语句中就是使用的隐式表达标示，如果是使用0和1的方式表示，还有去追究0和1分表代表的含义，但是若是使用隐式表示的方式，给代码的阅读带来了便利，从而减少了工作量
 
 ====19.2 复合语句（语句块）       （李腾飞）====
 ====把括号对一起写出，用括号来把条件表达清楚====
