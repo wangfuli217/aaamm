@@ -1045,6 +1045,26 @@ If ( summarySelected ) Then PrintSummary ()
 If ( Not printerError ) Then CleanupPrinter ()
 </pre>
 通过这样可以明确你在执行一个布尔判断，使用隐式比较能减少阅读代码时需要记住的项数。
+*简化复杂的表达式
+拆分复杂的判断并引入新的布尔变量，把中间结果赋给变量
+'''复杂的判断'''
+<pre>
+If ( ( document.AtEndOfStream ) And ( Not inputError ) ) And _
+  ( ( MIN_LINES <= lineCount ) And ( lineCount <= MAX_LINES ) ) And _
+  ( Not ErrorProcessing( ) ) Then
+ ' do something or other
+...
+End if
+</pre>
+'''去掉复杂判断后'''
+<pre>
+If ( DocumentIsValid( document, lineCount, inputError ) ) Then
+' do something or other
+...
+End If
+</pre>
+假设ErrorProcessing()是一个可以表明当前处理状态的布尔函数，那么阅读代码时就可以忽略那个复杂判断，这样代码就会简洁易懂了。
+
 ====19.2 复合语句（语句块）       （李腾飞）====
 ====把括号对一起写出，用括号来把条件表达清楚====
 *先写块的开始和结束部分，之后填充中间部分。
