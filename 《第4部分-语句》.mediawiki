@@ -680,7 +680,7 @@ int Factorial(int number){
 </pre>
 
 ====17.3 goto                   （兰杰）====
-=====要在特定场合下谨慎地使用goto=====
+=====要在特定场合下谨慎地使用goto（C6616 兰杰）=====
 
 *goto的坏处
 **还有goto的代码很难安排好格式，影响逻辑结构
@@ -690,7 +690,7 @@ int Factorial(int number){
 **某些情况下会让代码的运行速度更快，体积更小
 **goto用在执行清理操作，可以减少忘记释放资源的可能
 
-=====goto代码重写很容易出错=====
+=====goto代码重写很容易出错（C6616 兰杰）=====
 
 *'''''C++示例：看上去很容易就能重写为不使用goto是代码'''''
 <pre>
@@ -723,7 +723,7 @@ do{
 }while { ( data != -1 ) && ( !eof( inputFile ) ) );
 </pre>
 
-=====分配和清理时使用goto利大于弊=====
+=====分配和清理时使用goto利大于弊（C6616 兰杰）=====
 <pre>
 *'''''Visual Basic示例：处理错误以及释放资源的带goto代码'''''
 errorState = fileStatus_Sussess
@@ -759,7 +759,7 @@ END_PROC:     //这是goto的label
 
 
 
-=====可以用if嵌套语句重写goto=====
+=====可以用if嵌套语句重写goto（C6616 兰杰）=====
 
 *'''''Visual Basic示例：利用嵌套的if语句消除goto代码'''''
 <pre>
@@ -791,7 +791,7 @@ DeletePurageFileList( fileList, numFileToPurge )
 如示例这样嵌套，使嘚仅当一条if语句检测成功时才执行下一条if语句，这是标准的消除goto的编程方法。
 这样做最大的缺点在于嵌套太深，必须把整个嵌套装入大脑才能理解。
 
-=====可以用一个状态变量重写goto=====
+=====可以用一个状态变量重写goto（C6616 兰杰）=====
 
 *'''''Visual Basic示例：利用状态变量消除goto代码'''''
 <pre>
@@ -831,7 +831,7 @@ DeletePurageFileList( fileList, numFileToPurge )
 
 
 
-=====可以用try-finally重写goto=====
+=====可以用try-finally重写goto（C6616 兰杰）=====
 
 *'''''Visual Basic示例：利用try-finally消除goto代码'''''
 <pre>
@@ -855,7 +855,7 @@ End Try
 
 
 
-=====使用这4种方法更有优劣=====
+=====使用这4种方法更有优劣（C6616 兰杰）=====
 
 {| border="1" style="border-collapse;"
 !方法
@@ -879,8 +879,85 @@ End Try
 ||不是所有语言都支持
 |}
 
+
+=====不要用goto共享else子句中的代码（C6616 兰杰）=====
+*'''''坏例子'''''
+<pre>
+  if ( statusOK ){
+     if ( dataAvailable ){
+        importVariable = x ;
+        goto MID_LOOP;//借助goto共享else子句的一段代码
+      }
+   }
+  else{
+     importantVariable = GetValue();
+
+     MID_LOOP;
+
+    // lots of code
+  }
+</pre>
+这样的话逻辑非常曲折，照这个样子，想读懂它几乎是不可能的，想不用goto而正确
+地重写也非常难。
+
+
+*'''''好例子'''''
+<pre>
+    if ( statusOK ){
+     if ( dataAvailable ){
+        importVariable = x ;
+        DoLotsOfCode( importantVariable );//在这里调用放公共代码的子程序
+      }
+     }
+    else{
+         importantVariable = GetValue();
+         DoLotsOfCode( importantVariable );
+     }
+</pre>
+将公共代码放到子程序中，就可以在原goto语句出现或跳转的地方调用该子程序，同时
+保留原有的条件结构
+
+
+
+
+=====可以重新组织判断语句结构来共享代码（C6616 兰杰）=====
+
+通常，写一个新的子程序是最好的方法，但是有时候把重复的代码提取成单独的子程序是
+不显示的。这时可以通过重新组织判断语句结构来解决该问题
+
+*'''''C++示例：不使用goto共享else子句中的代码'''''
+<pre>
+if (  （statusOK && dataAvailable ) ll !statusOK { //可以去掉一个statusOK的检测
+   if ( statusOK && dataAvailable ){  //可以去掉dataAvailable的检测
+     if ( dataAvailable ){
+        importVariable = x ;
+      }
+   else{
+     importantVariable = GetValue();
+   }
+  
+    // lots of code
+ }
+</pre>
+这种对goto版本代码的转换比较可靠，也很机械，它检测了两statusOK ，多检测了一次
+dataAvailable，不过代码实现的功能是一样的。
+
+
+=====goto不到不得已的情况下不要使用（C6616 兰杰）=====
+*在那些不支持结构化控制语句的语言里，用goto去模拟那些控制结构是应准确，
+不要滥用goto带来的灵活性
+*如果语言内置了等价的控制结构，那么就不要使用goto
+*如果能为代码提升效率，并对效率的提升作出说明，可以使用goto，大多数情况下不要用
+*除非你要模拟结构化语句，否则尽量在每个子程序内只使用一个goto标号。
+*除非你要模拟结构化语句，否则尽量让goto向前跳转而不要向后跳转。
+*确认所有的goto标号都被用到了。
+*确认goto不会产生某些执行不到的代码
+*对某一个goto用法所展开的争论并不是事关全局的。如果程序员知道存在替换方案，并且
+愿意为使用goto辩解，那么用goto也无妨
+
+
 ====17.4 针对不常见控制结构的观点  （兰杰）====
-=====对非传统的控制结构应持怀疑态度=====
+=====对非传统的控制结构应持怀疑态度（C6616 兰杰）=====
 
 *不加限制地使用goto
 *能动态计算出goto跳转目标并且执行跳转
@@ -890,7 +967,7 @@ End Try
 这些想法看起来离奇，但曾经都被认为是可以接受的。很大程度上，软件开大这一领域实在限制程序员
 对代码的使用中得到发展的。
 
-=====不常见控制结构使用时应多加小心=====
+=====不常见控制结构使用时应多加小心（C6616 兰杰）=====
 *多个return可增加程序的可读性和可维护性，同时可以避免产生很深的嵌套逻辑。但是使用它的时候要多加小心，
 如果在读子程序后期时，你没有意识到它从前面某个地方返回的可能性，想理解这个子程序就很困难。
 *递归能够很优雅的解决一小部分问题。但对于大多数问题，它所带来的解将是极其复杂的，对它的使用也要倍加小心。
