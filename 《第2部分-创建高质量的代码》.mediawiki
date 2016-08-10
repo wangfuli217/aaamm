@@ -431,8 +431,8 @@ Debug.Assert(actionPerformed) ' Couldn't perform action
 *使用异常的注意点
 
 **避免使用空的catch语句。
-java反例：
 <pre>
+java反例：
 try{
    ...
    //很多的代码
@@ -441,9 +441,8 @@ try{
 }
 </pre>
 空的异常语句只能说明要么是try里面的内容不对，无故抛出了异常，要么是catch里的代码不对，不能有效的处理异常，应该做类似下面的修改：
-java正例：
-
 <pre>
+java正例：
 try{
    ...
    //很多的代码
