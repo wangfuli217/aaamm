@@ -429,7 +429,8 @@ Debug.Assert(actionPerformed) ' Couldn't perform action
 异常的用途主要是通知程序的其他部分，发生了某些不可忽视的错误
 
 *使用异常的注意点
-避免使用空的catch语句
+
+#避免使用空的catch语句。
 java反例：
 <pre>
 try{
@@ -452,6 +453,39 @@ try{
 }
 </pre>
 当然，上述的catch语句里面也只是简单的进行了一个错误日志的打印，没有深层次的去处理异常，仍然有待改善。
+
+#避免在构造函数里抛出异常
+在构造函数里面抛出异常会使异常的处理变得很复杂，有时候会造成资源的泄露。
+
+#在恰当的层次抛出异常
+对于抛出的异常，其实可以将其看作是程序接口的一部分，和其他的数据类型一样进行处理，但是如果异常的层次和子程序接口的程序不一致的话，会破坏程序的封装性，也使程序变得更加难以管理。
+例如下面这段java异常的代码：
+<pre>
+java反例：
+class Employee{
+    	...
+    	public TaxId GetTaxId() throws EOFException{
+		...
+	}
+	...
+}
+</pre>
+上面的这段抛出异常的程序里面，EOFException异常是结束文件的异常，其抽象层次比较低，这种时候，子程序的调用方就不与Employee耦合，而是与抛出EOFException异常的代码相耦合，应做如下修改：
+<pre>
+java正例：
+class Employee{
+    	...
+    	public TaxId GetTaxId() throws EmployeeDataNotAvailable{
+		...
+	}
+	...
+}
+</pre>
+上述EmployeeDataNotAvailable异常是与Employee相一致的异常，这样的程序才更加容易管理，也有更好的封装性
+
+#异常中应该加入有关异常发生的信息
+加入异常发生的信息能够帮助开发人员了解这个异常，并找出相关的对策，避免异常的发生 。
+
 ----
 ====8.6 辅助调试代码（何茂森）====
 *尽早引入辅助调试的代码。
