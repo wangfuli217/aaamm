@@ -182,6 +182,74 @@ Else
 </pre>
     在修改后的例子里，可以通过阅读if条件测试的主流程来找到正常的情况。这一修改使认得注意力集中到了阅读代码的主流程上，而不是费力的去理解那些异常处理情况，因此整体代码更容易阅读。嵌套条件语句的下面积累了全部的错误情况，这是良好错误处理代码的一个标志。	
 
+====判断语句if else 使用心得（C6609 黄佳欣）====
+*把正常情况的处理放在if处理的后面，不要放在else的后面。这样的代码可阅读性更强。
+'''坏代码：'''
+if（status = Status_Error1）{
+	error=Error1;//出错情况1
+}else{
+	A = B;//正常情况2
+	if（status = Status_Success）{
+		C = D；//正常情况
+		if（status = Status_Error2）{
+			error=Error2;//出错情况2
+		}else{
+			E = F;//正常情况3
+		}
+	}else{
+		error=Error3;//出错情况3
+	}
+}
+'''好代码：'''
+if（！status = Status_Error1）{
+	A = B;//正常情况1
+	if（status = Status_Success）{
+		C = D；//正常情况2
+		if（！status = Status_Error2）{
+			E = F;//正常情况 3
+		}else{
+			error=Error2;//出错情况2
+		}
+	}else{
+		error=Error3;//出错情况3
+	}
+}else{
+	error=Error1;//出错情况1
+}
+
+*if后面跟上一个有意义的语句。
+坏代码：
+if（A=B）{
+	//do noting
+}else{
+	//do something
+	A=B;
+}
+
+好代码：
+if（!A=B）{
+	//do something
+	A=B;
+}else{
+	//do noting
+}
+*if语句后面请加上else，尽管这个else里可能不做处理，
+可能没有意义。但这是为了表明我已经考虑了else的情况。
+除非没有处理的情况显而易见，否则请注释解释为什么没
+有必要做处理。
+坏代码：
+if（!A=B）{
+	//do something
+	A=B;
+}
+好代码：
+if（!A=B）{
+	//do something
+	A=B;
+}else{
+	//do noting
+	//这种情况下A不赋值。
+}
 
 =====简单if-then语句(c6618 陈渊)=====
 if-then的简单示例
@@ -781,7 +849,7 @@ recordCount的语句并不控制循环，不应该放在循环头。
 *有意义的数组下标名字既能表明循环用途，也能表明数组的用途
 好代码
 <pre>
-JAVA示例：差劲的循环变量名
+JAVA示例：差劲的循环变量
 for(int i=0;i<numPayCodes;i++){
 	for(int j=0;j<12;j++){
 		for(int k=0;k< numDivision;k++){
@@ -792,7 +860,7 @@ for(int i=0;i<numPayCodes;i++){
 </pre>
 不好的代码
 <pre>
-JAVA示例：好的循环变量名
+JAVA示例：好的的循环变量
 for(int payCodeIdx=0; payCodeIdx < numPayCodes; payCodeIdx++){
 	for(int month =0;month<12;month++){
 		for(int divisionIdx = 0;divisionIdx < numDivision;divisionIdx++){
