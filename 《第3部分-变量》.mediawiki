@@ -425,15 +425,15 @@ End Type
    *4首先，在声明字符数组是初始化为0：char EventName[Max+1] = {0};
    *5其次，使用calloc()而不是malloc()，calloc()负责分配内存并初始化。
 *JAVA中怎样去除字符串尾部的空格？
-*1. String.trim() 
+   *1. String.trim() 
    trim()是去掉首尾空格。
-*2.str.replace(" ", ""); 去掉所有空格，包括首尾、中间 
+   *2.str.replace(" ", ""); 去掉所有空格，包括首尾、中间 
    代码如下:
    String str = " hell o ";
    String str2 = str.replaceAll(" ", "");
    System.out.println(str2);
-*3.或者replaceAll(" +",""); 去掉所有空格。  
-*4.str = .replaceAll("\\s*", "");  
+   *3.或者replaceAll(" +",""); 去掉所有空格。  
+   *4.str = .replaceAll("\\s*", "");  
    可以替换大部分空白字符， 不限于空格 。  
    \s 可以匹配空格、制表符、换页符等空白字符的其中任意一个。
 *Java中char数组(字符数组)与字符串String类型的转换方法？
