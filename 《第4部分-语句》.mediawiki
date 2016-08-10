@@ -653,7 +653,7 @@ foreach (int s in str)
 }while(条件表达式)；
 </pre>
 
-while与do while 最大的区别由例子可以看出：
+*while与do while 最大的区别由例子可以看出：
 <pre>
 int i=0;
 while(i>0){
@@ -672,7 +672,7 @@ do{
 *区别：while 先判断条件，只有条件满足才执行循环体。do while 先执行循环体，再判别条件，条件满足，再执行循环体。总之一句话：do while无论条件是否满足，循环体至少执行一次。
 
 =====for与while的区别与联系         （C6618 陈渊）=====
-for语句格式:
+*for语句格式:
 <pre>
  for(初始化表达式；循环条件表达式；循环后的操作表达式)
 
@@ -680,7 +680,7 @@ for语句格式:
            执行语句；
 }
 </pre>
-相互转换的小例子:
+*相互转换的小例子:
 <pre>
 int main(void)
 {
