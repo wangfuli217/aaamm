@@ -441,7 +441,47 @@ Debug.Assert(actionPerformed) ' Couldn't perform action
 *消除无关紧要的类
 要是一个类只含有数据没有其它行为的话，你也得考虑是否值得建一个类。<br/>
 *避免用动词命名的类
-
+--------------------------------------------------------------------------------------------------------------------
+====创建子程序的心得（C6518 戎祥）====
+下面列出了一些创建子程序的正当理由：<br/>
+*降低复杂度(直接调用该子程序无需了解内部细节)
+*引入中间，易懂的抽象
+'''''坏代码'''''
+ if(node<>NULL)then
+  while(node.next<>NULL)do
+   node = node.next
+   leafName = node.name
+  end while
+ else
+  leafName = ""
+'''''好代码'''''
+ leafName = GetLeafName( node )
+*避免代码重复（把相同的部分提取出来，放入一个基类）
+-----------------------------------------------------------------------------------------------------------------
+====如何使用子程序参数（C6518 戎祥）====
+我挑个Java的例子看了一下,就是不要把子程序的参数用做工作变量<br/>
+'''''坏代码'''''
+ int Test(int inputVal){
+    inputVal = inputVal*CurrentMultiplier(inputVal)
+    inputVal = inputVal+CurrentMultiplier(inputVal )
+    ...
+    return inputVal ;
+ }
+'''''好代码'''''
+int Test(int inputVal)
+    int workingVal = inputVal 
+    workingVal = inputVal*CurrentMultiplier(workingVal )
+    workingVal = inputVal+CurrentMultiplier(workingVal )
+    ...
+    return workingVal ;
+ }
+引入 workingVal 这个变量便很好的区分了inputVal 这个变量，避免错误时间错误调用<br/>
+----------------------------------------------------------------------------------------------------------
+====使用函数时需要考虑的问题心得（C6518 戎祥）====
+*什么时候使用函数
+如果一个子程序的主要用途就是返回其名字所指的返回值那么就使用函数<br/>
+*设置函数的返回值
+在coding的时候一定要清楚自己写这个函数的目的，一定要在自己脑海里走一遍，确保在所有可能情况下都是这个返回值<br/>
 
 ====8.4-8.5（李婷婷）====
 ----
