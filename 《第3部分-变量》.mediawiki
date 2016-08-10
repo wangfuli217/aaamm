@@ -89,6 +89,28 @@ End Type
    while (!c)
    ...         //符合就近原则的初始化
 
+====10.3变量初始化原则（甘建伟）====
+*在声明变量的时候进行初始化：可以很好的防止变量初始化错误的问题。
+ int listIndex = 1; //初始化listIndex值为‘1’；若为初始化则系统初始化默认值‘0’；
+ boolear flag = true;//boolean类型默认初始值为false，引用类型默认初始值为null；
+*在靠近变量第一次使用的位置定义该变量。
+ int a = 0;
+ int b = 1;//对‘a’和‘b’进行定义
+ a = a + b;//使用到了‘a’和‘b’；
+*对计数器和累加器要记得重置其值。
+'''''坏代码'''''
+ int i = 0;
+ for(int j = 10;i < j;i++);
+ for(int z= 5;i < z;z--){
+  System.out.println(z);
+ }
+'''''可行代码'''''
+ int i = 0;
+ for(int j = 10;i < j;i++);
+ i = 0;
+ for(int z= 5;i < z;z--){
+  System.out.println(z);
+ }
 ====10.4 作用域（徐超）====
 
 =====变量引用局部化的好处=====
