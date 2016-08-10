@@ -467,8 +467,9 @@ Debug.Assert(actionPerformed) ' Couldn't perform action
     ...
     return inputVal ;
  }
+
 '''''好代码'''''
-int Test(int inputVal)
+ int Test(int inputVal){
     int workingVal = inputVal 
     workingVal = inputVal*CurrentMultiplier(workingVal )
     workingVal = inputVal+CurrentMultiplier(workingVal )
