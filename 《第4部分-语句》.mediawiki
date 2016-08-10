@@ -523,6 +523,82 @@ foreach (int s in str)
 }
 </pre>
 *foreach语句的局限性是如果要引用数组或者集合的索引，则foreach语句无法做到，foreach仅仅老老实实地遍历数组或者集合一遍。
+=====while与do while 区别与联系         （C6618 陈渊）=====
+1 while语句格式
+
+  While(条件表达式)
+<pre>
+  {
+             执行语句；
+}
+</pre>
+
+2 do while 语句格式
+</pre>
+  do
+{
+      执行语句；
+}while(条件表达式)；
+</pre>
+
+while与do while 最大的区别由例子可以看出：
+<pre>
+int i=0;
+while(i>0){
+    System.out.println("0");
+}
+//这样不输出；
+
+int i=0;
+do{
+    System.out.println("0");
+}while(i>0)
+//这样输出结果是0
+</pre>
+
+联系：它们都是循环语句，都可以判别条件，执行循环体，都具有循环体的一般特性。
+区别：while 先判断条件，只有条件满足才执行循环体。
+     do while 先执行循环体，再判别条件，条件满足，再执行循环体。
+总之一句话：do while无论条件是否满足，循环体至少执行一次。
+
+ =====for与while的区别与联系         （C6618 陈渊）=====
+for与while的区别与联系:
+
+<pre>
+ for(初始化表达式；循环条件表达式；循环后的操作表达式)
+
+   {
+           执行语句；
+}
+<pre>
+相互转换的小例子:
+<pre>
+int main(void)
+{
+    int i,sum = 0;
+    for(i=1;i<=100;++i)
+    sum+=i;
+    printf("%d\n", sum);
+    return 0;
+}
+
+int main(void)
+{
+    int i = 1,sum= 0;
+    while(i<=100)
+    {
+        sum+=i;
+        ++i;
+    }
+    printf("%d\n", sum);
+    return 0;    
+}
+</pre>
+
+联系：for与while都可以用来表示循环结构，一般在内存比较大的情况下，它们之间可以替换。
+区别：1.变量有自己的作用域，对于for来讲：如果将用于控制循环的增量定义在for语句中，那么该变量只在for语句内有效。For语句执行完毕。该变量在内存中被释放。
+
+         2.for和while可以进行互换。如果需要定义循环增量。用for更为合适。
 ====16.2 循环控制                （徐杰）====
 =====代码进入循环的五大指导原则=====
 #只从一个位置进入循环。
