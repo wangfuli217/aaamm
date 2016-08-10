@@ -571,71 +571,70 @@ trim()是去掉首尾空格。
 ====12.5布尔变量（葛川川）====
 *布尔判断要使目的明确
 '''''目的不明确的布尔判断'''''
-	if（（elementIndex<0）丨丨（MAX_ELEMENTS<elementIndex）丨丨（elementIndex==lastElementIndex））
-{
-	.........
-}
+	 if（（elementIndex<0）丨丨（MAX_ELEMENTS<elementIndex）丨丨（elementIndex==lastElementIndex））
+ {
+ 	.........
+ }
 
 '''''目的明确的布尔判断'''''
-	finished=（（elementIndex<0）丨丨（MAX_ELEMENTS<elementIndex）丨丨（elementIndex==lastElementIndex））;
-	if(finished丨丨repeatedEntry)
-{
-	.........
-}
-目的明确的布尔判断使得if判断的对象更加明确了
-
+	 finished=（（elementIndex<0）丨丨（MAX_ELEMENTS<elementIndex）丨丨（elementIndex==lastElementIndex））;
+ 	if(finished丨丨repeatedEntry)
+ {
+ 	.........
+ }
+目的明确的布尔判断使得if判断的对象更加明确了<br/>
 *程序中布尔类型的使用心得
 **java 有一种表示逻辑值的简单类型，称为布尔型。它的值只能是真或假这两个值中的一个。
 '''''示例'''''
-class BoolTest { 
-public static void main(String args[]) { 
-boolean b; 
-b = false; 
-System.out.println("b is " + b); 
-b = true; 
-System.out.println("b is " + b); 
-// 一个布尔值可以控制if语句
-if(b) System.out.println("This is executed."); 
-b = false; 
-if(b) System.out.println("This is not executed."); 
-// 关系操作符的结果是一个布尔值
-System.out.println("10 > 9 is " + (10 > 9)); 
-} 
-} 
-这个程序的运行结果如下所示： 
-b is false 
-b is true 
-This is executed. 
-10 > 9 is true 
+ class BoolTest { 
+ public static void main(String args[]) { 
+ boolean b; 
+ b = false; 
+ System.out.println("b is " + b); 
+ b = true; 
+ System.out.println("b is " + b); 
+ // 一个布尔值可以控制if语句
+ if(b) System.out.println("This is executed."); 
+ b = false; 
+ if(b) System.out.println("This is not executed."); 
+ // 关系操作符的结果是一个布尔值
+ System.out.println("10 > 9 is " + (10 > 9)); 
+ } 
+ } 
+'''''这个程序的运行结果如下所示：''''' 
+ b is false 
+ b is true 
+ This is executed. 
+ 10 > 9 is true 
 **当用方法println ( ) 输出布尔的值时，显示的是“true ”或“false”。
-**布尔变量的值本身就足以用来控制if语句。没有必要将if语句写成像下面这样： 
-if(b == true) ... 
+**布尔变量的值本身就足以用来控制if语句。没有必要将if语句写成像下面这样： if(b == true) ... 
 **关系运算符（例如<）的结果是布尔值。这就是为什么表达式10>9 的显示值是“true”。此外，在表达式10>9 的两边额外的加上括号是因为加号“+”运算符比运算符“>”的优先级要高。
 *JAVA布尔类型进行逻辑运算和按位运算的区别
-从结果上，2种运算结果都是一样，但逻辑运算会有“短路”现象，按位的没有，而按位又比逻辑运算多了“异或”功能。
+从结果上，2种运算结果都是一样，但逻辑运算会有“短路”现象，按位的没有，而按位又比逻辑运算多了“异或”功能。<br/>
 '''''短路现象'''''
-class br {
-  static boolean f1() {
-    return false;
+ class br {
+   static boolean f1() {
+     return false;
+   }
+   static boolean f2() {
+     return true;
   }
-  static boolean f2() {
-    return true;
-  }
-  static boolean f3() {
-    return true;
-  }
-}
-  
-boolean f_1 = br.f1()&&br.f2()&&br.f3();
-结果为false,当因为f1()就为false，那么后面的&&运算不用进行都知道结果了，JAVA就会发生“短路”对后面的运算乎略，性能提高。
-boolean f_2 = br.f2()||br.f1()||br.f3();
-结果true，同样f2()为true，后面一样不用再运算了。
-好像很方便又高效，但还是有缺点。
-boolean f_3 = br.f2()||br.f3()&&br.f1();
-结果就变成true,正确应该是false，这就是“短路”造成的错误了，想获得正确的答案就需要加括号：
-f_3=( br.f2()||br.f3())&&br.f1(); 
-**按位运算提供逻辑没有的异或功能：
-boolean f = true^true;
+   static boolean f3() {
+     return true;
+   }
+ }
+
+<br/> 
+boolean f_1 = br.f1()&&br.f2()&&br.f3();<br/>
+结果为false,当因为f1()就为false，那么后面的&&运算不用进行都知道结果了，JAVA就会发生“短路”对后面的运算乎略，性能提高。<br/>
+boolean f_2 = br.f2()||br.f1()||br.f3();<br/>
+结果true，同样f2()为true，后面一样不用再运算了。<br/>
+好像很方便又高效，但还是有缺点。<br/>
+boolean f_3 = br.f2()||br.f3()&&br.f1();<br/>
+结果就变成true,正确应该是false，这就是“短路”造成的错误了，想获得正确的答案就需要加括号：<br/>
+f_3=( br.f2()||br.f3())&&br.f1(); <br/>
+**按位运算提供逻辑没有的异或功能：<br/>
+boolean f = true^true;<br/>
 结果f = false;
 
 
