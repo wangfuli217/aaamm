@@ -744,9 +744,9 @@ do {
 </pre>
 循环终止条件inputFile.EndOfFIle()为真，要么moreDataAvailable为假，这就是你所需要知道的全部。
 阻止忽略或错误地对循环执行初始化、忽略了对累加变量或其他与循环有关的变量执行初始化、不正确的嵌套、不正确的循环终止、忽略或者错误地增加了循环变量的值、以及不正确的循环下标访问数组元素等错误。
-=====在适当的情况下多使用for循环        (C6620 刘思)=====
+=====尽可能多使用for循环        (C6620 刘思)=====
 *for语句比较适合初始化和增加步长都是单条语句并且逻辑相关的情形，它将循环控制语句集中放在一起，比while更紧凑因此修改起来更加容易。
-=====在while循环更适用的时候，不要使用for循环    （C6620 刘思）=====
+=====不要滥用for循环    （C6620 刘思）=====
 好的代码
 <pre>
  c++示例：while循环的适当用法
@@ -777,6 +777,31 @@ recordCount的语句并不控制循环，不应该放在循环头。
  }
 </pre>
 虽然循环初始化语句inputeFile.MoveToStart()，循环条件!inputeFile.EndOfFile()，终止语句inputeFile.GetRecord()都有了，但是不直观用while循环更合适。
+=====在嵌套循环中使用有意义的便利名来提高代码可读性   (C6620  刘思)=====
+*有意义的数组下标名字既能表明循环用途，也能表明数组的用途
+好代码
+<pre>
+JAVA示例：差劲的循环变量
+for(int i=0;i<numPayCodes;i++){
+	for(int j=0;j<12;j++){
+		for(int k=0;k< numDivision;k++){
+			sum=sum+transaction[j][i][k]
+		}
+	}
+}
+</pre>
+不好的代码
+<pre>
+JAVA示例：好的的循环变量
+for(int payCodeIdx=0; payCodeIdx < numPayCodes; payCodeIdx++){
+	for(int month =0;month<12;month++){
+		for(int divisionIdx = 0;divisionIdx < numDivision;divisionIdx++){
+			sum=sum+transaction[month][payCodeIdx][divisionIdx]
+		}
+	}
+}
+</pre>
+计算机能同样轻松阅读这两种循环，但显然第二种人更容易读懂，移植性也好。
 ====16.3 轻松创建循环——由内而外   （刘思）====
 =====从简单情况开始并由内向外生成代码能轻松创建循环。=====
 所谓由内而外就是从一种情况开始，用字面量（literal）来编写代码。然后缩进它，在外面加上一个循环然后用循环下标或计算表达式替换那些字面量。最后加上所需要的初始化。比如需要写一个能从列表中取得每个人的费率并累加的循环。
