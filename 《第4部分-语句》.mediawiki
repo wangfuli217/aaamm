@@ -284,43 +284,6 @@ Switch ( commandShortcutLetter ) {
 </pre>
     如果把默认子句用于错误检测以外的其他目的，那就意味着每一种情况的选择都是正确的。请仔细检查以确认每一个可能进入case语句的值都是合法的。如果发现一些不合法的值，那就重写这些语句，让默认子句去执行错误检测。
 
-=====case子句的排序要有意义（C6604 郭思）=====
-　　我们都知道case子句是顺序执行的，如果是只有两三个选项的case语句，顺序就不那么重要；但是如果用case来解决复杂的问题，要处理多个事件，那顺序就很重要。所以case子句的排序要有一定的规则。
-#按字母顺序或数字顺序排列  当所有的case选项同样重要时，可以用A-B-C或者1-2-3这样的顺序表示，这样可以让读者更容易理解代码，也更容易找到特定的情况。
-#把正常的情况放在前面  如果有正常情况和异常情况，把正常的情况放在前面，并注释说明。
-#按执行频率排序  把执行频率高的情况放在前面，这样便于阅读代码的人找到最常见的情况。
-
-
-=====在C++和Java里，每个case的末尾都要有一个break（C6604 郭思）=====
-　　在C++和Java中，case语句不会自动跳出每一种情况。必须给每一个case子句写上break语句。如果没有break，程序运行完当前的情况后会继续执行下一条case子句，直到遇到break为止；如果没有break，则会运行到default语句，最后结束switch语句。比如：
-<pre>
-int n=2;
-switch(n){
-    case 1:cout<<'1';
-    case 2:cout<<'2';
-    case 3:cout<<'3';break；
-    case 4:cout<<'4';
-    default;
-}
-</pre>
-　　上面的代码本意是想输出2，但是没有加break的时候，switch发现2匹配，执行cout<<'2';然后继续执行cout<<'3';遇到break停止。与预想的结果不符，而且这种没有break的switch-case语句让读者很难理解，修改代码的时候要考虑的事情还很多，所以最好在写代码的时候就让每一个case子句后面跟上break语句。
-
-=====在case末尾明确地标明需要穿越执行的程序（C6604 郭思）=====
-　　如果需要让代码故意跳过某个case子句的末尾，那就要在相应的位置注释说明为什么要这样写代码。比如：
-<pre>
-int n;
-cin>>n;
-switch(n){
-    case 1: //当n=1或n=2时，都输出'X'
-    case 2:cout<<'X';
-    case 3: //当n=3或n=4时，都输出'Y'
-    case 4:cout<<'Y';break;
-    default:cout<<'Z';
-}
-</pre>
-　　上面的代码最后的结果可能是Y或者Z或者XY，但是不可能出现X，因为case 2没有break语句，会继续到case 4，直到break结束。在穿越执行的程序附近加上注释，让读者更容易理解，增强了代码的可读性。
-
-
 === 第16章 控制循环===
 
 ====16.1 选择循环的种类           （徐杰）====
@@ -576,6 +539,39 @@ for ( int i = 0; i < 100; i++ ) {
 </pre>
 循环终止条件inputFile.EndOfFIle()为真，要么moreDataAvailable为假，这就是你所需要知道的全部。
 阻止忽略或错误地对循环执行初始化、忽略了对累加变量或其他与循环有关的变量执行初始化、不正确的嵌套、不正确的循环终止、忽略或者错误地增加了循环变量的值、以及不正确的循环下标访问数组元素等错误。
+=====在适当的情况下多使用for循环=====
+*for语句比较适合初始化和增加步长都是单条语句并且逻辑相关的情形，它将循环控制语句集中放在一起，比while更紧凑
+=====在while循环更适用的时候，不要使用for循环=====
+好的代码
+c++示例：while循环的适当用法
+<prev>
+ inputeFile.MoveToStart()；
+ recordCount=0；
+ while(!inputeFile.EndOfFile()){
+	inputeFile.GetRecord();
+	recordCount++;
+ }
+</prev>
+不好的代码
+c++示例：胡乱把while循环体填充到for循环头
+<prev>
+ for(inputeFile.MoveToStart(),recordCount=0;inputeFile.EndOfFile();recordCount++)
+ {
+	inputeFile.GetRecord();
+ }
+</prev>
+recordCount的语句并不控制循环，不应该放在循环头。
+c++示例：规则的循环头部但不适用
+<prev>
+ recordCount=0
+ for(inputeFile.MoveToStart();
+ !inputeFile.EndOfFile();
+ inputeFile.GetRecord())
+ {
+	recordCount++;
+ }
+</prev>
+虽然循环初始化语句inputeFile.MoveToStart()，循环条件!inputeFile.EndOfFile()，终止语句inputeFile.GetRecord()都有了，但是不直观用while循环更合适。
 ====16.3 轻松创建循环——由内而外   （刘思）====
 ====从简单情况开始并由内向外生成代码能轻松创建循环。====
 所谓由内而外就是从一种情况开始，用字面量（literal）来编写代码。然后缩进它，在外面加上一个循环然后用循环下标或计算表达式替换那些字面量。最后加上所需要的初始化。比如需要写一个能从列表中取得每个人的费率并累加的循环。
