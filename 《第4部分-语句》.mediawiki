@@ -602,7 +602,7 @@ foreach (int s in str)
 </pre>
 
 2 do while 语句格式
-</pre>
+<pre>
   do
 {
       执行语句；
@@ -638,7 +638,7 @@ for与while的区别与联系:
    {
            执行语句；
 }
-<pre>
+</pre>
 相互转换的小例子:
 <pre>
 int main(void)
