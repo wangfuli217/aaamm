@@ -89,28 +89,6 @@ End Type
    while (!c)
    ...         //符合就近原则的初始化
 
-====10.3变量初始化原则（甘建伟）====
-*在声明变量的时候进行初始化：可以很好的防止变量初始化错误的问题。
- int listIndex = 1; //初始化listIndex值为‘1’；若为初始化则系统初始化默认值‘0’；
- boolear flag = true;//boolean类型默认初始值为false，引用类型默认初始值为null；
-*在靠近变量第一次使用的位置定义该变量。
- int a = 0;
- int b = 1;//对‘a’和‘b’进行定义
- a = a + b;//使用到了‘a’和‘b’；
-*对计数器和累加器要记得重置其值。
-'''''坏代码'''''
- int i = 0;
- for(int j = 10;i < j;i++);
- for(int z= 5;i < z;z--){
-  System.out.println(z);
- }
-'''''可行代码'''''
- int i = 0;
- for(int j = 10;i < j;i++);
- i = 0;
- for(int z= 5;i < z;z--){
-  System.out.println(z);
- }
 ====10.4 作用域（徐超）====
 
 =====变量引用局部化的好处=====
@@ -450,7 +428,8 @@ End Type
 *避免使用“神秘数值(magic number）
      神秘数值是在程序中出现的并且没有经过解释的数值文字量。如果你使用的编程语言支持具名常量，那么就用它来代替神秘数值，如果你无法使用具名常量，在可行的情况下应该使用全局变量。避免使用神秘数值，可以增强代码的可读性，并且使修改变得更容易，更可靠。
 *Java中读取字符和读取字符串的差别？
-     FileInputstream.read()读取的是单个字符,是ASCII码表所能表示的字符,要是要读取像有汉字等其他ASCII不能表示的，就要用FileReader,它读取的是java支持的字符集。另外，像要是读取图片,pdf,psd等这些东西的话，就要用FileInputStream,即文件字节流。应为存在计算机中的就是二进制，是ASCII表示的。要是读取有汉字的.txt,.就用FileReader。其实用的较*多的是BuffereReader,进行逐行读取。*避免使用字面形式的字符串的原因？
+     FileInputstream.read()读取的是单个字符,是ASCII码表所能表示的字符,要是要读取像有汉字等其他ASCII不能表示的，就要用FileReader,它读取的是java支持的字符集。另外，像要是读取图片,pdf,psd等这些东西的话，就要用FileInputStream,即文件字节流。应为存在计算机中的就是二进制，是ASCII表示的。要是读取有汉字的.txt,.就用FileReader。其实用的较*多的是BuffereReader,进行逐行读取。
+*避免使用字面形式的字符串的原因？
     1.对于程序的名字、命令名称、报表标题等常常出现的字符串，有时可能需要修改它们的内容。
     2.在翻译使存放在字符串资源文件中字符串要比翻译存在于代码中的字符串容易得多。
     3.字符串的字面表示形式通常都会占用较多的存储空间。
@@ -479,7 +458,7 @@ End Type
 *Java中char数组(字符数组)与字符串String类型的转换方法？
     1.String类的toCharArray()方法，将字符串转换为字符数组。
     2.String类的valueOf()方法，将char类型的数组转换为字符串。
-    在Java语言编程时，使用“口令字段“jPasswordField组件时，如果要获得密码值，就需要使用该组件的getPassword()方法。jPasswordField的getPassword()方法返回一个char类型的数组，我们经常需要将这个数组转换为String类型，以便进行诸如口令匹配或口令赋值等操作。这时，就需要将char类型的数组进行转换。当然也经常会遇到将String类型转换为char数组的情况。
+*在Java语言编程时，使用“口令字段“jPasswordField组件时，如果要获得密码值，就需要使用该组件的getPassword()方法。jPasswordField的getPassword()方法返回一个char类型的数组，我们经常需要将这个数组转换为String类型，以便进行诸如口令匹配或口令赋值等操作。这时，就需要将char类型的数组进行转换。当然也经常会遇到将String类型转换为char数组的情况。
    代码如下:
    String strStringType="my string"; //创建一个字符串变量
    strStringType char[] chrCharArray; //创建一个字符数组
