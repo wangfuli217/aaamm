@@ -402,6 +402,71 @@ End Type
 *检查整数除法，当你使用整数的时候，其结果会随语言的不同而不同，比如10*（9/10）=（10*9）/10=9。但在整数运算是10*（9/10）=0，因为整数除法9/10等于0。此类问题的解决方法就是重新安排表达式的数序。
 *检查整数溢出，在做整数的乘法和加法时，要考虑最大整数，每个整数类型的取值范围不同，32位的计算机和64位的也是不同的。
 *检查中间结果的溢出，就是检查每个整数的最大值，就比如A*B/C,如果A和B都是最大值，A*B的结果就已经溢出了，从而导致结果也是错误的。
+====12.2整数 （肖秀丽）====
+整数的除法不能简单相除
+*1例：7/10≠0.7
+而是等于0，或者等于负无穷大，结果随语言的不同而不同，导致程序出错
+
+使用接近被除数的方法处理整数相除问题
+*public class MyInt {  
+  
+    private static boolean INVALID_INPUT;  
+      
+    public static void main(String[] args) {  
+          
+        int x=24;  
+        for(int y=1;y<=x;y++){  
+            System.out.printf("%d/%d=%d%n", x,y,int01(x,y));  
+            System.out.printf("%d/%d=%d%n", x,y,int02(x,y));  
+        }  
+    }  
+      
+*    public static int int01(int x, int y) {  
+        if (!(x > 0 && y > 0 && x >= y)) {  
+            INVALID_INPUT = true;  
+            return -1;  
+        }  
+        int result = 0;  
+        while (x >= y) {  
+            int f = 1;  
+            /* 
+             * may overflow,change it to (y*f)<=(x/2)  
+             while (y * f * 2 <= x) { 
+                f = f * 2;  
+             } 
+             */  
+            while (y * f <= (x >> 1)) {  
+                f = f * 2;  
+            }  
+            result += f;  
+            x -= f * y;  
+        }  
+        return result;  
+    }  
+使用二分查找的方法处理整数相除问题
+*public static int int02(int x, int y) {  
+        if (!(x > 0 && y > 0 && x >= y)) {  
+            INVALID_INPUT = true;  
+            return -1;  
+        }  
+        int low=1;  
+        int high=x;  
+        int mid=0;  
+        int rest=x;  
+        do{  
+            mid=(low&high)+(low^high)/2;//low+(high-low)/2  
+            rest=x-y*mid;  
+            if(rest<0){  
+                high=mid-1;  
+            }  
+            if(rest>=y){  
+                low=mid+1;  
+            }  
+        }while(!(rest>=0&&rest<y));  
+        return mid;  
+    }  
+      
+}  
 ====12.3浮点数 （徐钰颖）====
 使用浮点数时应遵循的指导原则
 *避免数量级相差巨大的数之间的加减运算。32位浮点数，1000000.00+0.1可能会得到1000000.00，因为32位不能给你足够的有效位数包容。怎么解决呢，就是先从最小值开始相加，这样做并不能消除舍入问题，但是能使影响减少到最低。
