@@ -559,12 +559,40 @@ do {
 for ( int i = 0; i < 100; i++ ) {
     ... //some code
     if ( ... ) {
-       i = 100;
+       i = 100;//随便改动i的值，赋值100来终止循环
     }
     ... // more code
 }
 </pre>
 =====不要出现依赖于循环下标最终取值的代码。=====
+*'''坏代码'''
+<pre>
+for （ recordCount = 0;recordCount < MAX_RECODES;recordCount++ ）{
+    if ( entry[ recordCount ] == testValue ){
+       break;
+    }
+}
+// lots of code
+...
+if ( recordCount < MAX_RECODES ) { //滥用循环索引的终止值,容易出现大小差一的错误
+   return( true );
+} else {
+   return( false );
+}
+</pre>
+*'''好代码'''
+<pre>
+found = false;
+for （ recordCount = 0;recordCount < MAX_RECODES;recordCount++ ）{
+    if ( entry[ recordCount ] == testValue ){
+        found = true; //使recordCount使用局部化，使用布尔变量found循环清晰不出错
+        break;
+    }
+}
+// lots of code
+...
+return( found );
+</pre>
 =====合理使用安全计数器。=====
 *安全计数器是一个变量，每次循环时递增，来判断循环执行次数是不是过多。
 *'''坏代码'''
