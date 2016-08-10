@@ -214,6 +214,7 @@ If ( ! SomeTest ) {
 ====判断语句if else 使用心得（C6609 黄佳欣）====
 *把正常情况的处理放在if处理的后面，不要放在else的后面。这样的代码可阅读性更强。
 '''坏代码：'''
+<pre>
 if（status = Status_Error1）{
 	error=Error1;//出错情况1
 }else{
@@ -229,7 +230,10 @@ if（status = Status_Error1）{
 		error=Error3;//出错情况3
 	}
 }
+</pre>
+
 '''好代码：'''
+<pre>
 if（！status = Status_Error1）{
 	A = B;//正常情况1
 	if（status = Status_Success）{
@@ -245,41 +249,49 @@ if（！status = Status_Error1）{
 }else{
 	error=Error1;//出错情况1
 }
+</pre>
+
 
 *if后面跟上一个有意义的语句。
 坏代码：
+<pre>
 if（A=B）{
-	//do noting
+	//do nothing
 }else{
 	//do something
 	A=B;
 }
-
+</pre>
 好代码：
+<pre>
 if（!A=B）{
 	//do something
 	A=B;
 }else{
-	//do noting
+	//do nothing
 }
+</pre>
 *if语句后面请加上else，尽管这个else里可能不做处理，
 可能没有意义。但这是为了表明我已经考虑了else的情况。
 除非没有处理的情况显而易见，否则请注释解释为什么没
 有必要做处理。
 坏代码：
+<pre>
 if（!A=B）{
 	//do something
 	A=B;
 }
+</pre>
 好代码：
+<pre>
 if（!A=B）{
 	//do something
 	A=B;
 }else{
-	//do noting
+	//do nothing
 	//这种情况下A不赋值。
 }
-
+</pre>
 =====简单if-then语句(c6618 陈渊)=====
 if-then的简单示例
 <pre>
