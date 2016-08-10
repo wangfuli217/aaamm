@@ -781,7 +781,7 @@ recordCount的语句并不控制循环，不应该放在循环头。
 *有意义的数组下标名字既能表明循环用途，也能表明数组的用途
 好代码
 <pre>
-JAVA示例：差劲的循环变量
+JAVA示例：差劲的循环变量名
 for(int i=0;i<numPayCodes;i++){
 	for(int j=0;j<12;j++){
 		for(int k=0;k< numDivision;k++){
@@ -792,7 +792,7 @@ for(int i=0;i<numPayCodes;i++){
 </pre>
 不好的代码
 <pre>
-JAVA示例：好的的循环变量
+JAVA示例：好的循环变量名
 for(int payCodeIdx=0; payCodeIdx < numPayCodes; payCodeIdx++){
 	for(int month =0;month<12;month++){
 		for(int divisionIdx = 0;divisionIdx < numDivision;divisionIdx++){
