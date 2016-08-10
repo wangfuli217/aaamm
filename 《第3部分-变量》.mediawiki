@@ -576,15 +576,11 @@ trim()是去掉首尾空格。
 *布尔判断要使目的明确
 '''目的不明确的布尔判断'''
 	 if（（elementIndex<0）丨丨（MAX_ELEMENTS<elementIndex）丨丨（elementIndex==lastElementIndex））
- {
- 	.........
- }
+ {。。。}
 '''目的明确的布尔判断'''
 	 finished=（（elementIndex<0）丨丨（MAX_ELEMENTS<elementIndex）丨丨（elementIndex==lastElementIndex））;
  	if(finished丨丨repeatedEntry)
- {
- 	.........
- }
+ {。。。}
 目的明确的布尔判断使得if判断的对象更加明确了<br/>
 ----
 *程序中布尔类型的使用心得
@@ -640,8 +636,8 @@ boolean f_3 = br.f2()||br.f3()&&br.f1();<br/>
 f_3=( br.f2()||br.f3())&&br.f1(); <br/>
 
 *按位运算提供逻辑没有的异或功能：<br/>
-    boolean f = true^true;<br/>
-    结果f = false;
+boolean f = true^true;<br/>
+结果f = false;
  
 ----
 
