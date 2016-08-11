@@ -483,44 +483,41 @@ End Type
 
 ====12.2整数 （肖秀丽）====
 整数的除法不能简单相除
-*1例：7/10≠0.7
-而是等于0，或者等于负无穷大，结果随语言的不同而不同，导致程序出错
-
+*1例：7/10≠0.7而是等于0，或者等于负无穷大，结果随语言的不同而不同，导致程序出错
 '''使用接近被除数的方法处理整数相除问题'''
- public class MyInt {  
-   private static boolean INVALID_INPUT;     
-     public static void main(String[] args) {         
-         int x=24;  
-         for(int y=1;y<=x;y++){  
-             System.out.printf("%d/%d=%d%n", x,y,int01(x,y));  
-             System.out.printf("%d/%d=%d%n", x,y,int02(x,y));  
-         }  
-     }    
-     public static int int01(int x, int y) {  
-         if (!(x > 0 && y > 0 && x >= y)) {  
-             INVALID_INPUT = true;  
-             return -1;  
-         }  
-         int result = 0;  
-         while (x >= y) {  
-             int f = 1;  
-             /* 
-              * may overflow,change it to (y*f)<=(x/2)  
-              while (y * f * 2 <= x) { 
-                 f = f * 2;  
-              } 
-              */  
-             while (y * f <= (x >> 1)) {  
-                 f = f * 2;  
-             }  
-             result += f;  
-             x -= f * y;  
-         }  
-         return result;  
-     }  
-
+public class MyInt {  
+    private static boolean INVALID_INPUT;     
+      public static void main(String[] args) {         
+          int x=24;  
+          for(int y=1;y<=x;y++){  
+              System.out.printf("%d/%d=%d%n", x,y,int01(x,y));  
+              System.out.printf("%d/%d=%d%n", x,y,int02(x,y));  
+           }   
+      }    
+      public static int int01(int x, int y) {  
+          if (!(x > 0 && y > 0 && x >= y)) {  
+              INVALID_INPUT = true;  
+              return -1;  
+          }  
+          int result = 0;  
+          while (x >= y) {  
+              int f = 1;  
+              /* 
+               * may overflow,change it to (y*f)<=(x/2)  
+               while (y * f * 2 <= x) { 
+                  f = f * 2;  
+               } 
+               */  
+              while (y * f <= (x >> 1)) {  
+                  f = f * 2;  
+              }  
+              result += f;  
+              x -= f * y;  
+          }  
+          return result;  
+      }  
 '''使用二分查找的方法处理整数相除问题'''
- public static int int02(int x, int y) {  
+public static int int02(int x, int y) {  
      if (!(x > 0 && y > 0 && x >= y)) {  
             INVALID_INPUT = true;  
             return -1;  
@@ -543,8 +540,6 @@ End Type
     }        
  } 
 
-
-----
 ====12.3浮点数 （徐钰颖）====
 使用浮点数时应遵循的指导原则
 *避免数量级相差巨大的数之间的加减运算。32位浮点数，1000000.00+0.1可能会得到1000000.00，因为32位不能给你足够的有效位数包容。怎么解决呢，就是先从最小值开始相加，这样做并不能消除舍入问题，但是能使影响减少到最低。
@@ -596,6 +591,31 @@ System.out.print("34.6-34.0=" + (34.6f-34.0f));
 
 *产生这个误差的原因是 34.6 无法精确的表达为相应的浮点数，而只能保存为经过舍入的近似值。这个近似值与 34.0 之间的运算自然无法产生精确的结果。
 
+
+====12.4字符和字符串（李勇）====
+*用字符串常量来初始化字符数组：
+char str[ ]={"I am happy"};       可以省略花括号，如下所示
+char str[ ]="I am happy";
+注意：上述这种字符数组的整体赋值只能在字符数组初始化时使用，不能用于字符数组的赋值，字符数组的赋值只能对其元素一一赋值 
+
+*字符串的表示形式
+在C语言中，可以用两种方法表示和存放字符串：
+*（1）用字符数组存放一个字符串
+          char str[ ]="I love China";
+*（2）用字符指针指向一个字符串
+          char* str="I love China";
+对于第二种表示方法，有人认为str是一个字符串变量，以为定义时把字符串常量"I love China"直接赋给该字符串变量，这是不对的。
+
+====12.5布尔变量 （李勇）====
+*布尔型（Boolean）是一种数据的类型，只有两种值，即"真"与"假".它们只用于存放布尔值（ture或false） 例如，VAR A，B：BOOLEAN；
+*你在创建了布尔变量之后，可在判断语句中得到简化，明了。
+如：A=(（elementIndex<0）||(M_ELEMENTS<elementIndex));
+B=(elementIndex==lastelementIndex);
+if(A||B){...}
+*对于复杂的命题，我们可以用布尔表达式来表示。例如，命题："m,n都是偶数或都是奇数"可表示为"(m mod 2=0)and(n mod 2=0) or (m mod 2=1)and(n mod 2=1)"。
+*另外，需要的话，可以创建自己的布尔类型。如：变量声明为BOOLEAN而非int，可以直观的体现出你的程序用意。
+
+
 ====12.5 布尔变量 （邵志超）====
 布尔变量一般使用时都是周围存在判断的时候，换言之将逻辑判断的结果以更加直观可找的某个字段来展现。
 //复杂的
@@ -609,21 +629,23 @@ then
 do....
 当然再具体某些情况也可以定义自己的boolean类型，然别人能更直接的看明白你设定这个字段的意义。
 
+
+
 ====12.5布尔变量（葛川川）====
 布尔判断要使目的明确
 '''目的不明确的布尔判断'''
-	 if（（elementIndex<0）丨丨（MAX_ELEMENTS<elementIndex）丨丨（elementIndex==lastElementIndex））
- {。。。}
+if（（elementIndex<0）丨丨（MAX_ELEMENTS<elementIndex）丨丨（elementIndex==lastElementIndex））{。。。}
+
 '''目的明确的布尔判断'''
-	 finished=（（elementIndex<0）丨丨（MAX_ELEMENTS<elementIndex）丨丨（elementIndex==lastElementIndex））;
- 	if(finished丨丨repeatedEntry)
- {。。。}
+finished=（（elementIndex<0）丨丨（MAX_ELEMENTS<elementIndex）丨丨（elementIndex==lastElementIndex））;
+if(finished丨丨repeatedEntry){。。。}
+
 目的明确的布尔判断使得if判断的对象更加明确了<br/>
 
 *程序中布尔类型的使用心得
 **java 有一种表示逻辑值的简单类型，称为布尔型。它的值只能是真或假这两个值中的一个。
 '''示例'''
- class BoolTest { 
+class BoolTest { 
   public static void main(String args[]) { 
   boolean b; 
   b = false; 
