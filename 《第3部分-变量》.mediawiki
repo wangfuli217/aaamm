@@ -454,7 +454,7 @@ End Type
 **String类的toCharArray()方法，将字符串转换为字符数组。
 **String类的valueOf()方法，将char类型的数组转换为字符串。
 **在Java语言编程时，使用“口令字段“jPasswordField组件时，如果要获得密码值，就需要使用该组件的getPassword()方法。jPasswordField的getPassword()方法返回一个char类型的数组，我们经常需要将这个数组转换为String类型，以便进行诸如口令匹配或口令赋值等操作。这时，就需要将char类型的数组进行转换。当然也经常会遇到将String类型转换为char数组的情况。
-*代码如下:
+  代码如下:
 **String strStringType="my string"; //创建一个字符串变量
 **strStringType char[] chrCharArray; //创建一个字符数组
 **chrCharArray chrCharArray = strStringType.toCharArray(); //将字符串变量转换为字符数组
@@ -471,7 +471,7 @@ End Type
    boolean bool = true;
    String s = String.valueOf( bool );
 *strcmp返回值布尔类型的判断?
-**strcmp: 用于比较两个字符串，原型如下：
+   strcmp: 用于比较两个字符串，原型如下：
    int strcmp ( char const *s1, char const *s2）；
    如果s1小于s2，strcmp函数返回一个小于零的值。如果s1大于s2，函数返回一个大于零的值。如果两个字符串相等，函数就返回零。
 
