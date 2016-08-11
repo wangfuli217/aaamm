@@ -339,7 +339,7 @@
 **什么叫程序族呢？就是功能相类似的项目所形成的程序。在已经开发过一个相类似的项目的基础上，再开发另一个程序，我们只要在原有的程序上修改一些实体类，或者一些再加一些action类就可以了。这样可以大大地减少我们开发成本，从而创造更多的利润。<br />
 ====6.5具体编程语言相关问题—JAVA方法的覆盖（C6514 陶晓鸣）====
 *1）子类方法的名称、参数签名和返回类型必须与父类方法的名称、参数签名和返回类型一致，修饰符可以相同也可以不同，但子类的访问权限不能低于父类的访问权限。<br />
-*实例：
+**实例：
 class Aball {
     Aball() {
     }
@@ -357,7 +357,7 @@ public class ExtendsMethod extends Aball {
     }
 }  
 *2）父类的私有方法不能被子类覆盖。<br />
-*实例：
+**实例：
 class Aball {
     Aball() {
     }
@@ -381,16 +381,16 @@ public class ExtendsMethod extends Aball {
        sub2.print();
     }
 }
-*结果为：
+**结果为：
 Aball<br />
 Aball<br />
-*执行sub2.print()方法时，因为print()方法在Aball类中定义，因此Aball方法会调用在Aball类中定义的private类型的method()方法。<br />
+**执行sub2.print()方法时，因为print()方法在Aball类中定义，因此Aball方法会调用在Aball类中定义的private类型的method()方法。<br />
 把Aball类的method()方法改为public类型，期他代码不变，则运行结果为：<br />
 Aball<br />
 ExtendsMethod<br />
 原因是由于ExtendsMethod中的method()方法覆盖了Aball类中的method()方法，执行sub2.print()时，JVM会调用当前ExtendsMethod实例的method()方法。<br />
 *3）父类的抽象方法可以被子类通过两种途径覆盖：一是子类实现父类的抽象方法；二是子类重新声明父类的抽象方法。<br />
-*实例：<br />
+**实例：<br />
 abstract class Aball {
     Aball() {
     }
@@ -406,7 +406,7 @@ abstract class Aball {
     public abstract void print();
 }
 *4）父类的非抽象方法可以被覆盖为抽象方法。<br />
-*实例：<br />
+**实例：<br />
 abstract class Aball {
     Aball() {
     }
