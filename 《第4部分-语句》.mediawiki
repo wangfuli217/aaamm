@@ -2314,19 +2314,14 @@ if(statusOk){//(除了statusOk的情况,剔除特定的情况)
 '''坏代码'''
 
 <pre>
-
 Java示例：括号少的表达式
-
-if（a<b==c==d）...
+if（a&ltb==c==d）...
 </pre>
 但是下列代码很好的避开了这个问题
 '''好代码'''
-
 <pre>
-
 Java示例：括号少的表达式
-
-if（(a<b）==(c==d）)...
+if（(a&ltb）==(c==d）)...
 </pre>
 
 
@@ -2583,11 +2578,11 @@ do{
 <pre>
 if(1000<quantity){
    discount=0.01;
-}else if((100<quantity)&&(quantity<=1000)){
+}else if((100&ltquantity)&&(quantity&lt=1000)){
    discount=0.05;
-}else if((10<quantity)&&(quantity<=100)){
+}else if((10&ltquantity)&&(quantity&lt=100)){
    discount=0.025;
-}else if(quantity<=10){
+}else if(quantity&lt=10){
    discount=0;
 }
 </pre>
