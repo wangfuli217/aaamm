@@ -443,15 +443,13 @@ End Type
 **其次，使用calloc()而不是malloc()，calloc()负责分配内存并初始化。
 *JAVA中怎样去除字符串尾部的空格？
 **String.trim() 
-trim()是去掉首尾空格。
+    trim()是去掉首尾空格。
 **str.replace(" ", ""); 去掉所有空格，包括首尾、中间 
-代码如下:
-String str = " hell o ";
-String str2 = str.replaceAll(" ", "");
-System.out.println(str2);
-**或者replaceAll(" +",""); 去掉所有空格。  
-**str = .replaceAll("\\s*", "");  
-    可以替换大部分空白字符， 不限于空格。\s 可以匹配空格、制表符、换页符等空白字符的其中任意一个。
+    代码如下:
+    String str = " hell o ";
+    String str2 = str.replaceAll(" ", "");
+    System.out.println(str2);
+**replaceAll(" +",""); 去掉所有空格。  
 *Java中char数组(字符数组)与字符串String类型的转换方法？
 **String类的toCharArray()方法，将字符串转换为字符数组。
 **String类的valueOf()方法，将char类型的数组转换为字符串。
