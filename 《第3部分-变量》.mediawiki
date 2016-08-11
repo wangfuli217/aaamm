@@ -699,10 +699,9 @@ boolean f_3 = br.f2()||br.f3()&&br.f1();<br/>
 结果就变成true,正确应该是false，这就是“短路”造成的错误了，想获得正确的答案就需要加括号：<br/>
 f_3=( br.f2()||br.f3())&&br.f1(); <br/>
 *按位运算提供逻辑没有的异或功能：
-boolean f = true^true;<br/>
-结果f = false;
- 
-----
+ boolean f = true^true;
+ 结果f = false;
+
 
 ====12.6 枚举类型 （邵志超）====
 枚举类型适用于定义一类对象中每一个成员参数的数据类型。
