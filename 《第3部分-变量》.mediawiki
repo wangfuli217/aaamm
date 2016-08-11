@@ -462,12 +462,12 @@ End Type
 
 ====12.5布尔变量（钟红飞）====
 *如何将布尔变量转换为字符串变量？
-*第一种方法是：
+   第一种方法是：
    boolean bool = true;
    String s = new Boolean(bool).toString();//将bool利用对象封装器转化为对象
    s.equals("true");
    其中，toString方法是一个继承方法。java中所有的类都是object的继承，object的一个重要方法就是toString，用于将对象转化为字符串。
-*第二种方法是：
+   第二种方法是：
    boolean bool = true;
    String s = String.valueOf( bool );
 *strcmp返回值布尔类型的判断?
