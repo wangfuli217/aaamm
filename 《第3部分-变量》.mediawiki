@@ -474,8 +474,8 @@ System.out.println(str2);
    String s = String.valueOf( bool );
 *strcmp返回值布尔类型的判断?
 **strcmp: 用于比较两个字符串，原型如下：
-int strcmp ( char const *s1, char const *s2）；
-如果s1小于s2，strcmp函数返回一个小于零的值。如果s1大于s2，函数返回一个大于零的值。如果两个字符串相等，函数就返回零。
+  int strcmp ( char const *s1, char const *s2）；
+  如果s1小于s2，strcmp函数返回一个小于零的值。如果s1大于s2，函数返回一个大于零的值。如果两个字符串相等，函数就返回零。
 
 ====12.2整数 （徐钰颖）====
 在用整数的时候要注意以下三点。
