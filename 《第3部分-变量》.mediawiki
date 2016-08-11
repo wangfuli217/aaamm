@@ -481,70 +481,6 @@ End Type
 *检查整数溢出，在做整数的乘法和加法时，要考虑最大整数，每个整数类型的取值范围不同，32位的计算机和64位的也是不同的。
 *检查中间结果的溢出，就是检查每个整数的最大值，就比如A*B/C,如果A和B都是最大值，A*B的结果就已经溢出了，从而导致结果也是错误的。
 
-====12.2整数 （肖秀丽）====
-
-整数的除法不能简单相除
-
-*1例：7/10≠0.7而是等于0，或者等于负无穷大，结果随语言的不同而不同，导致程序出错
-
-'''使用接近被除数的方法处理整数相除问题'''
-
-public class MyInt {  
-    private static boolean INVALID_INPUT;     
-      public static void main(String[] args) {         
-          int x=24;  
-          for(int y=1;y<=x;y++){  
-              System.out.printf("%d/%d=%d%n", x,y,int01(x,y));  
-              System.out.printf("%d/%d=%d%n", x,y,int02(x,y));  
-           }   
-      }    
-      public static int int01(int x, int y) {  
-          if (!(x > 0 && y > 0 && x >= y)) {  
-              INVALID_INPUT = true;  
-              return -1;  
-          }  
-          int result = 0;  
-          while (x >= y) {  
-              int f = 1;  
-              /* 
-               * may overflow,change it to (y*f)<=(x/2)  
-               while (y * f * 2 <= x) { 
-                  f = f * 2;  
-               } 
-               */  
-              while (y * f <= (x >> 1)) {  
-                  f = f * 2;  
-              }  
-              result += f;  
-              x -= f * y;  
-          }  
-          return result;  
-      }  
-
-'''使用二分查找的方法处理整数相除问题'''
-
-public static int int02(int x, int y) {  
-     if (!(x > 0 && y > 0 && x >= y)) {  
-            INVALID_INPUT = true;  
-            return -1;  
-        }  
-        int low=1;  
-        int high=x;  
-        int mid=0;  
-        int rest=x;  
-        do{  
-            mid=(low&high)+(low^high)/2;//low+(high-low)/2  
-            rest=x-y*mid;  
-            if(rest<0){  
-                high=mid-1;  
-            }  
-            if(rest>=y){  
-                low=mid+1;  
-            }  
-        }while(!(rest>=0&&rest<y));  
-        return mid;  
-    }        
- } 
 
 
 ====12.3浮点数 （徐钰颖）====
@@ -593,7 +529,6 @@ leCount=(min_avg<=Count)and(Count<=min_max)
 then
 do....
 当然再具体某些情况也可以定义自己的boolean类型，然别人能更直接的看明白你设定这个字段的意义。
-
 
 
 ====12.5布尔变量（葛川川）====
