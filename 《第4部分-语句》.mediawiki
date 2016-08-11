@@ -1802,11 +1802,11 @@ End If
 <pre>										
 If ( ！statusOK ) (										
   // do something										
-  …										
+ ...
  )										
 else (										
  // do something else										
- …										
+ ...
  )										
 </pre>										
 '''变肯定后的判断'''										
@@ -1817,7 +1817,7 @@ If ( statusOK ) (
 )										
 else (										
  // do something										
- …										
+ ...
  )										
 </pre>										
 通过比较不难看出，肯定形式的代码可以更容易清晰的得到主要信息。										
@@ -1828,11 +1828,11 @@ else (
 
 '''括号少的表达式'''										
 <pre>										
-if ( a < b == c == d ) …										
+if ( a < b == c == d ) ...
 </pre>										
 '''加入括号的表达式'''										
 <pre>										
-if ( （ a < b ） == （ c == d ) ） …										
+if ( （ a < b ） == （ c == d ) ） ...
 </pre>										
 ====19.1 布尔表达式              （陈欢欢）====
 *代码中不要使用1和0表示代码
