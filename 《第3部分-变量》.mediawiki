@@ -489,60 +489,7 @@ End Type
     }        
  } 
 
-====12.4字符和字符串（钟红飞）====
-*避免使用“神秘数值(magic number）
-**神秘数值是在程序中出现的并且没有经过解释的数值文字量。如果你使用的编程语言支持具名常量，那么就用它来代替神秘数值，如果你无法使用具名常量，在可行的情况下应该使用全局变量。避免使用神秘数值，可以增强代码的可读性，并且使修改变得更容易，更可靠。
-*Java中读取字符和读取字符串的差别？
-**FileInputstream.read()读取的是单个字符,是ASCII码表所能表示的字符,要是要读取像有汉字等其他ASCII不能表示的，就要用FileReader,它读取的是java支持的字符集。另外，像要是读取图片,pdf,psd等这些东西的话，就要用FileInputStream,即文件字节流。应为存在计算机中的就是二进制，是ASCII表示的。要是读取有汉字的.txt,.就用FileReader。其实用的较*多的是BuffereReader,进行逐行读取。
-*避免使用字面形式的字符串的原因？
-**对于程序的名字、命令名称、报表标题等常常出现的字符串，有时可能需要修改它们的内容。
-**在翻译使存放在字符串资源文件中字符串要比翻译存在于代码中的字符串容易得多。
-**字符串的字面表示形式通常都会占用较多的存储空间。
-**字符和字符串的字面表示形式的含义是模糊的。
-*字符串指针和字符数组之间的差异？
-**字符串指针变量本身是一个变量，用于存放字符串的首地址。而字符串本身是存放在以该首地址为首的一块连续的内存空间中并以‘\0’作为串的结束。字符数组是由于若干个数组元素组成的，它可用来存放整个字符串。
-**每个元素的值都可以改变。而字符串指针指向的是一个常量字符串，它被存放在程序的静态数据区，一旦定义就不能改变。
-*字符串的初始化：
-**如果只需要支持一种文字语言，考虑使用ISO8859字符集；如果需要支持多种语言，使用unicode。
-**为避免忘记空结束符，把c-style字符串的长度声明为CONSTANT+1
-**用null初始化字符串以避免无结束符的字符串。
-**首先，在声明字符数组是初始化为0：char EventName[Max+1] = {0};
-**其次，使用calloc()而不是malloc()，calloc()负责分配内存并初始化。
-*JAVA中怎样去除字符串尾部的空格？
-**String.trim() 
-trim()是去掉首尾空格。
-**str.replace(" ", ""); 去掉所有空格，包括首尾、中间 
-代码如下:
-String str = " hell o ";
-String str2 = str.replaceAll(" ", "");
-System.out.println(str2);
-**或者replaceAll(" +",""); 去掉所有空格。  
-**str = .replaceAll("\\s*", "");  
-    可以替换大部分空白字符， 不限于空格。\s 可以匹配空格、制表符、换页符等空白字符的其中任意一个。
-*Java中char数组(字符数组)与字符串String类型的转换方法？
-**String类的toCharArray()方法，将字符串转换为字符数组。
-**String类的valueOf()方法，将char类型的数组转换为字符串。
-**在Java语言编程时，使用“口令字段“jPasswordField组件时，如果要获得密码值，就需要使用该组件的getPassword()方法。jPasswordField的getPassword()方法返回一个char类型的数组，我们经常需要将这个数组转换为String类型，以便进行诸如口令匹配或口令赋值等操作。这时，就需要将char类型的数组进行转换。当然也经常会遇到将String类型转换为char数组的情况。
-**代码如下:
-String strStringType="my string"; //创建一个字符串变量
-strStringType char[] chrCharArray; //创建一个字符数组
-chrCharArray chrCharArray = strStringType.toCharArray(); //将字符串变量转换为字符数组
- strStringType= String.valueOf(chrCharArray ); //将字符数组转换为字符串
 
-====12.5布尔变量（钟红飞）====
-*如何将布尔变量转换为字符串变量？
-**第一种方法是：
-   boolean bool = true;
-   String s = new Boolean(bool).toString();//将bool利用对象封装器转化为对象
-   s.equals("true");
-   其中，toString方法是一个继承方法。java中所有的类都是object的继承，object的一个重要方法就是toString，用于将对象转化为字符串。
-**第二种方法是：
-   boolean bool = true;
-   String s = String.valueOf( bool );
-*strcmp返回值布尔类型的判断?
-**strcmp: 用于比较两个字符串，原型如下：
-int strcmp ( char const *s1, char const *s2）；
-如果s1小于s2，strcmp函数返回一个小于零的值。如果s1大于s2，函数返回一个大于零的值。如果两个字符串相等，函数就返回零。
 ----
 ====12.3浮点数 （徐钰颖）====
 使用浮点数时应遵循的指导原则
