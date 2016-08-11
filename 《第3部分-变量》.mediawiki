@@ -450,7 +450,7 @@ End Type
     String str2 = str.replaceAll(" ", "");
     System.out.println(str2);
 **replaceAll(" +",""); 去掉所有空格。  
-*Java中char数组(字符数组)与字符串String类型的转换方法？
+*Java中char数组(字符数组)与字符串String类型的转换方法？(工号C6440 钟红飞)
 **String类的toCharArray()方法，将字符串转换为字符数组。
 **String类的valueOf()方法，将char类型的数组转换为字符串。
 **在Java语言编程时，使用“口令字段“jPasswordField组件时，如果要获得密码值，就需要使用该组件的getPassword()方法。jPasswordField的getPassword()方法返回一个char类型的数组，我们经常需要将这个数组转换为String类型，以便进行诸如口令匹配或口令赋值等操作。这时，就需要将char类型的数组进行转换。当然也经常会遇到将String类型转换为char数组的情况。
@@ -461,7 +461,7 @@ End Type
   strStringType= String.valueOf(chrCharArray ); //将字符数组转换为字符串
 
 ====12.5布尔变量（钟红飞）====
-*如何将布尔变量转换为字符串变量？
+*如何将布尔变量转换为字符串变量？(工号C6440 钟红飞)
    第一种方法是：
    boolean bool = true;
    String s = new Boolean(bool).toString();//将bool利用对象封装器转化为对象
@@ -470,7 +470,7 @@ End Type
    第二种方法是：
    boolean bool = true;
    String s = String.valueOf( bool );
-*strcmp返回值布尔类型的判断?
+*strcmp返回值布尔类型的判断?(工号C6440 钟红飞)
    strcmp: 用于比较两个字符串，原型如下：
    int strcmp ( char const *s1, char const *s2）；
    如果s1小于s2，strcmp函数返回一个小于零的值。如果s1大于s2，函数返回一个大于零的值。如果两个字符串相等，函数就返回零。
