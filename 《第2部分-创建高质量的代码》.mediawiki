@@ -30,32 +30,32 @@
   public :
       void initialize();
       void cleanup;
-};
+ };
 **在Class A的定义中声明一个B的指针变量，编译器知道如何传递一个地址，这地址大小是一定的，如果试图传递整个对象编译器就必须知道B的全部定义以确定他的大小和如何传递他，声明一个B b变量显然不够隐藏。
 *cpp文件
  class B{
  public :
    int i;
-};
+ };
 
  int getI(A* a){
     a ->i = 5;
     a ->b ->i += a ->i;
     return a ->b ->i;
-}
+ }
 
  void A::initialize(){
     b = new B();
     b-> i = 5;
-}
+ }
 
  void A::cleanup(){
      delete b;
-}
+ }
 
 *main 函数
-*#include <iostream>
-*#include "test.h"
+ #include <iostream>
+ #include "test.h"
  using namespace std;
 
   int main(){
@@ -64,7 +64,7 @@
      cout << getI(&aa);
      aa.cleanup;
      return 0;
-}
+ }
 
 关于找出代码易变的问题：
 *找出变化点，抽象出来，把变化隐藏起来（和信息的隐藏挂钩），使变化的影响降到最低。一个好的代码或者工程能适应各种来自外界变化所引起的干扰。
