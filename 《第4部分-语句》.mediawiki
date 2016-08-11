@@ -474,9 +474,9 @@ switch(n){
                 switch (a) {    
 		case 0:                    
 		case 1:
-		case 2:	a = a + 3;break；  
-		case 3: a = a + 2; break；              
-		default:  break；         
+		case 2:	a = a + 3;break;  
+		case 3: a = a + 2; break;             
+		default:  break;         
 		}
 	}
 		System.out.println(a);
@@ -487,10 +487,10 @@ switch(n){
 	while (a < 5) {    
 		switch (a) {
 		case 0:                    
-		case 3:a = a + 2; break；
+		case 3:a = a + 2; break;
 		case 1:
-		case 2: a = a + 3;  break；              
-		default:   break；
+		case 2: a = a + 3;  break;              
+		default:   break;
 		}
 	}
 		System.out.println(a);
