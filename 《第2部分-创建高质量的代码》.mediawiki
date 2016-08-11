@@ -659,8 +659,8 @@ class ExceptionA extends Exception{};
 class ExceptionB extends Exception{};
 class ExceptionC extends Exception{};
 </pre>
-上述代码中，将ExceptionA/ExceptionB/ExceptionC集中到一起进行处理，这就是一个很好的基础处理的例子。
-这个机制为与异常有关的信息如异常的种类，每个异常该如何被处理等信息提供一个集中的存储，能够很好的保证异常的一致性。
+上述代码中，将ExceptionA/ExceptionB/ExceptionC集中到一起进行处理，这就是一个很好的集中处理的例子。
+这个机制为与异常有关的信息如异常的种类/每个异常该如何被处理等信息提供一个集中的存储，能够很好的保证异常的一致性。
 
 ::把项目中对异常的处理标准化
 标准化的异常处理将有利于异常的管理，针对异常处理的标准化，可以在以下几个方面进行考虑：
