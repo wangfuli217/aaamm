@@ -930,15 +930,20 @@ do {
 }while ( ... );
 </pre>
 =====在循环开始处使用continue进行判断。（工号C6621 徐杰）=====
+*continue在循环开始处，使得做完条件判断后可让代码越过剩下的循环体继续执行。
+*'''Java代码'''
 <pre>
-while ( not eof（ file ）) do 
-    read( record, file )
-       if ( record.Type <> targetType ) then
-           continue
-            break;
-       --process record of targetType
-       ...
-end while 
+for(int i=1;i<50;i++) {
+   
+      if((i%2)==0){
+        
+       continue;
+   
+}  
+    
+System.out.print(i+" ");
+}
+ 
 </pre>
 =====如果语言支持，请使用带标号break结构。（工号C6621 徐杰）=====
 <pre>
@@ -2203,74 +2208,6 @@ if ( a < b == c == d ) ...
 <pre>										
 if ( （ a < b ） == （ c == d ) ） ...
 </pre>										
-
-=====在布尔表达式的判断中用true和false来表示真和假（工号C6604 郭思）=====
-　　有时我们会在代码中看到布尔表达式除了用true和false来表示真假外，还有用0和1的，或者自定义数据的。
-*'''不好的代码（使用1和0判断）'''
-<pre>
-public class Test
-{
-    public static void main(String args[])
-    {
-        int A,B;
-        ....
-        if (A==1)
-            //do something;
-            ....
-        if (B==0)
-            //do something;
-            ....
-    }
-}
-</pre>
-　　上面的代码使用0和1进行布尔判断，根本看不出1是代表真还是假，甚至1和0是不是代表真假都不知道，这样在查看或者修改代码的时候，会有很大的困难。另外由于是简单的数字，在输入时很有可能会写错，而且如果写错了也很难发现。
-*'''好代码（使用true和false判断）'''
-<pre>
-public class Test
-{
-    public static void main(String args[])
-    {
-        boolean flag;
-        if (flag==true)
-            //do something;
-            ....
-        if (flag==false)
-            //do something;
-            ....
-    }
-}
-</pre>　
-　　使用true和false就可以很清晰地表示真假了,而且写错的可能性也降低了。
-
-
-=====隐式地比较布尔值与true和false（工号C6604 郭思）=====
-　　把表达式当做布尔表达式，可以把true和false隐藏，让式子更清晰。比如：　　
-    if(A==false) ...
-    if((A>B)==true) ...
-可以写成：
-    if(!A) ...
-    if(A>B) ...
-　　这样隐式地表达，意思清晰，还减少了阅读量。下面有个更具体的例子：
-<pre>
-public class Test
-{
-    public static void main(String args[])
-    {
-        int A;
-        int B;
-        boolean C;
-        ....
-        if (A>B)
-            //do something;
-            ....
-        if (!C)
-            //do something;
-            ....
-    }
-}
-</pre>
-
-
 ====19.1 布尔表达式              (陈欢欢)====
 *代码中不要使用1和0表示代码(工号C6623 陈欢欢)
 **代码中用1和0表示意思不清晰，根本没有反映究竟1代表是真，0代表假，还是正好相反，甚至1和0是不是代表真假都不清楚。读到代码的时候，往往不能在第一时间，快速的了解代码所表达的含义
@@ -2397,28 +2334,6 @@ while (recordArray.Read( index++) != recordArray.EmptyRecord()){
 }
 </pre>
 除了在空的while和for循环中使用DoNothing(),你也可以在switch语句中的无意义选项中使用它；加入DoNothing()表明你已经考虑了这种case，并且的确不需要对该case做什么操作。
-
-=====用非空的循环体代替空语句（工号C6604 郭思）=====
-*'''用;表示的空语句'''
-<pre>
-int A[10];
-int a=0;
-while(A[a++] != 0){
-    ;
-}
-</pre>
-*'''转换成非空循环体'''
-<pre>
-int A[10];
-int a=0;
-int num=A[a];
-a++;
-while(num != 0){
-    num=A[a];
-    a++;
-}
-</pre>
-　　对比上面两段代码，可以看出，用非循环体代替空语句时，引入了一个新的变量num，但是更加直观，代码也更容易理解。
 
 ====19.4 驯服危险的深层嵌套        （时昌彬）====
 =====避免使用超过3到4层的嵌套=====
