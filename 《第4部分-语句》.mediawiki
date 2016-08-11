@@ -1318,6 +1318,43 @@ if Not file.Decrypt(encryptionKey) Then Exit Sub
 </pre>
 =====减少子程序中return的数量=====
 　　如果读子程序的后部时，没有意识到前面某个地方返回的可能性，就很难理解这个子程序。只有在可以增强可读性的时候使用return，尽可能少的使用return。
+=====如果能增强可读性，知道了结果就返回（工号C6595 时昌彬）=====
+*在某些子程序中，一旦知道了答案，就该返回，；
+*如果子程序被定义为检测出错误以后不再做任何更多的清理操作，不马上返回就意味着你还得写更多的代码。
+'''Java示例：坏代码'''
+<pre>
+public string Compare(int value1,int value2 ){
+	String re;
+	if(value1 < value2 ){
+		re = "LT";
+	}
+	else if(value1 > value2){
+		re = "GT";
+	}
+        else{
+		re = "EQ";
+	}
+	return re;
+}
+</pre>
+'''Java示例：子程序的多处返回——好代码'''
+<pre>
+public string Compare(int value1,int value2 ){
+	String re;
+	if(value1 < value2 ){
+		re = "LT";
+		return re;
+	}
+	else if(value1 > value2){
+		re = "GT";
+		return re 
+	}
+        else{
+		re = "EQ";
+		return re;
+	}
+}
+</pre>
 ====17.2 递归                   （郭思）====
 　　递归，就是在运行的过程中调用自己。它通常把一个大型复杂的问题转化成一个与原问题相似的规模较小的问题来求解，递归只需少量的程序就可以描述出多次的重复计算，大大的减少了程序的代码量。
 =====确认递归能够停止=====
@@ -1375,6 +1412,40 @@ int Factorial(int number){
     retuen intermediateResult;
 }
 </pre>
+=====使用安全计数器避免出现无穷递归（工号C6595 时昌彬）=====
+'''Java示例：安全计数器避免无穷递归'''
+<pre>
+public void recursion(int num){ 
+	if(num > 100）
+	num=num+1;
+	recursion(num);       
+}
+</pre>
+*如果你不希望把安全计数器作为明确的参数传递，那么可以使用成员变量。
+
+=====不要用递归去计算阶乘或者斐波纳契数列（工号C6595 时昌彬）====
+'''Java 示例：用递归计算阶乘，坏代码'''
+<pre>
+int factorial( int number){
+	if (number == 1){
+        return 1;
+	}
+	else{
+		return number* factorial(number - 1);
+	}
+}
+</pre>
+*这样速度慢，无法预测运行期间的内存使用情况，而且更难理解。
+'''Java示例： 用循环计算阶乘，好代码'''
+<pre>
+int factorial(int number){
+	int result = 1;
+	for(int factor = 2;factor <= number;factor++){
+		result = result * factor;
+	}
+	return result;
+}
+</pre>  
 
 ====17.3 goto                   （兰杰）====
 =====要在特定场合下谨慎地使用goto（C6616 兰杰）=====
