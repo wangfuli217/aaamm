@@ -793,8 +793,46 @@ do {
 </pre>
 =====考虑在while循环中使用break语句而不用布尔标记。（工号C6621 徐杰）=====
 =====小心那些有很多break散步其中的循环。（工号C6621 徐杰）=====
+*'''坏代码'''
+<pre>
+do { 
+    ...
+    switch
+       ...
+       if () {
+           ...
+            break;
+           ...
+       }
+       ...
+}while ( ... );
+</pre>
 =====在循环开始处使用continue进行判断。（工号C6621 徐杰）=====
+<pre>
+while ( not eof（ file ）) do 
+    read( record, file )
+       if ( record.Type <> targetType ) then
+           continue
+            break;
+       --process record of targetType
+       ...
+end while 
+</pre>
 =====如果语言支持，请使用带标号break结构。（工号C6621 徐杰）=====
+<pre>
+do { 
+    ...
+    switch
+       ...
+       CALL_CENTER_DOWN:
+       if () {
+           ...
+            break CALL_CENTER_DOWN;
+           ...
+       }
+       ...
+}while ( ... );
+</pre>
 =====使用break和continue时要小心。（工号C6621 徐杰）====
 =====使用循环变量。=====
 #用整数或者枚举类型表示数组和循环边界。
