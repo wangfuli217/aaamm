@@ -470,7 +470,8 @@ switch(n){
 好的代码
 <pre>
 	int a = 0;
-	while (a < 5) {     
+	while (a < 5) { 
+                switch (a) {    
 		case 0:                    
 		case 1:
 		case 2:	a = a + 3;break；  
