@@ -381,10 +381,10 @@ public class ExtendsMethod extends Aball {
        sub2.print();
     }
 }
-**结果为：
+*结果为：
 Aball<br />
 Aball<br />
-**执行sub2.print()方法时，因为print()方法在Aball类中定义，因此Aball方法会调用在Aball类中定义的private类型的method()方法。<br />
+*执行sub2.print()方法时，因为print()方法在Aball类中定义，因此Aball方法会调用在Aball类中定义的private类型的method()方法。<br />
 把Aball类的method()方法改为public类型，期他代码不变，则运行结果为：<br />
 Aball<br />
 ExtendsMethod<br />
