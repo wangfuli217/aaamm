@@ -2347,6 +2347,57 @@ if(statusOk){//(除了statusOk的情况,剔除特定的情况)
 </pre>
 
 
+
+*在表达式中要使用括号（工号C6623 陈欢欢）
+**使用括号可以更改语句的求值顺序。一个含义不清晰的表达式，如：if（a<b==c==d）隐藏着if（a<(b==c)==d）或者if（(a<b）==(c==d）)的判断
+'''坏代码'''
+
+<pre>
+
+Java示例：括号少的表达式
+
+if（a<b==c==d）...
+</pre>
+但是下列代码很好的避开了这个问题
+'''好代码'''
+
+<pre>
+
+Java示例：括号少的表达式
+
+if（(a<b）==(c==d）)...
+</pre>
+
+
+*使用隐式方式逻辑变量（工号C6623 陈欢欢）
+**变量被new使用之后，会开辟新的栈内存，而使用隐式方式进行数值，有效的避免了这个问题，减少了所占用得内存空间
+<pre>
+   while(balance!="a")//将数和0做比较时，使用这个方式较好
+</pre>
+<pre>
+   while(charPtr!='\0')//零终止符字符和数字一样，都不是逻辑表达式。
+</pre>
+<pre>
+   while(bufferPtr!=NULL)//针对指针使用
+</pre>
+
+*a==b和a.equals(b)使用（工号C6623 陈欢欢）
+**数据在实例化的时候，往往会产生一个新的空间用于存放实例化对象
+**a==b判断的是a和b是否引用了同一个对象
+**a.equals(b)判断的是这两个对象是否具有相同的值
+<pre>
+Student a=new Student();
+Student b=new Student();
+if(a==b)//a==b用途
+</pre>
+<pre>
+String a="aaaa";
+String b="bbbb";
+if(a.equals(b))//a.equals(b)用途
+</pre>
+
+
+
 ====19.2 复合语句（语句块）       （李腾飞）====
 ====把括号对一起写出，用括号来把条件表达清楚====
 *先写块的开始和结束部分，之后填充中间部分。
@@ -2499,6 +2550,86 @@ while(!TransactionsComplete()){
 *一些专家认为，在面向对象的程序设计中出现case语句，就说明代码没有做好分解，因此实际上极少有必要使用case语句。
 *更一般的说法是，复杂的代码表明你还没有充分的理解你的程序，所以无法简化它。深层嵌套是一个警告，他告诉你要么应该拆分出一个子程序，要么应该重新设计那部分复杂的代码。
 
+
+
+
+====19.4 驯服危险的深层嵌套        （陈欢欢）====
+*通过重复检测条件中部分条件简化嵌套的if语句（工号C6623 陈欢欢）
+<pre>
+'''坏代码'''
+
+</pre>
+<pre>
+if(inputStatus==InputStatus){
+  //lots of code
+  ...
+  if(printerRoutine!=NULL){
+     //lots of code
+     ...
+     if(setPage!=NULL){
+        //lots of code
+        ...
+    }
+  }
+}
+</pre>
+<pre>
+'''好代码'''
+</pre>
+<pre>
+
+if(inputStatus==InputStatus){
+  //lots of code
+  ...
+  if(printerRoutine!=NULL){
+     //lots of code
+     ...
+     if(setPage!=NULL){
+        //lots of code
+        ...
+    }
+  }
+}
+
+if((inputStatus==InputStatus)&&(printerRoutine!=NULL)&&(setPage!=NULL)){
+  //lots of code
+  ...
+}
+</pre>
+
+*用break块简化嵌套if（工号C6623 陈欢欢）
+**break可以在语句块中间某些条件没有满足，跳转至某位时使用
+<pre>
+do{
+  if(inputStatus!=InputStatus){
+   break;//跳出代码块
+  //lots of code
+  ...
+     if(setPage!=NULL){
+       break;//跳出代码块
+     }
+     //lots of code
+     ...
+  }
+}
+</pre>
+
+*用if-then-else代替嵌套if（工号C6623 陈欢欢）
+**if-then-else比if嵌套语句更具有组织结构，因为else版本可以避免不必要的重复。
+<pre>
+'''好代码'''
+</pre>
+<pre>
+if(1000<quantity){
+   discount=0.01;
+}else if((100<quantity)&&(quantity<=1000)){
+   discount=0.05;
+}else if((10<quantity)&&(quantity<=100)){
+   discount=0.025;
+}else if(quantity<=10){
+   discount=0;
+}
+</pre>
 
 ====19.5 编程基础：结构化编程      （陈欢欢）====
 *“结构化”包括结构化分析、结构化设计以及结构化混日子
