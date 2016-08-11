@@ -213,7 +213,7 @@ If ( ! SomeTest ) {
 
 
 
-==== 判断语句if else 使用心得（C6609 黄佳欣）====
+==== 判断语句if else 使用心得（工号C6609 黄佳欣）====
 *把正常情况的处理放在if处理的后面，不要放在else的后面。这样的代码可阅读性更强。
 '''坏代码：'''
 <pre>
@@ -270,7 +270,7 @@ if（!A=B）{
 	//do nothing
 }
 </pre>
-*if语句后面请加上else，尽管这个else里可能不做处理，可能没有意义。但这是为了表明我已经考虑了else的情况。除非没有处理的情况显而易见否则请注释解释为什么没有必要做处理。
+*if语句后面一定要加else，哪怕是写一个空语句也行。
 '''坏代码：'''
 <pre>
 if（!A=B）{
@@ -286,6 +286,172 @@ if（!A=B）{
 }else{
 	//do nothing
 	//这种情况下A不赋值。
+}
+</pre>
+====if语句心得（工号C6609 黄佳欣）====
+*if语句中有多个逻辑运算的时候，每个逻辑运算都用括号括起来，这样便于代码
+阅读。
+'''坏代码：'''
+<pre>
+if（A = B && C = D）{
+	A=C+D;//A等于C+D
+}else{
+	B=C+D;//B等于C+D
+}
+</pre>
+'''好代码：'''
+<pre>
+if（（A = B ）&&（ C = D））{
+	A=C+D;//A等于C+D
+}else{
+	B=C+D;//B等于C+D
+}
+</pre>
+*if语句中有多个逻辑运算（and 和 or）的时候，使用&&和||,可以加快代码打运行
+速度。
+'''坏代码：'''
+<pre>
+if（（（A = B ）&（ C = D））| (（A = C ）&（ B = D））{
+	A=C+D;//A等于C+D
+}else{
+	B=C+D;//B等于C+D
+}
+</pre>
+'''好代码：'''
+<pre>
+if（（（A = B ）&&（ C = D））|| (（A = C ）&&（ B = D））{
+	A=C+D;//A等于C+D
+}else{
+	B=C+D;//B等于C+D
+}
+</pre>
+*使用if ...else if ...else 进行多个判断的时候，要把最常见或者最容易出现的
+情况放到最前面，以最常见或者最容易出现的情况来排顺序，做判断。
+假如 A = 1 是最多出现的最多，A = 2 是差不多出现的排第二，A = 3 是差不多出
+现的排第三。（实际上这种情况使用swith更好，在本例子中只是为了表现 if 
+语句。）
+'''坏代码：'''
+<pre>
+if（A = 3）{
+	A=A+3；//A等于A+3
+}else if（A = 1）{
+	A=A+1；//A等于A+1
+}else if（A = 2）{
+	A=A+2；//A等于A+2
+}else{
+	//do nothing
+}
+</pre>
+'''好代码：'''
+<pre>
+if（A = 1）{
+	A=A+1；//A等于A+1
+}else if（A = 2）{
+	A=A+1；//A等于A+2
+}else if（A = 3）{
+	A=A+1；//A等于A+3
+}else{
+	//do nothing
+}
+</pre>
+====case 语句的善用心得（工号C6609 黄佳欣）====
+*使用case简化对应的操作，也让代码变得更清晰。
+使用上面的例子：<br>
+'''坏代码：''
+<pre>'
+if（A = 1）{
+	A=A+1；//A等于A+1
+}else if（A = 2）{
+	A=A+1；//A等于A+2
+}else if（A = 3）{
+	A=A+1；//A等于A+3
+}else{
+	//do nothing
+}
+</pre>
+'''好代码：'''
+<pre>
+switch（A）{
+	case 1：
+	A=A+1；//A等于A+1
+	break；
+	case 2：
+	A=A+2；//A等于A+2
+	break；
+	case 3：
+	A=A+3；//A等于A+3
+	break；
+	default:
+	//do nothing
+}
+</pre>
+*不要为了使用case语句而刻意的制造一个变量。
+这是判断用户操作的代码，copy，delete，fmoat，help。
+'''坏代码：'''
+<pre>
+action = userCommand[0];
+switch(action){
+	case 'c':
+	Copy();//copy操作
+	break;
+	case 'd':
+	DeleteCharacter();//删除操作
+	break;
+	case 'f':
+	Format();//格式操作
+	break;
+	case 'h':
+	Help();//帮助
+	break;
+	default:
+	HandleUserInputError(ErrorType.InvalidUserCommand);//异常处理
+}
+</pre>
+如果用户输入了一个C开头的字符串，就会运行Copy（），但这并不是我们想要的。<br>
+'''好代码：'''
+<pre>
+if(UserCommand.equals(COMMAND_STRING_COPY)){
+	Copy;//copy操作
+}else if(UserCommand.equals(COMMAND_STRING_DELETE)){
+	DeleteCharacter();//删除操作
+}else if(UserCommand.equals(COMMAND_STRING_FORMAT)){
+	Format();//格式操作
+}else if(UserCommand.equals(COMMAND_STRING_HELP)){
+	Help();//帮助
+}else{
+	HandleUserInputError(ErrorType.InvalidUserCommand);//异常处理
+}
+</pre>
+*把default子句只用于检查真正的默认情况，不要把它作为最后一种判断情况来处理，
+这样会失去default子句检测错误的能力。<br>
+假如A只能等于1，2，3 的情况：<br>
+'''坏代码：'''
+<pre>
+switch（A）{
+	case 1：
+	A=A+1；//A等于A+1
+	break；
+	case 2：
+	A=A+2；//A等于A+2
+	break；
+	default:
+	A=A+3；//A等于A+3
+}
+</pre>
+'''好代码：'''
+<pre>
+switch（A）{
+	case 1：
+	A=A+1；//A等于A+1
+	break；
+	case 2：
+	A=A+2；//A等于A+2
+	break；
+	case 3：
+	A=A+3；//A等于A+3
+	break；
+	default:
+	DisplayInternalError("出现错误");//异常处理
 }
 </pre>
 =====简单if-then语句(c6618 陈渊)=====
@@ -2008,7 +2174,7 @@ End While
 *表驱动法比前面两种方法都要方便、经济。其中的消息子程序由循环组成，它负责读入消息头,再对ID解码，一种表就可以描述每种消息的格式，无须修改代码就可以轻松的进行维护。
 
 
-====表驱动心得（C6609 黄佳欣）====
+====表驱动心得（工号C6609 黄佳欣）====
 
 
 '''表驱动方法'''
@@ -2053,7 +2219,7 @@ days=daysPerMonth(month-1)
 写到特定的类里，每一个逻辑判断的想定结果都作为一个子程序。
 这样就减少了错误，使代码更加清晰。
 
-====18.3 索引访问表              （黄佳欣）====
+====18.3 索引访问表              （工号C6609 黄佳欣）====
 ====索引访问表心得====
 *数据库检索方法索引访问介绍：
 '''坏方法：'''<br>
@@ -2081,7 +2247,7 @@ SELECT NAME FROM TABLE_TEST WHERE ID = '10000';。<br>
 中的记录更方便更廉价
 *编写到表里的数据比嵌入代码的数据更容易维护。
 
-====18.4 阶梯访问表              （黄佳欣）====
+====18.4 阶梯访问表              （工号C6609 黄佳欣）====
 ====阶梯访问表心得====
 *基本思想：对数据进行区间划分，再该区间内的是一类数据，然后在该区间
 内找到这个数据。
