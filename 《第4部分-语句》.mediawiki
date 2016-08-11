@@ -2007,45 +2007,6 @@ End While
 '''好方法：'''<br>
 *表驱动法比前面两种方法都要方便、经济。其中的消息子程序由循环组成，它负责读入消息头,再对ID解码，一种表就可以描述每种消息的格式，无须修改代码就可以轻松的进行维护。
 
-=====表驱动法定义消息数据类型(C6632梁运)=====
-*在【基于逻辑的方法】和【面向对象的方法劣势】的心得部分，已经分析表驱动法比这两种方法都经济的原因，接下来最重要的是学会如何使用这种好方法:
-*我们需要先列出消息的种类和字段类型。在C++中，可以按照下面的方法来定义所有可能的字段类型：
-''' C++代码示例'''
-<pre>
-enum FieldType 
-{
- FieldType_FloatingPoin,
- FieldType_Integer,
- FieldType_String,
- FieldType_TimeOfDay,
- FieldType_Boolean,
- FieldType_BitField,
- FieldType_Last = FieldType_BitField
-};
-</pre>
-*上面这段代码就是定义消息数据类型的方法，我们不需要再为多种消息中的每一种硬编码打印子程序。
-*我们只需要创建少数几个子程序，分别负责打印每一种基本数据类型就可以了。这样可以更直观的看出这种方法的便捷性。
-
-=====定义消息表中的一项的方法(C6632梁运)=====
-*我们可以把每种消息的内容描述放在一张表里，包括每个字段的名称啊之类的，然后再根据表中的描述来分别解释每一消息。
-*可以参考下面的用于描述一种消息的表记录的示例：
-'''代码示例'''
-<pre>
-Message Begin
-   NumFields 5
-   MessageName "Buoy Temperature Message"
-   Field 1, FloatingPonit, "Average Temperature"
-   Field 2, FloatingPoint, "Temperature Range"
-   Field 3, Integer, "Number of Samples"
-   Field 4, String, "Location"
-   Field 5, TimeOfDay, "Time of Measurement"
-Message End
-</pre>
-*我们既可以把表硬编码在程序里，也可以在程序启动时或者随后从文件中读出。
-
-=====表驱动法优点小结(C6632梁运)=====
-*当我们把消息定义读入程序，我们就能把所有的消息嵌入在数据里面，而不用嵌入在程序的逻辑里面了。
-*数据要比逻辑更加灵活。因为当消息格式改变的时候，修改数据是很容易的。如果必须要新增一种消息类型，那么只须往数据表里再增加一项元素就可以。
 
 ====表驱动心得（C6609 黄佳欣）====
 
