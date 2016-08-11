@@ -489,41 +489,6 @@ End Type
     }        
  } 
 
-----
-====12.3浮点数 （徐钰颖）====
-使用浮点数时应遵循的指导原则
-*避免数量级相差巨大的数之间的加减运算。32位浮点数，1000000.00+0.1可能会得到1000000.00，因为32位不能给你足够的有效位数包容。怎么解决呢，就是先从最小值开始相加，这样做并不能消除舍入问题，但是能使影响减少到最低。
-*避免等量判断。很多相等的浮点数值并不一定相等，用不同方法求同一数值结果不一定相同。
-坏代码
-  double nominal =1.0；//变量nominal是个64位实数
-  double sum =0.0；
-  for （int i =0；i <10；i++ ） {
-  sum +=0.1；//sum是10*0.1，应当等于1.0
-  }
-  if（nomainal == sum）{//这是错误的比较
-  System.out.println(“Numbers are the same.”）；
-  }
-  else{
-  System.out.println(“Numbers are different.”）；
-  }
-结果是Numbers are different.
-好代码
-  final double ACCEPTABLE_DELTA =0.00001；
-  boolean Equals(double Term1,double Term2){
-  if (Math.abs(Term1-Term2)<ACCEPTABLE_DELTA){
-  return true;
-  }
-  else{
-  return false；
-  }
-  }
-结果是Numbers are the same.
-*处理舍入误差问题。
-1换用精准度更高的变量类型。<br>
-2换用二进制编码的十进制变量。<br>
-3把浮点变量变成整型变量。
-
-----
 ====12.4字符和字符串（钟红飞）====
 *避免使用“神秘数值(magic number）
 **神秘数值是在程序中出现的并且没有经过解释的数值文字量。如果你使用的编程语言支持具名常量，那么就用它来代替神秘数值，如果你无法使用具名常量，在可行的情况下应该使用全局变量。避免使用神秘数值，可以增强代码的可读性，并且使修改变得更容易，更可靠。
@@ -578,7 +543,41 @@ chrCharArray chrCharArray = strStringType.toCharArray(); //将字符串变量转
 **strcmp: 用于比较两个字符串，原型如下：
 int strcmp ( char const *s1, char const *s2）；
 如果s1小于s2，strcmp函数返回一个小于零的值。如果s1大于s2，函数返回一个大于零的值。如果两个字符串相等，函数就返回零。
+----
+====12.3浮点数 （徐钰颖）====
+使用浮点数时应遵循的指导原则
+*避免数量级相差巨大的数之间的加减运算。32位浮点数，1000000.00+0.1可能会得到1000000.00，因为32位不能给你足够的有效位数包容。怎么解决呢，就是先从最小值开始相加，这样做并不能消除舍入问题，但是能使影响减少到最低。
+*避免等量判断。很多相等的浮点数值并不一定相等，用不同方法求同一数值结果不一定相同。
+坏代码
+  double nominal =1.0；//变量nominal是个64位实数
+  double sum =0.0；
+  for （int i =0；i <10；i++ ） {
+  sum +=0.1；//sum是10*0.1，应当等于1.0
+  }
+  if（nomainal == sum）{//这是错误的比较
+  System.out.println(“Numbers are the same.”）；
+  }
+  else{
+  System.out.println(“Numbers are different.”）；
+  }
+结果是Numbers are different.
+好代码
+  final double ACCEPTABLE_DELTA =0.00001；
+  boolean Equals(double Term1,double Term2){
+  if (Math.abs(Term1-Term2)<ACCEPTABLE_DELTA){
+  return true;
+  }
+  else{
+  return false；
+  }
+  }
+结果是Numbers are the same.
+*处理舍入误差问题。
+1换用精准度更高的变量类型。<br>
+2换用二进制编码的十进制变量。<br>
+3把浮点变量变成整型变量。
 
+----
 
 
 ====12.5 布尔变量 （邵志超）====
