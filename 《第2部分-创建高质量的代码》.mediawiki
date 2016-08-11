@@ -355,7 +355,7 @@ public class ExtendsMethod extends Aball {
        return i;
     }
 }  
- *2）父类的私有方法不能被子类覆盖。<br />
+*2）父类的私有方法不能被子类覆盖。<br />
 class Aball {
     Aball() {
     }
@@ -387,7 +387,7 @@ Aball
 Aball
 ExtendsMethod
 原因是由于ExtendsMethod中的method()方法覆盖了Aball类中的method()方法，执行sub2.print()时，JVM会调用当前ExtendsMethod实例的method()方法。<br />
- *3）父类的抽象方法可以被子类通过两种途径覆盖：一是子类实现父类的抽象方法；二是子类重新声明父类的抽象方法。<br />
+*3）父类的抽象方法可以被子类通过两种途径覆盖：一是子类实现父类的抽象方法；二是子类重新声明父类的抽象方法。<br />
 abstract class Aball {
     Aball() {
     }
