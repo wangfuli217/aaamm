@@ -482,9 +482,13 @@ End Type
 *检查中间结果的溢出，就是检查每个整数的最大值，就比如A*B/C,如果A和B都是最大值，A*B的结果就已经溢出了，从而导致结果也是错误的。
 
 ====12.2整数 （肖秀丽）====
+
 整数的除法不能简单相除
+
 *1例：7/10≠0.7而是等于0，或者等于负无穷大，结果随语言的不同而不同，导致程序出错
+
 '''使用接近被除数的方法处理整数相除问题'''
+
 public class MyInt {  
     private static boolean INVALID_INPUT;     
       public static void main(String[] args) {         
@@ -516,7 +520,9 @@ public class MyInt {  
           }  
           return result;  
       }  
+
 '''使用二分查找的方法处理整数相除问题'''
+
 public static int int02(int x, int y) {  
      if (!(x > 0 && y > 0 && x >= y)) {  
             INVALID_INPUT = true;  
