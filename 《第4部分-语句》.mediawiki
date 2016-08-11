@@ -886,8 +886,35 @@ do {
     ...
 } while (node -> Next != NULL);
 </pre>
-=====考虑在while循环中使用break语句而不用布尔标记。（工号C6621 徐杰）=====
-=====小心那些有很多break散步其中的循环。（工号C6621 徐杰）=====
+=====在while循环中尽量使用break语句退出循环而不用布尔标记。（工号C6621 徐杰）=====
+*'''坏代码'''
+<pre>
+boolean flag=true;//定义布尔变量
+int a[]={11,1,3,10,5};
+int i=0;
+while(flag) {
+     if(a[i]<10){
+     flag=false;
+     System.out.println(a[i]+"程序中止！");
+     }else{
+     i++;     
+     flag=true; //多层次，使循环复杂难理解
+     }
+}
+</pre>
+*'''好代码'''
+<pre>
+int a[]={11,1,3,10,5};
+while(i<6) {
+	if(a[i]<10){
+             break;//简化循环控制
+	     i++;
+        }
+}
+System.out.println(a[i]+"程序中止！");
+</pre>
+=====不要用有很多break的循环。（工号C6621 徐杰）=====
+*大量使用break的循环，可以更换成用一系列的循环来表达，更清晰。
 *'''坏代码'''
 <pre>
 do { 
@@ -896,7 +923,7 @@ do {
        ...
        if () {
            ...
-            break;
+            break; //break退出if把switch也退出了
            ...
        }
        ...
@@ -922,7 +949,7 @@ do {
        CALL_CENTER_DOWN:
        if () {
            ...
-            break CALL_CENTER_DOWN;
+            break CALL_CENTER_DOWN; //这里的标号使得break语句的退出一目了然
            ...
        }
        ...
