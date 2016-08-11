@@ -462,18 +462,18 @@ End Type
 
 ====12.5布尔变量（钟红飞）====
 *如何将布尔变量转换为字符串变量？
-**第一种方法是：
+*第一种方法是：
    boolean bool = true;
    String s = new Boolean(bool).toString();//将bool利用对象封装器转化为对象
    s.equals("true");
    其中，toString方法是一个继承方法。java中所有的类都是object的继承，object的一个重要方法就是toString，用于将对象转化为字符串。
-**第二种方法是：
+*第二种方法是：
    boolean bool = true;
    String s = String.valueOf( bool );
 *strcmp返回值布尔类型的判断?
 **strcmp: 用于比较两个字符串，原型如下：
-  int strcmp ( char const *s1, char const *s2）；
-  如果s1小于s2，strcmp函数返回一个小于零的值。如果s1大于s2，函数返回一个大于零的值。如果两个字符串相等，函数就返回零。
+   int strcmp ( char const *s1, char const *s2）；
+   如果s1小于s2，strcmp函数返回一个小于零的值。如果s1大于s2，函数返回一个大于零的值。如果两个字符串相等，函数就返回零。
 
 ====12.2整数 （徐钰颖）====
 在用整数的时候要注意以下三点。
