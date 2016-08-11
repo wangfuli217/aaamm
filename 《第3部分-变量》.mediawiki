@@ -424,40 +424,40 @@ End Type
 *1例：7/10≠0.7
 而是等于0，或者等于负无穷大，结果随语言的不同而不同，导致程序出错
 
-'''''使用接近被除数的方法处理整数相除问题'''''
+'''使用接近被除数的方法处理整数相除问题'''
  public class MyInt {  
-  private static boolean INVALID_INPUT;     
-    public static void main(String[] args) {         
-        int x=24;  
-        for(int y=1;y<=x;y++){  
-            System.out.printf("%d/%d=%d%n", x,y,int01(x,y));  
-            System.out.printf("%d/%d=%d%n", x,y,int02(x,y));  
-        }  
-    }    
-    public static int int01(int x, int y) {  
-        if (!(x > 0 && y > 0 && x >= y)) {  
-            INVALID_INPUT = true;  
-            return -1;  
-        }  
-        int result = 0;  
-        while (x >= y) {  
-            int f = 1;  
-            /* 
-             * may overflow,change it to (y*f)<=(x/2)  
-             while (y * f * 2 <= x) { 
-                f = f * 2;  
-             } 
-             */  
-            while (y * f <= (x >> 1)) {  
-                f = f * 2;  
-            }  
-            result += f;  
-            x -= f * y;  
-        }  
-        return result;  
-    }  
+   private static boolean INVALID_INPUT;     
+     public static void main(String[] args) {         
+         int x=24;  
+         for(int y=1;y<=x;y++){  
+             System.out.printf("%d/%d=%d%n", x,y,int01(x,y));  
+             System.out.printf("%d/%d=%d%n", x,y,int02(x,y));  
+         }  
+     }    
+     public static int int01(int x, int y) {  
+         if (!(x > 0 && y > 0 && x >= y)) {  
+             INVALID_INPUT = true;  
+             return -1;  
+         }  
+         int result = 0;  
+         while (x >= y) {  
+             int f = 1;  
+             /* 
+              * may overflow,change it to (y*f)<=(x/2)  
+              while (y * f * 2 <= x) { 
+                 f = f * 2;  
+              } 
+              */  
+             while (y * f <= (x >> 1)) {  
+                 f = f * 2;  
+             }  
+             result += f;  
+             x -= f * y;  
+         }  
+         return result;  
+     }  
 
-'''''使用二分查找的方法处理整数相除问题'''''
+'''使用二分查找的方法处理整数相除问题'''
  public static int int02(int x, int y) {  
      if (!(x > 0 && y > 0 && x >= y)) {  
             INVALID_INPUT = true;  
@@ -574,6 +574,7 @@ trim()是去掉首尾空格。
 <br/>
 
 ====12.5布尔变量（葛川川）====
+
 *布尔判断要使目的明确
 '''目的不明确的布尔判断'''
 	 if（（elementIndex<0）丨丨（MAX_ELEMENTS<elementIndex）丨丨（elementIndex==lastElementIndex））
@@ -583,6 +584,7 @@ trim()是去掉首尾空格。
  	if(finished丨丨repeatedEntry)
  {。。。}
 目的明确的布尔判断使得if判断的对象更加明确了<br/>
+
 *程序中布尔类型的使用心得
 **java 有一种表示逻辑值的简单类型，称为布尔型。它的值只能是真或假这两个值中的一个。
 '''示例'''
@@ -606,11 +608,14 @@ trim()是去掉首尾空格。
  b is true 
  This is executed. 
  10 > 9 is true 
+
 *当用方法println ( ) 输出布尔的值时，显示的是“true ”或“false”。
 *布尔变量的值本身就足以用来控制if语句。没有必要将if语句写成像下面这样： if(b == true) 
 *关系运算符（例如<）的结果是布尔值。这就是为什么表达式10>9 的显示值是“true”。此外，在表达式10>9 的两边额外的加上括号是因为加号“+”运算符比运算符“>”的优先级要高。
 *JAVA布尔类型进行逻辑运算和按位运算的区别
+
 从结果上，2种运算结果都是一样，但逻辑运算会有“短路”现象，按位的没有，而按位又比逻辑运算多了“异或”功能。
+
 '''短路现象'''
  class br {
    static boolean f1() {
