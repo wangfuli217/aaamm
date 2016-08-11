@@ -898,7 +898,35 @@ do {
 #用整数或者枚举类型表示数组和循环边界。
 #在嵌套循环中使用有意义的变量名来提高可读性。
 #用有意义的名字来避免循环下标串话。
-#把循环下标变量的作用域限制在本循环内
+<pre>
+for ( i = 0; i < numPayCodes; i++) { 
+    // lots of code
+    ...
+    for ( j = 0; j <12; j++) {
+        // lots of code
+        ...
+        for ( i = 0; i < numDivisions; i++) { 
+       CALL_CENTER_DOWN:
+       sum = sum + transaction[j][i][k]
+       }
+     }
+}
+</pre>
+#把循环下标变量的作用域限制在本循环内<pre>
+for ( int recordCount = 0; recordCount < MAX_RECORDS;recordCount++ ) { 
+        // looping code that uses recordCount
+}
+</pre>
+<pre>
+for ( int recordCount = 0; recordCount < MAX_RECORDS;recordCount++ ) { 
+        // looping code that uses recordCount
+}
+// intervening code
+for ( int recordCount = 0; recordCount < MAX_RECORDS;recordCount++ ) { 
+        // additional looping code that uses a different recordCount
+}
+</pre>
+
 =====把初始化代码紧放在循环前面         （C6620 刘思）=====
 一旦把循环放到更大的循环中，会忘记移动或复制初始化代码，修改的时候可能忽略造成不正确的修改。
 *把循环初始化语句和它相关循环放一起，运用或修改的时候容易避免出错。
