@@ -2466,49 +2466,55 @@ if(statusOk){//(除了statusOk的情况,剔除特定的情况)
 
 
 *在表达式中要使用括号（工号C6623 陈欢欢）
-**使用括号可以更改语句的求值顺序。一个含义不清晰的表达式，如：if（a<b==c==d）隐藏着if（a<(b==c)==d）或者if（(a<b）==(c==d）)的判断
-<pre>
+**使用括号可以更改语句的求值顺序。一个含义不清晰的表达式，如：if（a&lt;b==c==d）隐藏着if（&lt;(b==c)==d）或者if（(a&lt;b）==(c==d）)的判断
 '''坏代码'''
-</pre>
 <pre>
 Java示例：括号少的表达式
-if（a<b==c==d）...
+if（a<b==c==d）{
+  //do something
+  ...
+}
 </pre>
-但是下列代码很好的避开了这个问题
-<pre>
 '''好代码'''
-</pre>
 <pre>
 Java示例：括号少的表达式
-if（(a&ltb）==(c==d）)...
+if（(a<b）==(c==d）) {
+  //do something
+  ...
+}
 </pre>
 
 
 *使用隐式方式逻辑变量（工号C6623 陈欢欢）
-**变量被new使用之后，会开辟新的栈内存，而使用隐式方式进行数值，有效的避免了这个问题，减少了所占用得内存空间
+**变量被new使用之后，会开辟新的栈内存，而使用隐式方式进行数值，有效的避免了这个问题，减少了所占用得内存空间<br>
+将数和0做比较时，使用这个方式较好
 <pre>
-   while(balance!="a")//将数和0做比较时，使用这个方式较好
+   while(balance!="a")
 </pre>
+零终止符字符和数字一样，都不是逻辑表达式。
 <pre>
-   while(charPtr!='\0')//零终止符字符和数字一样，都不是逻辑表达式。
+   while(charPtr!='\0')
 </pre>
+针对指针使用
 <pre>
-   while(bufferPtr!=NULL)//针对指针使用
+   while(bufferPtr!=NULL)
 </pre>
 
 *a==b和a.equals(b)使用（工号C6623 陈欢欢）
 **数据在实例化的时候，往往会产生一个新的空间用于存放实例化对象
 **a==b判断的是a和b是否引用了同一个对象
-**a.equals(b)判断的是这两个对象是否具有相同的值
+**a.equals(b)判断的是这两个对象是否具有相同的值<br>
+a==b用途
 <pre>
 Student a=new Student();
 Student b=new Student();
-if(a==b)//a==b用途
+if(a==b)
 </pre>
+a.equals(b)用途
 <pre>
 String a="aaaa";
 String b="bbbb";
-if(a.equals(b))//a.equals(b)用途
+if(a.equals(b))
 </pre>
 
 
@@ -2670,10 +2676,7 @@ while(!TransactionsComplete()){
 
 ====19.4 驯服危险的深层嵌套        （陈欢欢）====
 *通过重复检测条件中部分条件简化嵌套的if语句（工号C6623 陈欢欢）
-<pre>
 '''坏代码'''
-
-</pre>
 <pre>
 if(inputStatus==InputStatus){
   //lots of code
@@ -2688,9 +2691,7 @@ if(inputStatus==InputStatus){
   }
 }
 </pre>
-<pre>
 '''好代码'''
-</pre>
 <pre>
 
 if(inputStatus==InputStatus){
@@ -2731,21 +2732,18 @@ do{
 
 *用if-then-else代替嵌套if（工号C6623 陈欢欢）
 **if-then-else比if嵌套语句更具有组织结构，因为else版本可以避免不必要的重复。
-<pre>
 '''好代码'''
-</pre>
 <pre>
 if(1000<quantity){
    discount=0.01;
-}else if((100&ltquantity)&&(quantity&lt=1000)){
+}else if((100<quantity)&&(quantity<=1000)){
    discount=0.05;
-}else if((10&ltquantity)&&(quantity&lt=100)){
+}else if((10<quantity)&&(quantity<=100)){
    discount=0.025;
-}else if(quantity&lt=10){
+}else if(quantity<=10){
    discount=0;
 }
 </pre>
-
 ====19.5 编程基础：结构化编程      （陈欢欢）====
 *“结构化”包括结构化分析、结构化设计以及结构化混日子
 **'''*除了都创建于“结构化”被广泛推崇的时代之外，这些状态各异的结构化方法学之间并没有多少相互联系'''
