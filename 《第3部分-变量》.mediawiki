@@ -548,17 +548,6 @@ char str[ ]="I am happy";
           char* str="I love China";
 对于第二种表示方法，有人认为str是一个字符串变量，以为定义时把字符串常量"I love China"直接赋给该字符串变量，这是不对的。
 
-
-====12.5布尔变量 （李勇）====
-*布尔型（Boolean）是一种数据的类型，只有两种值，即"真"与"假".它们只用于存放布尔值（ture或false） 例如，VAR A，B：BOOLEAN；
-*你在创建了布尔变量之后，可在判断语句中得到简化，明了。
-如：A=(（elementIndex<0）||(M_ELEMENTS<elementIndex));
-B=(elementIndex==lastelementIndex);
-if(A||B){...}
-*对于复杂的命题，我们可以用布尔表达式来表示。例如，命题："m,n都是偶数或都是奇数"可表示为"(m mod 2=0)and(n mod 2=0) or (m mod 2=1)and(n mod 2=1)"。
-*另外，需要的话，可以创建自己的布尔类型。如：变量声明为BOOLEAN而非int，可以直观的体现出你的程序用意。
-
-
 ====12.5 布尔变量 （邵志超）====
 布尔变量一般使用时都是周围存在判断的时候，换言之将逻辑判断的结果以更加直观可找的某个字段来展现。
 //复杂的
