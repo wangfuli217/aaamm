@@ -238,7 +238,89 @@
  } 
 *避免继承体系过深
 **大多数人在脑中应付两到三层的继承时就会出现麻烦，混淆数据类型等。所以应该尽量把继承的深度控制在五层以内。
-
+*什么是构造函数？
+**构造函数是其主要功能是用来在创建对象时初始化对象， 即为对象成员变量赋初始值，总与new运算符一起使用。在java中一般被称为构造器，有时也称为构造方法。
+**构造器使用的注意点：
+***构造器必须与类同名（如果一个源文件中有多个类，那么构造器必须与公共类同名）；
+***每个类可以有一个以上的构造器；
+***构造器可以有0个、1个或1个以上的参数；
+***构造器没有返回值。
+*如何使用构造器：
+ public class A{  
+     public A(){  
+        System.out.println("调用了无参的构造函数");
+   }  
+     public A(String mess){  
+        System.out.println("调用了有参的构造函数\n"+  
+           "参数内容为："+mess);  
+   }  
+ }  
+ public class Test{  
+     public static void main(String [] args){  
+        A a_1=new A();//调用无参的构造函数  
+        A a_2=new A("Hello");//调用有参的构造函数  
+    }  
+ }
+*用私用构造函数去实现单件。
+**单件就是一个类在它的作用域内,能且只能生成一个对象,并且所有用它定义的对象都是操作那这一个对象!
+**如果可能，应该在所有构造器中初始化所有的数据成员。
+*实例：
+ class testSingleton{
+     static testSingleton instance;//类的单例
+     private testSingleton{};//私有的构造函数
+     public static testSingleton getInstance()//返回 单例
+   {
+        if(instance == null)
+        instance = new testSingleton();
+        return instance;
+    }
+ }
+*继承如何和构造函数一起使用
+**使用super调用父类构造函数的语句必须是子类构造函数的第一条语句。
+**如果子类构造器没有显式地调用父类的构造器，则将自动调用父类的默认（没有参数）的构造器。如果同时父类没有不带参数的构造器，则java编译器将会报错。
+**以上两点要在同时使用继承和构造函数时特别注意。
+*正确代码:()
+ public class A{  
+     public A(){  
+        System.out.println("调用了A的无参构造函数");  
+     }  
+     public A(String mess){  
+        System.out.println("调用了A的有参的构造函数\n"+  
+           "参数内容为："+mess);  
+     }  
+ }  
+ public class B extends A{  
+     public B(){  
+        System.out.println("调用了B的无参构造函数");  
+     }  
+     public B(String mess){  
+        super(mess);  
+        System.out.println("调用了B的有参构造函数\n"+  
+           "参数内容为："+mess);  
+     }  
+ }
+ public class B extends A{  
+     public B(){  
+        System.out.println("调用了B的无参构造函数");  
+     }  
+     public B(String mess){  
+        super(mess);  
+        System.out.println("调用了B的有参构造函数\n"+  
+           "参数内容为："+mess);  
+     }  
+ }  
+*代码输出结果：
+ 调用了A的无参构造函数
+ 调用了B的无参构造函数
+ 调用了A的有参的构造函数
+ 参数内容为：你好
+ 调用了B的有参构造函数
+ 参数内容为：你好
+*优先采用深层复本
+**复本的动机是为了改善性能，再设计复杂对象时要优先采用深层复本，除非论证可行之后，才能采用浅层复本（以下第四点说明理由）。
+**Java对象的'''浅层复本'''是指Java对象A本身被clone成新对象B,但A的属性没有被clone处理，只是把A的各个属性所指的对象赋值到B对应的属性上，A与B的相同属性都引用到同一个对象。
+**Java对象的'''深层复本'''是指Java对象A本身被clone成新对象B，同时A的属性也是被clone成新对象，赋值到A的各个属性上去，A与B的相同属性都引用到不同的对象； 
+**如果Java对象的属性都是只读类的话，如原始数据类型、数据封装类、String、BigDecimal、BigInteger等，那么浅层复制与深层复制达到的效果是一样的。如果属性有Date或其他自定的数据类，那么线层复制，B的修改可能导致A的改变。数据就串了。
 ====6.4-6.5（陶晓鸣）====
 ====6.4创建类的原因（C6514 陶晓鸣）====
 *学习编码这么久，对于创建类大家应该都很熟悉，但是有没有想过我们为什么要创建类？或者说我们在什么情况下要创建类？下面我们说说创建类的几点原因：<br />
