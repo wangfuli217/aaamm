@@ -1010,6 +1010,165 @@ Debug.Assert(actionPerformed) ' Couldn't perform action
 **序列型数据翻译为程序中的顺序语句（序列型数据：一些按照特定顺序使用数据的数据组成。顺序语句：如果你在一行中写有五条语句，每条语句都负责处理一想不同的数据）
 **选择型数据翻译为程序中的if和case语句
 **迭代型数据翻译成程序中的for,repeat,while等循环结构
+---------------------------------------------------------------------------------------------------------------------
+===组织直线型代码（工号C6518 戎祥）===
+====14.1 必须有明确顺序的语句心得（工号C6518 戎祥）====
+*最容易组织的连续语句是那些顺序相关的语句，举个Java例子：
+ data = ReadData();
+ results = CalculateResultsFromData (data);
+ PrintResults(results);    //java中代码是逐行执行的除非发生一些调用事件。
+*设法组织代码，使依赖关系变得非常明显
+*使子程序能够凸显依赖关系
+*利用子程序参数明确显示依赖关系
+ 举个VB的例子：
+ InitializeExpenseData(expenseData)
+ ComputeMarketingExpense(expenseData)
+ ComputeSalesExpense(expenseData)
+ ComputeTravelExpense(expenseData)
+ ComputePersonnelExpense(expenseData)
+ DisplayExpenseSunmmary(expenseData)  //由于所有的子程序都使用了expenseData，你会收到提示它们可能操作了相同的操作，顺序是很   重要的
+*用注释对不清晰的依赖关系进行说明
+*用断言或者错误处理代码来检查依赖关系
+-----------------------------------------------------------------------------------------------------------------
+====14.2 顺序无关的语句心得（工号C6518 戎祥）====
+在coding中你会发现，即代码中若干语句或语句块的先后顺序看上去完全没有关系但是顺序的确对可读性性能和可维护性有影响
+*是代码易于自上而下地阅读
+**总所周知，Java中要让程序易于自上而下阅读，而不是跳着去看，举个C的例子：
+ 坏的例子：
+ MarketingData marketingData;
+ SalesData salesData;
+ TravelData travelData;
+
+ travelData.ComputerQuarterly();
+ salesData.ComputeQuarterly();
+ marketingData.ComputeQuarterly();
+
+ salesData.ComputerAnnual();
+ marketingData .ComputerAnnual();
+ travelData.ComputerAnnual();
+
+ salesData.Print();
+ marketingData .Print();
+ travelData.Print();        //跳来跳去的显得很乱
+*把相关的语句组织在一起
+**把相关的语句组织在一起（相关是指他们处理了相同的数据执行了相似的任务）
+*总结一下要点：
+**组织直线型代码的最主要原则是按照依赖关系进行排列
+**可以用好的子程序名，参数列表，注释
+**如果代码之间没有顺序以来关系，那就设法是相关的语句尽可能的接近
+-----------------------------------------------------------------------------------------------------------------
+====15.1 if语句心得（工号C6518 戎祥）====
+*if语句我想对于程序员来说既爱又恨的一个角色，下面我介绍几种循环语句：
+**举个if-else语句例子
+ int i = 5;
+ if(i==4){   //判断是否为4
+ System.out.println(“这个数是:4”)；  //如果是，输出结果。
+ }else{
+ System.out.println(“这个数是:”+i)；  //如果不是，输出这个数。
+ }
+**if-then语句
+ If ActiveCell.Value >50 Then 
+ MsgBox "The exact value is " & ActiveCell.Value 
+ Debug.Print ActiveCell.Adress & ": " & ActiveCell.Value 
+ End If
+*其他的循环句式
+**例如：do-while,for,foreach
+ 递增
+ for (int i = 0; i < 100; i++)
+ {
+    Console.WriteLine(i);
+ }
+ 递减
+ for (int i = 100; i > 0 ; i--)
+ {
+ Console.WriteLine(i);
+  }
+----------------------------------------------------------------------------------------------------------------
+====16.1 选择循环的种类（工号C6518 戎祥）====
+*循环的种类：
+**计数循环执行的次数是一定的，可能是针对每位用户执行一次。
+**连续求值循环，预先并不知道将要执行多少次，他会在每次迭代时检查是否应该结束。
+**无限循环一旦启动就会一直执行下去。
+**迭代器循环（对容器中的每一个元素执行一次操作）
+*什么时候使用while循环
+**检测位于循环开始
+**检测位于循环的结尾
+ 举个例子：
+ public class ILoveU{
+    public static void main(String[] args) {
+        int i =1;
+        while(i<=1000) {
+            System.out.println("我爱苏州");
+            i++;
+        }
+    }
+ }
+*何时用for循环
+**我觉得应该是需要循环的数据有具体的条数，或者有明确的需要循环的次数的情况，举个例子：
+ void main()
+ {
+ //计算1-2+3-4....-100的和
+ int i,a,sum;
+ sum=0;
+ a=-1;
+ for(i=1;i<=100;i++)
+ a=-a; 
+ sum=i*a+sum;
+ printf("%d",sum);
+ }
+------------------------------------------------------------------------------------------------------------------
+====17 子程序中的多处返回（工号C6518 戎祥）====
+*程序可以通过return和exit这类控制结构，在任何时候退出子程序
+**如果能增强可读性，那么就使用return
+ public void f(){
+      for(int i=0;;i++){
+         if(i==3){
+            return;
+         }else{
+             System.out.println(i);
+         }
+      }
+   }
+*用防子句来简化复杂的错误处理
+*减少每个子程序中的return数量
+-------------------------------------------------------------------------------------------------------------------
+====递归的心得（工号C6518 戎祥）====
+*递归是一种编程技术，它利用一个方法调用自身来满足其整个作用
+ 举个例子:
+   int add(int);
+      main(){
+        int num=1,sn;
+        sn=add(num);
+        printf("%d/n",sn);
+        getch();
+         }
+   int add(int num)
+         {
+             static int sn;
+             sn+=num;
+             if(num==100) return sn;
+             add(++num);
+         }       //这是大学时候学的时候一个例子求1+2+……+100的和
+*递归一般用于解决这几种问题：
+**数据的定义是按递归定义的。（Fibonacci函数）
+**问题解法按递归算法实现。这类问题虽则本身没有明显的递归结构，但用递归求解比迭代求解更简单，如Hanoi问题。
+**数据的结构形式是按递归定义的。
+*使用递归的技巧：
+**确认递归能够停止
+**使用安全计数器防止出现无穷递归
+ static void Main(string[] args)
+        {
+            A(0);
+        }
+        static void A(int a)
+        {
+            Console.WriteLine(a);
+            if (true)
+            {
+                A(++a);//Recurse
+            }
+        }
+**把递归限制在一个子程序内
 
 ====8.4-8.5（李婷婷）====
 ----
