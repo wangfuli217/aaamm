@@ -1193,3 +1193,78 @@ char *（*pr）； *pr是一个存储的值为指针的变量，pr就是存储�
 *为全局数据准备一份注释详细的清单来进行全局数据的统计。
 *不要用全局数据来存放中间值，需要改变值时，在修改后重新赋值给全局数据。
 *不要通过大对象存储全局数据的方式来进行传递，浪费内存空间。
+
+====15.1 if语句（工号C6427 肖秀丽）====
+
+if语句一般有三种基本形式，其它扩展形式，也是以下面三种形式为基础，个人活学活用而已。
+　　*if……形式
+　　一般格式：if(表达式) 语句;
+　　语义是：如果表达式的值为真，则执行其后的语句，否则不执行该语句。语句可以是单条语句，也可以是用花括号{}包括起来的复合语句。示例如下：
+    #include <stdio.h>
+　　int main(){
+　　int a,b,max;
+　　printf("\n input two numbers: ");
+　　scanf("%d%d",&a,&b);
+　　max=a;
+　　if (max<b) max=b;
+　　printf("max=%d\n",max);
+　　return 0;
+　　}
+
+　　*if……else形式
+　　一般格式：
+　　if(表达式)
+　　语句1;
+　　else
+　　语句2;
+
+　　语义是：如果表达式的值为真，则执行语句1，否则执行语句2 。语句1和语句2可以是复合语句。
+　　示例如下:
+　
+　#include <stdio.h>
+　　int main(){
+　　int a, b;
+　　printf("input two numbers: ");
+　　scanf("%d%d",&a,&b);
+　　if(a>b)
+　　printf("max=%d\n",a);
+　　else
+　　printf("max=%d\n",b);
+　　return 0;
+　　}
+
+　　*if……else……if形式
+　　一般形式为：
+　　if(表达式1)
+　　语句1;
+　　else if(表达式2)
+　　语句2;
+　　else if(表达式3)
+　　语句3;
+　　…
+　　else if(表达式m)
+　　语句m;
+　　else
+　　语句n;
+　　语义是：依次判断表达式的值，当出现某个值为真时，则执行其对应的语句。然后跳到整个if语句之外继续执行程序。 如果所有的表达式均为假，则执行语句n。然后继续执行后续程序。示例如下：
+　　
+    #include <stdio.h>
+　　int main(){
+　　char c;
+　　printf("input a character: ");
+　　c=getchar();
+　　if(c<32)
+　　printf("This is a control character\n");
+　　else if(c>='0'&&c<='9')
+　　printf("This is a digit\n");
+　　else if(c>='A'&&c<='Z')
+　　printf("This is a capital letter\n");
+　　else if(c>='a'&&c<='z')
+　　printf("This is a small letter\n");
+　　else
+　　printf("This is an other character\n");
+　　return 0;
+　　}
+
+　　*扩展形式
+　　if条件控制语句的形式是多种多样的。比如if嵌套、if……if类似的形式，但是都离不开上面介绍的三种基本形式。
