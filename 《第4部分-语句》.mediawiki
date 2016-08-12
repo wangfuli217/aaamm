@@ -1095,8 +1095,7 @@ for(int i=1;i<50;i++) {
         
        continue;
    
-}  
-    
+}      
 System.out.print(i+" ");
 }
  
@@ -1120,51 +1119,39 @@ do {
 </pre>
 =====使用break和continue时要小心。（工号C6621 徐杰）=====
 *Java中中断语句 — break
-**
-break语句用于终止某个语句块的执行。用在循环语句体中，可以强行退出循环。
-**
-“break;”语句：可以出现在while、do…while、for、switch语句体中。**“break label”语句 ：可以出现
-
-在任何语句体中。
+**break语句用于终止某个语句块的执行。用在循环语句体中，可以强行退出循环。
+**“break;”语句：可以出现在while、do…while、for、switch语句体中。**“break label”语句 ：可以出现在任何语句体中。
 *'''Java代码'''
 <pre>
-public class Test {    public static void main(String[] args) {         outer: for (int i = 0; i < 
-
-10; i++) {             System.out.println("Outer loop");
-
-
-             inner: while (true) {                  Scanner sc = new Scanner(System.in);
-
+public class Test {
+    public static void main(String[] args) {
+         outer: for (int i = 0; i < 10; i++) {
+             System.out.println("Outer loop");
+             inner: while (true) {
+                  Scanner sc = new Scanner(System.in);
                   String s = sc.next();
-
-                  System.out.println("inner Loop:" + s);                  if (s.equals("hello"))    
-
+                  System.out.println("inner Loop:" + s);
+                  if (s.equals("hello"))    
                    break inner;
-
-                  if (s.equals("kitty"))                       break outer;            }        }
-
+                  if (s.equals("kitty"))
+                       break outer;
+            }
+        }
     }
-
-}</pre>
+}
+</pre>
 *Java中中断语句 — continue
-**continue语句用在循环语句体中，用于终止某次循环过程，跳过循环体中continue语句下未执行的循环，开始
-
-下一次循环过程。
-**
-“continue;” 语句：只能出现在循环语句while、do…while、for中
-
-。
+**continue语句用在循环语句体中，用于终止某次循环过程，跳过循环体中continue语句下未执行的循环，开始下一次循环过程。
+**“continue;” 语句：只能出现在循环语句while、do…while、for中。
 *'''Java代码'''
 <pre>
 for(int i=1;i<50;i++) {
-
-    if((i%2)==0){         continue;
-
-    }
-  
+    if((i%2)==0){
+         continue;
+    }  
     System.out.print(i+" ");
-
-}</pre>
+}
+</pre>
 =====用整数或者枚举类型表示数组和循环边界。（工号C6621 徐杰）=====
 =====通常情况，循环计数器是整数。浮点数递增时会有问题，可能出现死循环。（工号C6621 徐杰）=====
 =====在嵌套循环中使用有意义的变量名来提高可读性。（工号C6621 徐杰）=====
