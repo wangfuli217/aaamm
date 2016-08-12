@@ -643,17 +643,22 @@ do....
 ====12.5布尔变量（葛川川）====
 	布尔判断要使目的明确	<br/>
 	'''目的不明确的布尔判断'''
-	  	<nowiki>if（（elementIndex<0）丨丨（MAX_ELEMENTS<elementIndex）丨丨（elementIndex==lastElementIndex））{。。。}		</nowiki><br/>
+
+	  	<nowiki>if（（elementIndex<0）丨丨（MAX_ELEMENTS<elementIndex）丨丨（elementIndex==lastElementIndex））{。。。}		</nowiki>
+
 	'''目的明确的布尔判断'''
+
  	<nowiki>finished=（（elementIndex<0）丨丨（MAX_ELEMENTS<elementIndex）丨丨（elementIndex==lastElementIndex））;	<br/>
 	 if(finished丨丨repeatedEntry){。。。}</nowiki>
- 	<br/>
-	 目的明确的布尔判断使得if判断的对象更加明确了<br/>
+
+目的明确的布尔判断使得if判断的对象更加明确了
 	
 	*程序中布尔类型的使用心得
+
 	**java 有一种表示逻辑值的简单类型，称为布尔型。它的值只能是真或假这两个值中的一个。
+
 	'''示例'''
- 	<br/>
+
  <nowiki>	class BoolTest { 
 	    public static void main(String args[]) { 
 	    boolean b; 
@@ -668,7 +673,7 @@ do....
 	    关系操作符的结果是一个布尔值
 	    System.out.println(""10 > 9 is "" + (10 > 9)); 
 	    } 
-	   }</nowiki><br/>
+	   }</nowiki>
 
 '''这个程序的运行结果如下所示''' 
  b is false 
