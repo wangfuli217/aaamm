@@ -744,6 +744,82 @@ int prime(int n)
 这样在编译过程中，首先会编译inline，然后把每一处用到该代码的地方直接替换，节省了资源，可以产生高效率<br />
 *内连子程序缺点
 因为内联子程序在c里面要求放在头文件中里，而这样就导致这个函数会暴露在所以调用这个头文件的程序中，如果出现函数名一样，但函数内不一样，就会出现错误<br />
+
+
+====要把宏表达式都包含在括号里（工号C6632 梁运）====
+*因为宏和其他参数会被最终展开到代码中，要确保代码是按照我们预期的那样展开
+**如下就是一个不能正确展开的宏：
+''' 坏代码'''
+<pre>
+#define cube(a) a*a*a//如果传的a值是不可分割的，那么就不能达到正确的进行乘法运算
+</pre>
+*这次试试多加了括号，但是没有完全包含表达式的效果。
+**如下：
+''' 坏代码'''
+<pre>
+#defin Cube(a) {a}*{a}*{a} //如果在使用Cube()的表达式里含有比乘法运算符优先级更高的运算符，那么{a}*{a}*{a}就会失效
+</pre> 
+
+*为了防止这种情况发生，所以要给整个表达式加上括号，才可以正确的展开宏。
+**如下：
+'''好代码'''
+<pre>
+#defin Cube(a) {{a}*{a}*{a}}
+</pre>
+
+====要把含有多条语句的宏用大括号括起来（工号C6632 梁运）====
+*一个宏可以含有多条语句，如果你把它只当做一条语句就会出错。
+**如下无法工作含有多条语句的宏：
+'''坏代码'''
+<pre>
+#define LookupEntry(key,index)
+  index = (key-10)/5;// for循环语句中只有这第一部分代码被执行
+  index = min(index,MAX_INDEX);
+  index = max(index,MIN_INDEX);
+  ...
+for(entryCount = 0;entryCount<numEntries;entryCount++)
+  LookupEntry(entryCount，tableIndex[entryCount]);
+</pre>
+
+*因为它和常规函数的执行方式是不同的。当使用for循环调用宏的时候，如果宏里的语句没有用大括号括起来，for循环只会调用宏的第一条语句。
+**可以工作含有多条语句的宏如下：
+'''好代码'''
+<pre>
+#define LookupEntry(key,index){
+  index = (key-10)/5;
+  index = min(index,MAX_INDEX);
+  index = max(index,MIN_INDEX);
+}
+  ...
+for(entryCount = 0;entryCount<numEntries;entryCount++)
+  LookupEntry(entryCount，tableIndex[entryCount]);
+</pre>
+
+*把宏用大括号括起来，就可以避免这个问题。
+
+==== 要恰当的使用输入子程序的参数（工号C6632 梁运）====
+*不要把子程序的参数用作工作变量。
+**如果错误的使用参数，带来的不好的影响如下：
+'''坏代码'''
+<pre> 
+int Sample (int inputVal){
+      inputVal = inputVal * CurrentMultiplier ( inputVal );
+      return inputVal;     //此处的inputVal已经不再是当初传入的值了
+}
+</pre>
+*在这段代码中，inputVal这个名字很容易产生误解，因为此处的inputVal已经不再是当初传入的值了。
+**正确的使用输入参数的例子如下
+'''好代码'''
+<pre>
+int Sample (int inputVal){
+      int workingVal = inputVal;  //引入新的变量workingVal，消除了误用inputVal的可能  
+      workingVal = workingVal * CurrentMultiplier ( workingVal );
+      ...           //在此处或者其他地方还可以使用inputVal最初传入的值
+      return workingVal;
+}
+</pre>
+*这里明确的引入了一些工作变量，从而避免了麻烦。
+
 === 第8章 防御式编程（戎祥 何茂森 李婷婷）===
 ====8.1-8.3（戎祥）====
 ====检查所有来源于外部数据的值心得====
