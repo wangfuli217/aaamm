@@ -2796,6 +2796,45 @@ String b="bbbb";
 if(a.equals(b))
 </pre>
 
+=====在布尔表达式的判断中用true和false来表示真和假（工号C6604 郭思）=====
+　　有时我们会在代码中看到布尔表达式除了用true和false来表示真假外，还有用0和1的，或者自定义数据的。
+*'''不好的代码（使用1和0判断）'''
+<pre>
+public class Test
+{
+    public static void main(String args[])
+    {
+        int A,B;
+        ....
+        if (A==1)
+            //do something;
+            ....
+        if (B==0)
+            //do something;
+            ....
+    }
+}
+</pre>
+　　上面的代码使用0和1进行布尔判断，根本看不出1是代表真还是假，甚至1和0是不是代表真假都不知道，这样在查看或者修改代码的时候，会有很大的困难。另外由于是简单的数字，在输入时很有可能会写错，而且如果写错了也很难发现。
+*'''好代码（使用true和false判断）'''
+<pre>
+public class Test
+{
+    public static void main(String args[])
+    {
+        boolean flag;
+        if (flag==true)
+            //do something;
+            ....
+        if (flag==false)
+            //do something;
+            ....
+    }
+}
+</pre>　
+　　使用true和false就可以很清晰地表示真假了,而且写错的可能性也降低了。
+
+
 
 
 ====19.2 复合语句（语句块）       （李腾飞）====
