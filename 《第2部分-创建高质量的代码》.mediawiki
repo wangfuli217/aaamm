@@ -1105,7 +1105,8 @@ class ExceptionC extends Exception{};
 
 ::把项目中对异常的处理标准化（工号C6519 何茂森）
 标准化的异常处理将有利于异常的管理，针对异常处理的标准化，可以在以下几个方面进行考虑：
-:::考虑创建针对项目的特定异常类来作为本项目中所有可能抛出的异常的基类，这样就能是其他的异常集中起来标准化,例如：
+:::创建特定的异常基类（工号C6519 何茂森）
+考虑创建针对项目的特定异常类来作为本项目中所有可能抛出的异常的基类，这样就能是其他的异常集中起来标准化,例如：
 <pre>
 public class MyException extends Exception{
 ...
@@ -1114,7 +1115,8 @@ public class MyException extends Exception{
 //创建这样的异常类，然后以此类作为项目中所有其他异常的基类
 </pre>
 
-:::规定在何种场合下允许代码使用throw-catch语句进行局部处理，例如下面这段代码中：
+:::规定在何种场合下允许代码使用throw-catch语句进行局部处理。（工号C6519 何茂森）
+例如下面这段代码中：
 <pre>
 public static Connection getConn(){
 
