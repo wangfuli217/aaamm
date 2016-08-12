@@ -2595,12 +2595,12 @@ while ( i < MAX_ELEMENTS )
 if ( item[ i ] <> 0 ) then						
 ...
 </pre>						
-*利用短路原理求值						
+*利用短路原理求值						（工号c6622 李腾飞）
 例：						
 <pre>						
 if ( ( denominator != 0 ) && ( ( item / denominator ) > MIN_VALUE ) ) ...
 </pre>						
-*隐式地比较逻辑变量						
+*隐式地比较逻辑变量						（工号c6622 李腾飞）
 0在我们编写代码中有多种用途，在逻辑表达式中可以隐式地与0做比较						
 
 例：						
