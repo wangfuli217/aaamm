@@ -1331,6 +1331,78 @@ public static Connection getConn() throws SQLException{
 }
 </pre>
 
+:::规定在何种场合下允许代码抛出不在局部进行处理的异常（工号C6519 何茂森）
+有时候需要在程序里面讲某些异常抛出，并且不在局部方法里面进行处理的，例如下面这段代码：
+<pre>
+public static void throwException() throws Exception{
+	try{
+	System.out.println("执行throwException方法");
+	    throw new Exception();
+	}catch(Exception e){
+		System.out.println("在throwException方法中捕获并处理例外");
+		throw e;
+	}
+	finally{
+		System.out.println("在throwException方法中执行Finally语句块");
+	}
+} 
+</pre>
+上述程序中，throw new Exception();的时候产生了一个异常，并将其抛出。
+然而却被后面的catch捕获到了这个异常，因而System.out.println("在throwException方法中捕获并处理例外");得予被执行。
+而catch捕获到了这个异常后并不对其进行处理，而是再次将其抛出，这时此异常就被抛出到函数外了。
+这样允许异常抛出不在局部进行处理的异常，可以在程序开发的初始阶段设置一条规则，允许或者不允许出现这样的情况发生。
+
+:::确定是否使用集中的异常报告机制（工号C6519 何茂森）
+集中处理的异常报告机制能够保证异常处理的一致性，例如下面的一段代码中就很好的体现了这一点。
+<pre>
+public class TestException {
+    TestException(int i) throws ExceptionA,ExceptionB,ExceptionC{
+        switch(i)
+        {
+        case 1 : throw new ExceptionA();
+        case 2 : throw new ExceptionB();
+        case 3 : throw new ExceptionC();
+        default : {int a[]={0,}; a[1]=1;};
+        }
+     }
+ }
+class ExceptionA extends Exception{};
+class ExceptionB extends Exception{};
+class ExceptionC extends Exception{};
+</pre>
+像上述这样的代码，也可以在程序开发的初期阶段来规定一下，是否需要对本次程序中使用的异常进行这样的处理。
+
+:::规定是否允许在构造函数中使用异常（工号C6519 何茂森）
+构造函数中如果抛出异常的话，会使得子类代码过于臃肿，缺乏灵活性，同时也限制了子类的扩展性例如下面这段代码中：
+<pre>
+//父类
+class Base{
+    //父类抛出IOException
+    public Base() throws IOException{
+        throw new IOException();
+    }
+    //父类方法抛出Exception
+    public void method() throws Exception{
+        
+    }
+}
+//子类
+class Sub extends Base{
+    //子类抛出Exception异常
+    public Sub() throws Exception {
+    }
+    //子类方法的异常类型必须是覆写方法的子类型
+    @Override
+    public void method() throws IOException{
+        
+    }
+}
+</pre>
+上面的例子中,子类的无参构造函数method()不能省略,原因是父类的无参构造函数抛出了IOException异常。
+子类的无参构造函数默认调用的是父类的构造函数,所以子类的无参构造函数必须抛出IOException或其父类
+在构造函数中抛出受检查的异常会加重上层代码的负担，也可能会导致某些后续代码不再继续执行。
+这样的规则应该在程序开发的初级阶段就制定好相应的规则，这样使异常的处理标准化，将对程序的开发带来极大的便利
+
 ====8.6 辅助调试代码====
 *尽早引入辅助调试的代码。（工号C6519 何茂森）
 在程序开发的前期，越早引入辅助调试的代码，其能够提供的帮助也就越大。
