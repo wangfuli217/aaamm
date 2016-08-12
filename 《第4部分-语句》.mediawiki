@@ -2834,6 +2834,32 @@ public class Test
 </pre>　
 　　使用true和false就可以很清晰地表示真假了,而且写错的可能性也降低了。
 
+=====隐式地比较布尔值与true和false（工号C6604 郭思）=====
+　　把表达式当做布尔表达式，可以把true和false隐藏，让式子更清晰。比如：　　
+    if(A==false) ...
+    if((A>B)==true) ...
+可以写成：
+    if(!A) ...
+    if(A>B) ...
+　　这样隐式地表达，意思清晰，还减少了阅读量。下面有个更具体的例子：
+<pre>
+public class Test
+{
+    public static void main(String args[])
+    {
+        int A;
+        int B;
+        boolean C;
+        ....
+        if (A>B)
+            //do something;
+            ....
+        if (!C)
+            //do something;
+            ....
+    }
+}
+</pre>
 
 
 
