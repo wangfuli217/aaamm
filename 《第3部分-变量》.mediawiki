@@ -538,7 +538,7 @@ ip prefix-list name permit 172.16.1.0/24 ge 25 le 25
 **用null初始化字符串以避免无结束符的字符串。
 **首先，在声明字符数组是初始化为0：char EventName[Max+1] = {0};
 **其次，使用calloc()而不是malloc()，calloc()负责分配内存并初始化。
-*JAVA中怎样去除字符串尾部的空格？
+*JAVA中怎样去除字符串尾部的空格？(工号C6440 钟红飞)
 **String.trim() 
     trim()是去掉首尾空格。
 **str.replace(" ", ""); 去掉所有空格，包括首尾、中间 
@@ -556,7 +556,8 @@ ip prefix-list name permit 172.16.1.0/24 ge 25 le 25
   strStringType char[] chrCharArray; //创建一个字符数组
   chrCharArray chrCharArray = strStringType.toCharArray(); //将字符串变量转换为字符数组
   strStringType= String.valueOf(chrCharArray ); //将字符数组转换为字符串
-*将字符串类型的时间转换成date类型可以使用SimpleDateFormat来转换，具体方法如下：**定义一个字符串类型的时间；
+*将字符串类型的时间转换成date类型可以使用SimpleDateFormat来转换，具体方法如下：(工号C6440 钟红飞)
+**定义一个字符串类型的时间；
 **创建一个SimpleDateFormat对象并设置格式；
 **最后使用SimpleDateFormat的parse方法将String类型的时间转换成Date类型的时间。
    具体代码如下：
@@ -569,11 +570,11 @@ ip prefix-list name permit 172.16.1.0/24 ge 25 le 25
    } catch (ParseException e) {
    e.printStackTrace();
    }
-*Java 中字符串的格式化
+*Java 中字符串的格式化(工号C6440 钟红飞)
 **格式字符串语法
    Calendar c = Calendar.getInstance()；  
    String s = String.format("今天是：%1$tY年%1$tm月%1$te日"， c)；
-**此格式字符串是 format 方法的第一个参数。它包含三个格式说明符 "%1$tm"、"%1$te" 和 "%1$tY"，它们指出应该如何处理参数以及在文本的  什么地方插入它们。格式字符串的其余部分是固定文本。参数列表由传递给位于格式字符串之后的方法的所有参数组成。在上述示例中，参数列表的大小为 1，由对象 Calendar c 组成。
+   此格式字符串是 format 方法的第一个参数。它包含三个格式说明符 "%1$tm"、"%1$te" 和 "%1$tY"，它们指出应该如何处理参数以及在文本的  什么地方插入它们。格式字符串的其余部分是固定文本。参数列表由传递给位于格式字符串之后的方法的所有参数组成。在上述示例中，参数列表的大小为 1，由对象 Calendar c 组成。
 
 
 ====12.5布尔变量（钟红飞）====
