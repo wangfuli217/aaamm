@@ -1154,7 +1154,24 @@ for(int i=1;i<50;i++) {
 </pre>
 =====用整数或者枚举类型表示数组和循环边界。（工号C6621 徐杰）=====
 *通常情况，循环计数器是整数。浮点数递增时会有问题，可能出现死循环。
-=====在嵌套循环中使用有意义的变量名来提高可读性。（工号C6621 徐杰）=====
+=====在嵌套循环中要使用有意义的变量名。（工号C6621 徐杰）=====
+*'''坏代码'''
+<pre>
+for ( i = 0; i < teamCount; i++) {
+    for ( j = 0; j < eventCount[teamIndex]; j++) {
+        score[i][j] = 0;
+    }
+}
+</pre>
+*'''好代码'''
+<pre>
+for ( teamIndex = 0; teamIndex < teamCount; teamIndex++) {
+    for ( eventIndex = 0; eventIndex < eventCount[teamIndex]; eventIndex++) {
+        score[teamIndex][eventIndex] = 0;
+    }
+}
+//score[teamIndex][eventIndex] 比 score[i][j]给出的信息更多。
+</pre>
 =====用有意义的名字来避免循环下标串话。（工号C6621 徐杰）=====
 *习惯性地使用i、j和k会导致下标串话，也就是同一变量名用途不同。
 *'''坏代码'''
@@ -1170,6 +1187,14 @@ for ( i = 0; i < numPayCodes; i++) { //i在这里首次用到
        sum = sum + transaction[j][i][k]
        }
      }
+}
+</pre>
+*'''好代码'''
+<pre>
+recordCount = 0;
+while ( moreScores() ) {
+    score[recordCount] = GetNextScore();
+    recordCount++;// 使用 recordCount
 }
 </pre>
 =====把循环下标变量的作用域限制在本循环内。=====
