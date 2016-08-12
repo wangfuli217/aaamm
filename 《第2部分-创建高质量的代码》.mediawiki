@@ -1086,14 +1086,14 @@ Debug.Assert(actionPerformed) ' Couldn't perform action
 -----------------------------------------------------------------------------------------------------------------
 ====15.1 if语句心得（工号C6518 戎祥）====
 *if语句我想对于程序员来说既爱又恨的一个角色，下面我介绍几种循环语句：
-**举个if-else语句例子
+ 举个if-else语句例子
  int i = 5;
  if(i==4){   //判断是否为4
  System.out.println(“这个数是:4”)；  //如果是，输出结果。
  }else{
  System.out.println(“这个数是:”+i)；  //如果不是，输出这个数。
  }
-**if-then语句
+ if-then语句
  If ActiveCell.Value >50 Then 
  MsgBox "The exact value is " & ActiveCell.Value 
  Debug.Print ActiveCell.Adress & ": " & ActiveCell.Value 
