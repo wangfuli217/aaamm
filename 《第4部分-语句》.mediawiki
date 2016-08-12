@@ -3210,3 +3210,113 @@ Loop
 </pre>
 *将子程序提取到另一个子程序，不会降低整个程序的复杂度，只是降低在同一时间必须关注的复杂度水平
 *其他度量方法——所用的数据量、控制结构中的嵌套层数、代码行数、对同一变量的先后引用之间的代码行数（跨度）、变量生存的代码行数（生存期）以及输入的输出的量
+
+
+
+
+
+
+
+
+*使用return减少工作量（工号C6623 陈欢欢）
+**一旦知道答案，就马上返回。没有return的话，在出错后，不能及时得到反馈。有return语句也可以增强可读性
+'''好代码'''
+<pre>
+  if(inputStatus>outputStatus){
+    return inputStatus;
+  }else if(inputStatus<outputStatus){
+     return outputStatus;//返回较大值
+  }
+</pre>
+
+
+*排序常用递归（工号C6623 陈欢欢）
+递归并不常用，主要是将程序划分成多个子程序.当它调用自身的时候，有时所使用的数组太小而无需排序的时候会停止对自身的调用
+<pre> 
+Java示例：使用递归的算法排序——调用自身
+void Action（int firstIndex，int lastIndex，String names）{
+  if(lastIndex>firstIndex){
+     int length=Partition(firstIndex,lastIndex,names);
+     Action(firstIndex,length-1,names);
+     Action(firstIndex+1,length,names);
+  }
+}
+</pre>
+
+
+*不要用递归去计算阶乘（工号C6623 陈欢欢）
+**除了速度缓慢，并且无法预测运行期间的内存使用情况，用递归写出的子程序在计算时往往比循环难以理解。
+<pre>
+   int Factorial(int number){
+     int intermediateResult=1;
+     for(int factor=2;factor<=number;factor++){
+        intermediateResult=intermediateResult*factor;
+        //intermediateResult*=factor;
+     }
+   }
+</pre>
+
+
+
+*不要为了终止循环改动for循环下标（工号C6623 陈欢欢）
+**for循环在写好后，它的循环计数器就会超出预期的控制。随意修改往往会使得程序超出原本的计划
+**更好的方式是，用while循环去获得对退出条件的控制
+'''坏代码'''
+<pre>
+   Java示例，胡乱改动循环下标
+   for(int i=0;i<99;i++){
+      if(i=50){
+        i=100;
+      }
+      //doing something;
+      ...
+   }
+</pre>
+'''好代码'''
+<pre>
+   Java示例，while控制循环
+      while(i<50){
+        i+=100;
+      }do{
+        //doing something;
+         ...
+      }
+</pre>
+
+
+*不要用i，k这些无意义的数据作为局部变量（工号C6623 陈欢欢）
+**在for语句中，对于变量的定义，往往喜欢用i，k等，但是在嵌套的语句中，这就容易使得数据混乱产生无法预计的后果
+'''坏代码'''
+<pre>
+   Java示例:循环下标串话
+    for(int i=0;i<9;i++){  
+      //doing something;
+      ...;
+       for(int j=0;j<10;j++){  
+         //doing something;
+         ...;
+          for(int i=0;i<99;i++){  
+             //doing something;
+              ...;
+           }
+        }
+    }
+</pre>
+
+
+
+*用default子句检测错误（工号C6623 陈欢欢）
+**如果case语句中的默认子句既没有用来做其他处理，按照正常顺序也不太可能发生，就在其中加入诊断消息，用来判断数据显示的错误
+<pre> 
+   使用defaukt子句检测错误
+   switch(idea){
+     case "a";
+        Sysyem.out.println("YOU ARE WIN");
+     case "b";
+        Sysyem.out.println("YOU ARE LOSE");
+     case "c";
+        Sysyem.out.println("PLAY AGAIN");
+     default:
+        Sysyem.out.println("数据有误");
+   }
+</pre>
