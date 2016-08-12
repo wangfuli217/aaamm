@@ -383,6 +383,58 @@ interface Dog {
 **最小化所实例化对象的种类；
 **最小化在被实例对象上直接调用的不同子程序的数量；
 **最小化调用其它对象返回的对象的子程序的数量。
+*用if-else if-else取代嵌套if语句(工号C6524 李洋)
+**不合适的嵌套的使用会复杂化程序，使得程序的思路不清晰，破坏代码的可读性。
+*坏的代码：
+ if (10 < quantity) {
+    if (100 < quantity) {
+        if (1000 < quantity) {
+            discount = 0.1;
+        }
+        else {
+            discount = 0.05;
+        }
+    }
+    else {
+        discount = 0.025;
+    }
+ }
+ else {
+    discount = 0.0；
+ }
+*好的代码
+ if (1000 < quantity) {
+    discount = 0.1;
+ }
+ else if (1000 < quantity) {
+    discount = 0.05;
+ }
+ else if (1000 < quantity) {
+    discount = 0.025;
+ }
+ else {
+ discount = 0;
+ }
+*如何将数组转化为列表(工号C6524 李洋)
+**下列坏代码中，Arrays.asList()会返回一个ArrayList对象，ArrayList类是Arrays的一个私有静态类，而不是java.util.ArrayList类，java.util.Arrays.ArrayList类有set()、get()、contains()方法，但是没有增加元素的方法，所以它的大小是固定的。
+**要想创建一个真正的ArrayList类，请参照好代码，这里ArrayList的构造方法可以接受一个集合类型，刚好它也是java.util.Arrays.ArrayList的超类。
+*坏代码：
+ List<String> list = Arrays.asList(arr);
+*好代码：
+ ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(arr));
+*避免过度使用null作为返回值(工号C6524 李洋)
+**避免过度使用null值是一个很好实践，因为这样可以防止程序抛出 NullPointerException，更好的做法是让方法返回空的array或者collection而不是null值。
+**下例中当一个person没有account的时候getAccountIds()将返回null值，程序就会抛出NullPointerException异常,其中一个方法就是使用Optional类型，它既可以是一个空对象，也可以是一些值的封装。
+*坏代码：
+ List<String> accountIds = person.getAccountIds(); 
+ for (String accountId : accountIds) { 
+  processAccount(accountId);
+ }
+*好代码：
+ Optional<String> optionalString = Optional.ofNullable(nullableString); 
+ if(optionalString.isPresent()) { 
+  System.out.println(optionalString.get());
+ }
 ====6.4-6.5（陶晓鸣）====
 ====6.4创建类的原因（C6514 陶晓鸣）====
 *学习编码这么久，对于创建类大家应该都很熟悉，但是有没有想过我们为什么要创建类？或者说我们在什么情况下要创建类？下面我们说说创建类的几点原因：<br />
