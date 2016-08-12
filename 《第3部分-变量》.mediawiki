@@ -344,6 +344,26 @@ End Type
 **确定并坚持使用固定的一种 自然语言的命名方式，例如不要使用拼音和英文混合的命名方式
 **类名使用帕斯卡命名方式，如：VelocityResponseWriter
 
+====11.1 选择好变量名的注意事项（徐超）====
+*变量名的好坏对代码阅读性的影响(工号C6374 徐超)
+**假设一段代码，基于一个余额和一组新的开销，然后计算出支付总额。来看下面两个例子:
+ Java示例：不好的变量名
+ x = x - xx;
+ xxx = fido + SalesTax( fido );
+ x = x + LateFee( x1, x ) + xxx;
+ x = x + Interest( x1, x );
+
+ Java示例：良好的变量名
+ balance = balance - lastPayment;
+ monthlyTotal = newPurchases + SalesTax( newPurchases );
+ balance = balance + LateFee( customerID, balance ) + monthlyTotal;
+ balance = balance + Interest( customerID, balance );
+第一个例子很难看出这段代码要表现的东西，尤其是变量名，根本不知道其代表的含义；相比较而言，第二段代码的变量名就清楚的表达了其含义，使代码的阅读性大大提高。
+*变量名一定要准确地表现变量所代表的含义（工号C6374 徐超）
+**比较实用的一种方法就是，直接用文字来表达变量所代表的事物。这种名字阅读性强，没有歧义，很容易与其他事物区分开来，而且容易记忆。例如“中国奥林匹克代表团人数”，可能会命名为“numberOfPeopleOnTheChinaOlympicTeam”;再例如“运动场中座椅数量”，可能会命名为“numberOfSeatsInTheStadium”。上述两个例子都很容易理解，但是会发现有一个问题，就是名字长度太长。所以还要注意下面一点。
+*变量名的长度一定要适中（工号C6374 徐超）
+**变量名太短无法表达其含义，太长的名字又不便于书写，而且影响代码的视觉效果。据研究发现，变量名的平均长度在10到16个字符时，调试程序花费的气力最小。所以，变量名的命名不仅要确保含义清晰，还要注意长度适中，不会对代码造成坏的影响。
+
 =====变量命名要保持一致性（宋文喆）=====
 *命名变量使用的单词要保持一致性
 为了避免不必要的麻烦，实际命名中应该将有Total，Sum，Average，Max，Min，Record，String，Pointer等这一类的表示计算结果的变量放在最后，保持变量名的一致性从而增强代码的可读性。  <br>
