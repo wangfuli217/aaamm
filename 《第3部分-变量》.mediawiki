@@ -187,6 +187,73 @@ End Type
 *变量的作用域由小变大
 减少作用域的方法之一就是尽量将变量局部化。但是与扩充变量的作用域相比，减少变量的作用域是非常困难的。所以在一开始考虑变量的作用域时，先将其局限于某个特定循环，然后是某个子程序，其次成为某个类的private变量，protected变量，再其次对package可见，最后才是全局变量。
 
+*'''作用域的简单介绍 （工号C6619 何刚）'''
+作用域或者可见性指的是变量在程序内可见和可引用的范围。
+一个作用域很小的变量只能在程序的很小范围内可见——比如循环下标变量只能用于一个循环的小范围。一个作用域大的变量则在程序的很多地方都是可见的——比如一个程序中到处都用到的记录员工信息的表。
+
+*'''使变量应用局部化（工号C6619 何刚）'''
+那些介于同一变量多个引用点之间的代码可称为“攻击窗口”，可能会有新的代码加到这个窗口，不当地修改了这个变量，或者阅读代码时可能会忘记该变量应有的值。因此一般来说，把对一个变量的引用局部化，即把引用点尽可能的集中在一起是一种很好的做法。
+衡量一个变量的不同引用点的靠近程度的一种方法是计算该变量的“跨度”，例：
+*'''''代码示例''''
+<pre>
+a=0;
+B=0;
+C=0;
+a=b+c;
+</pre>
+    把变量的引用点集中起来可以提高程序的可读性。
+
+=====减小作用域的做法=====
+*'''在循环开始前就初始化该循环里的变量（工号C6619 何刚）'''
+在循环开始前就初始化该循环里的变量，而不是在循环所属的子程序的开始处初始化这些变量，这样在修改循环的时候，会很容易记起要对循环的初始化代码做相应的修改。
+
+*'''当变量即将被使用时再为其赋值（工号C6619 何刚）'''
+    这样做以后，就可以很方便就找出这个变量的赋值处，因此要让变量的赋值位置越明显越好，例：
+<pre>
+ int receiptIndex = 0;
+ float dailyReceipts = TodaysReceipts();
+ double totalReceipts = TotalReceipts( dailyReceipts );
+</pre>
+附：在章节10.3有关于这种变量声明和定义方式的描述：“在理想情况下，在第一次使用变量的位置声明和定义该变量”
+
+*'''把相关的变量的语句尽可能集中在一起（工号C6619 何刚）'''
+例：
+*'''''坏代码'''''
+<pre> 
+void  SummarizeData( ... ) {
+  ...
+  GetOldData ( oldData,  &numOldData );
+  GetNewData ( newData,  &numNewData );
+  totalOldData = Sum( oldData, numOldData );
+  totalNewData = Sum( newData, numNewData );
+  PrintOldDataSummary ( oldData, totalOldData, numOldData );
+  PrintNewDataSummary ( newData, totalNewData, numNewData );
+  SavaOldDataSummary ( totalOldData, numOldData );
+  SavaNewDataSummary  totalNewData, numNewData );
+ }
+</pre>
+    在阅读这一小段代码时，我们就要同时跟踪6个变量，而在按照“把相关的变量的语句尽可能集中在一起”后，我们可以把代码修改成下面这种形式，把每个代码块包含的变量数减小到3个：
+*'''''好代码'''''
+<pre>
+  void SummarizeData( ... ) {
+  GetOldData( oldData, &numOldData );       //使用oldData的组语句
+  totalOldData = Sum( oldData, numOldData );
+  PrintOldDataSummary( oldData, totalOldData, numOldData);
+  SaveOldDataSummary( totalOldData, numOldData );
+  ...
+  GetNewData( newData, &numNewData );    //使用newData的组语句
+  totalNewData = Sum( newData, numNewData );
+  PrintNewDataSummary( newData, totalNewData, numNewData);
+  SaveNewDataSummary( totalNewData, numNewData ); 
+  ...
+ }
+</pre>
+这样修改后得到的两段代码都比原代码短，且各自含更少的变量，从而更容易理解。
+
+*'''选择变量所能具有的最小的作用域（工号C6619 何刚）'''
+    与扩充一个作用域小的变量的作用域相比，缩减一个已经有很大作用域的变量的作用域非常困难，也就是说吧全局变量转换成类成员变量要比类成员变量转换成全局变量难得多。因此，在选择变量的作用域的时候，应该倾向于选择该变量所能具有的最小的作用域。
+
+
 ====10.5 持续性（徐超）====
 
 =====持续性的多种形态=====
