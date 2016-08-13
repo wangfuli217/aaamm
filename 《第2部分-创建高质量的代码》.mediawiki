@@ -1362,6 +1362,77 @@ Debug.Assert(actionPerformed) ' Couldn't perform action
             }
         }
 **把递归限制在一个子程序内
+---------------------------------------------------------------------------------------------------------------
+====19 一般控制问题心得（工号C6518 戎祥）====
+*Java中布尔类型
+**Java 有一种表示逻辑值的简单类型，称为布尔型。它的值只能是真或假这两个值中的一个。它是所有的诸如a下面的程序说明了布尔类型的使用： 
+ // Demonstrate boolean values. 
+ class BoolTest { 
+ public static void main(String args[]) { 
+ boolean b; 
+ 
+ b = false; 
+ System.out.println("b is " + b); 
+ b = true; 
+ System.out.println("b is " + b); 
+ // a boolean value can control the if statement 
+ if(b) System.out.println("This is executed."); 
+ b = false; 
+ if(b) System.out.println("This is not executed."); 
+ // outcome of a relational operator is a boolean value 
+ System.out.println("10 > 9 is " + (10 > 9)); 
+ } 
+ } 
+ 这个程序的运行结果如下所示：
+ b is false 
+ b is true 
+ This is executed. 
+ 10 > 9 is true 
+*VB中的布尔表达式简化复杂的表达式
+**拆分复杂的判断并引入新的布尔变量
+**把复杂的表达式做成布尔函数
+**用决策表代替复杂的条件
+-----------------------------------------------------------------------------------------------------------------
+====数组的心得（工号C6518 戎祥）====
+*数组是最简单和最常用的结构化数据类型
+ // 1.直接根据类型赋值方式
+ int[] i1 = {1,2,3};
+ // 2.new 设定数组长度方式
+ int[] i2 = new int[3];
+ // 3.new 并且赋值方式
+ int[] i3 = new int[]{1,2,3};   //注意：数组声明的时候不能够指定长度，在实例化时才能指定。
+*需要注意的几点：
+**确认所有数组下标都没有超出数组的边界
+**考虑用容器来取代数组，或者将数组作为顺序化结构来处理
+**检查数组的边界点
+*检查一个数组是否包含某个值 
+ String[] stringArray = { "a", "b", "c", "d", "e" };  
+ boolean b = Arrays.asList(stringArray).contains("a");  
+ System.out.println(b);  
+ // true  
+*移除数组中的元素 
+ int[] intArray = { 1, 2, 3, 4, 5 };  
+ int[] removed = ArrayUtils.removeElement(intArray, 3);//create a new array  
+ System.out.println(Arrays.toString(removed)); 
+
+-----------------------------------------------------------------------------------------------------------------
+====指针的心得（工号C6518 戎祥）====
+*指针在C中经常出现，每个指针包含两个部分：内存中的某处位置，以及如何理解该位置中的内容。
+**内存中的位置（内存中一个位置就是一个地址，一般用16进制来表示）
+**如何解释指针所指的内容
+*以下是我对指针的理解
+**指针的大小，所有指针的大小都是32位的，sizeof(int*)跟sizeof(double*)都等于4
+**指针指向内存的大小是不一定的，这个大小保存在进程内存管理链表中，目前在用户层编程还没有方法能获取到。
+**指针的访问实际上可以理解成 *p = p[0]; 具体的访问手段与p指针的类型定义有关，编译器会根据不同的类型生成不同的汇编代码，例如int型可能就是一个mov，double型可能要两个mov，如果是个类变量可能会调用到拷贝构造函数等等。
+ int main(void)
+ { 
+      char* p = NULL;
+      char* tmp = "12345678";
+      p = (char* )(tmp+4);
+      //p[-1] = ?,   p[-5] = ?。     
+   
+      return 0; 
+ }           //此题重点在于负号，很简单，考察对指针了解的广度方面
 
 ====8.4-8.5（李婷婷）====
 ----
