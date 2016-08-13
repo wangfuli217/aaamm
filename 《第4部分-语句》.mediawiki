@@ -1002,6 +1002,86 @@ System.out.println(book);
 *何时使用for循环何时使用foreach循环（工号C6618 陈渊）
 上述已经说到任何的foreach语句都可以改写为for语句，所以说for循环更通用，但是在很多时候使用foreach循环会很省事，那么怎么判断何时使用for循环何时使用foreach循环,其实和简单foreach循环有一个很大的特点就是你可以一个容器内的全部元素都做相同的操作。就像上面那个例子，books看做一个容器，里面有各种各样的书，都做输出书的操作这样用foreach循环用就特别省力。当你想精确控制循环的过程，对每个元素要做不同操作的时候，就必须用for循环。
 
+====带退出的循环（工号C6609 黄佳欣）====
+*一个带退出循环通常由循环头，循环体（包括）和循环尾组成，如：
+<pre>
+Do
+	...
+	if( some exit condition ) Then Exit Do
+	...
+Loop
+</pre>
+下面是应该带退出循环，但没有用的例子。<br>
+'''坏代码：'''
+<pre>
+score = 0;
+GetNextRating( &ratingIncrement );
+rating = rating + ratingIncrement;
+while((score < targetScore) && ( ratingIncrement !=1)){
+	GetNextScore( &scoreIncrement );
+	score = score + scoreIncrement;
+	GetNextRating( &ratingIncrement );
+	rating = rating + ratingIncrement;
+}
+</pre>
+'''好代码：'''
+<pre>
+score = 0;
+GetNextRating( &ratingIncrement );
+rating = rating + ratingIncrement;
+while( true ){
+	GetNextRating( &ratingIncrement );
+	rating = rating + ratingIncrement;
+	if((score < targetScore) && ( ratingIncrement !=1)){
+		break;
+	}
+	GetNextScore( &scoreIncrement );
+	score = score + scoreIncrement;
+}
+</pre>
+====非正常的带退出循环（工号C6609 黄佳欣）====
+*非正常的带退出循环，另一种利用带退出循环避免一个半循环的情况。
+'''坏代码：'''
+<pre>
+goto Start;
+while( expressing ){
+	//do something
+	...
+	Start:
+	//do something else
+	...
+}
+</pre>
+'''好代码：'''
+<pre>
+while（true）{
+	//do something else
+	...
+	if(!(expression)){
+		break;
+	}
+	//do something
+	...
+}
+</pre>
+====什么时候使用for循环（工号C6609 黄佳欣）====
+*在适当的情况下多使用FOR循环，FOR循环把循环的控制代码集中在一起，从而有助于写成可读性强的循环。
+'''坏代码：'''
+<pre>
+i = 0;
+a = 0;
+while（i<100）{
+	a = a+ i;
+	i++;
+}
+</pre>
+'''好代码：'''
+<pre>
+a = 0;
+for(i = 1;i<100;i++){
+	a = a+ i;
+}
+</pre>
 
 
 ====16.2 循环控制                （徐杰）====
