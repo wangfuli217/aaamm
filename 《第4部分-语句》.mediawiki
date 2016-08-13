@@ -1716,6 +1716,40 @@ for(i=0;i<10;i++){
 }
 </pre>
 简单快捷，一个for循环就可以遍历数组。
+*进入循环(工号 C6622 李腾飞）
+只从一个地方进入循环，初始化代码紧放在代码前边，就近原则把相关代码放在一起。适当的情况下多用for循环--条件循环都在头部,相对于while还要修改底部更好维护。											
+*更适合while的时候不要用for(工号C6622李腾飞)											
+'''for循环'''											
+<pre>											
+recordCount=0;											
+for(inputFile.MoveToStart(),!inputFile.EndOfFile();inputFile.GetRecord())											
+{											
+recordCount++;											
+}											
+</pre>											
+'''while循环'''											
+<pre>											
+recordCount=0;											
+while ( !inputFile.EndOfFile() )											
+{											
+inputFile.GetRecord();											
+recordCount++;											
+}											
+</pre>											
+对比可以看出，while循环更加清晰。											
+*避免空循环（工号C6622李腾飞）											
+<pre>											
+while ( (inputChar = cin.get() ) != '\n' ） {											
+；											
+}											
+</pre>											
+这条语句产生空循环是因为while表达式包含了两项操作，改进后如下：											
+<pre>											
+do {											
+inputChar = cin.get();											
+} while ( inputChar != '\n' );											
+</pre>											
+
 
 === 第17章 不常见的控制结构===
 
