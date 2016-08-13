@@ -1426,6 +1426,39 @@ for ( int recordCount = 0; recordCount < MAX_RECORDS;recordCount++ ) {
 *但请不要太依赖这条准则，循环变量还是要有意义的名字且避免重复。
 =====保持循环简单便于其他人阅读你的代码。（工号C6621 徐杰）=====
 *保持循环简单的技巧包括：避免使用怪异的循环、减少嵌套层次、让入口和出口一目了然、把内务操作代码放在一起。
+*'''坏代码'''
+<pre>
+if (score > 60){
+	if(score > 80）{
+		if(score > 90){
+			System.out.println("成绩非常优秀");
+    		}
+		else{
+			System.out.println("成绩优秀");
+		   }
+	     }
+	else{
+		System.out.println("成绩良好");
+	}
+else{
+	System.out.println("成绩不及格");
+}
+</pre>//循环嵌套复杂，代码不便于阅读
+*'''好代码'''
+<pre>
+if (score > 90){
+	System.out.println("成绩非常优秀");
+}
+else if (score > 80){
+	System.out.println("成绩优秀");
+}
+else if (score > 60){
+	System.out.println("成绩良好");
+}
+else{
+    System.out.println("成绩不及格");
+}//减少了循环嵌套，使代码更加简洁
+</pre>
 =====for循环在Java中增强版。（工号C6621 徐杰）=====
 *新声明块变量，这是一种与正在访问数组中的元素兼容的。变量将是可利用的块内并且它的值将是相同的作为当前的数组元素。
 *这个计算结果完成需要循环数组。表达式可以是一个数组变量或方法调用返回一个数组。
