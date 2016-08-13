@@ -474,7 +474,7 @@ Class A{
   System.out.println(optionalString.get());
  }
 *避免在方法中出现多个return语句（工号C6524 李洋）
-**在你的方法中，确保只有一个 退出点。不要在一个方法中使用多于一个return语句。
+**在你的方法中，确保只有一个return退出点，而不要在一个方法中使用多于一个return语句。
 *坏的代码：
  private boolean isEligible(int age){
    if(age > 18){
