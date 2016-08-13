@@ -1697,7 +1697,7 @@ public static void main(String args[])throws SpecialException{
 	}
 	catch(Exception e){
 	...//处理代码
-	throws e
+	throws e；
 }
 }
 </pre> 
