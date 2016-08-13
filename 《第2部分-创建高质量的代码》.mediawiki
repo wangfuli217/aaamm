@@ -1430,8 +1430,7 @@ Debug.Assert(actionPerformed) ' Couldn't perform action
       char* tmp = "12345678";
       p = (char* )(tmp+4);
       //p[-1] = ?,   p[-5] = ?。     
-   
-      return 0; 
+    return 0; 
  }           //此题重点在于负号，很简单，考察对指针了解的广度方面
 
 ====8.4-8.5（李婷婷）====
