@@ -56,6 +56,69 @@ DispalyExpenseSummary（marketingExpenData,salesExpenData,travelExpenseData,pers
 *用断言或者错误处理代码来检查依赖关系<br>
 就是可以再在类的成员变量里将isExpenseDataInitialized设为false,然后再InitializeExpenseData（）中将isExpenseDataInitialized设为true,在下面四个函数对expenData进行操作之前，看看isExpenseDataInitialized是否为true,但是我觉得因为引入新的变量、新的初始化，就变得复杂也不是很好理解，还会增加错误，所以不是很推荐。
 
+
+====要必须有明确顺序的语句（工号C6632 梁运）====
+*有明确语句顺序的代码好处：我们可以通过一个有明确顺序的代码和没有明确顺序代码的对比，一目了然的发现有明确顺序的代码的优点。
+**有明确顺序的代码如下：
+
+'''好代码'''
+date = ReadData();
+results = =CalculateResultsFromData(date );
+PrintResults(results );
+
+*这是一个由前后依赖关系的语句，它潜在的根本概念与依赖性有关。第三条语句依赖于第二条，第二条语句依赖于第一条。在这个代码里，前后语句之间的依赖关系可以很明显的从子程序名中看出来。除非这段代码里发生了不可思议的事情，否则这些语句必须按照所显示的顺序依次执行。
+**下面看一个依赖关系没有那么明显的代码
+'''坏代码'''
+revenue.ComputeMonthly();
+revenue.ComputeQuarterly();
+revenue.ComputeAnnual();
+*这个例子中，我们用常识来考虑，应该是先计算季度的收入，才能计算年收入，但是我们仅通过阅读代码是不太能看得出来的。
+*通过对比我们清晰的认识到，如果语句之间存在依赖关系，并且这些关系要求你把语句按照一定的顺序加以排列，那么，请设法使这些依赖关系变得明显。
+
+
+====利用子程序参数明确显示依赖关系（工号C6632 梁运）====
+*我们通过对比意识到了把依赖关系变得明确的重要性，那么就要学会如何才能把依赖关系变得明确。
+**我们首先看一个被隐藏了语句前后依赖关系的例子如下：
+'''坏代码'''
+ComputeMarketingExpense
+ComputeSalesExpense
+ComputeTravelExpense
+ComputePersonnelExpense
+DispalyExpenseSummary
+*假定ComputeMarketingExpense（）会初始化类的成员变量，以便其他所有的子程序能把它的数据放进去，在这种情况下，它需要在其他子程序之前被调用。但是由于这段子程序调用都不带任何参数，因此我们会猜测这里的每一个子程序都会访问类数据，但是我们都不能在代码中明确的看出来。
+*在这些子程序之间没有传递任何数据，因此我们不知道有哪些子程序使用了相同的数据。
+'''好代码'''
+InitializeExpenseData（expenData）
+ComputeMarketingExpense（expenData）
+ComputeSalesExpense（expenData）
+ComputeTravelExpense（expenData）
+ComputePersonnelExpense（expenData）
+DispalyExpenseSummary（expenData）
+*通过重写代码，让数据在子程序之间传递，就可以暗示执行顺序是很重要的。
+*由于子程序都使用了expenData，我们就可以清晰的看出，它们操作了相同的数据。
+
+
+====加注释对不清晰的依赖关系进行说明（工号C6632 梁运）====
+*如果还是担心有些依赖关系不够清楚，那么就用文档说明它。一方面是对不清楚的依赖关系进行进一步的说明，另一方面就是这样做可以编写出可维护、易修改的代码。
+
+'''好代码'''
+InitializeExpenseData//计算Expense数据
+ComputeMarketingExpense//四个子程序访问了ExpenseData数据成员
+ComputeSalesExpense
+ComputeTravelExpense
+ComputePersonnelExpense
+DispalyExpenseSummary//调用了四个子程序访问了ExpenseData数据成员后的数据
+这个代码没有使用那些让顺序依赖关系变得明显的技巧，完全就是单纯的加上注释，这个肯定不如那些好的编写技术，只有在维护一些要求特别严格的代码时，或者由于一些原因，没办法改进代码本身了，那么再使用这个方法来弥补不足吧。
+**可以参照一种更好的方法如下：
+'''好代码'''
+expenData = InitializeExpenseData（expenData）;
+marketingExpenData = ComputeMarketingExpense（expenData）;
+salesExpenData = ComputeSalesExpense（expenData）;
+travelExpenseData = ComputeTravelExpense（expenData）;
+personnelExpenseData = ComputePersonnelExpense（expenData）;
+DispalyExpenseSummary
+*这是把这些子程序转变成输入expenData，并把更新过的expenData作为输出加以返回的函数，这样代码中包含的顺序依赖关系就更明显了。
+
 ====14.2 顺序无关的语句           （陈渊）====
 
 14.2 顺序无关的语句心得
