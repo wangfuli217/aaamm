@@ -1686,13 +1686,12 @@ public static void main(String args[])throws SpecialException{
 </pre> 
 单独的try语句在程序里面的话，编译会报错，应该至少做如下的修改：
 <pre>
-//java反例：
+//java正例：
 public static void main(String args[])throws SpecialException{ 
 	try{  
 		new Sample().methodA(-1);  
 		System.out.println("main");  
-  	   }  //编译错误，不允许出现孤立的try代码块  
- 
+  	   }  
   	  System.out.println("Finally");  
 	}
 	catch(Exception e){
