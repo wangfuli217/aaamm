@@ -1331,12 +1331,15 @@ while ( moreScores() ) {
     recordCount++;// 使用 recordCount
 }
 </pre>
-=====把循环下标变量的作用域限制在本循环内。=====
+=====把循环下标变量的作用域限制在本循环内。（工号C6621 徐杰）=====
+*这项准则可以获得语言的内建机制的支持，例如在循环头声明下标变量：
+*C++代码示例
 <pre>
 for ( int recordCount = 0; recordCount < MAX_RECORDS;recordCount++ ) { 
         // looping code that uses recordCount
-}
+}//在for循环内部声明循环下标变量
 </pre>
+*C++代码示例
 <pre>
 for ( int recordCount = 0; recordCount < MAX_RECORDS;recordCount++ ) { 
         // looping code that uses recordCount
@@ -1344,8 +1347,9 @@ for ( int recordCount = 0; recordCount < MAX_RECORDS;recordCount++ ) {
 // intervening code
 for ( int recordCount = 0; recordCount < MAX_RECORDS;recordCount++ ) { 
         // additional looping code that uses a different recordCount
-}
+}//在for循环头部声明下标，则recordCount变量的作用域不会超出for循环，安全的重用这个变量。
 </pre>
+*但请不要太依赖这条准则，循环变量还是要有意义的名字且避免重复。
 =====把初始化代码紧放在循环前面         （C6620 刘思）=====
 一旦把循环放到更大的循环中，会忘记移动或复制初始化代码，修改的时候可能忽略造成不正确的修改。
 *把循环初始化语句和它相关循环放一起，运用或修改的时候容易避免出错。
