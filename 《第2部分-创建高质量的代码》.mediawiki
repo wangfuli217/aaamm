@@ -1393,35 +1393,39 @@ Debug.Assert(actionPerformed) ' Couldn't perform action
         }
 **把递归限制在一个子程序内
 ---------------------------------------------------------------------------------------------------------------
-====19 一般控制问题心得（工号C6518 戎祥）====
-*Java中布尔类型
-**Java 有一种表示逻辑值的简单类型，称为布尔型。它的值只能是真或假这两个值中的一个。它是所有的诸如a下面的程序说明了布尔类型的使用： 
- // Demonstrate boolean values. 
- class BoolTest { 
- public static void main(String args[]) { 
- boolean b; 
- 
- b = false; 
- System.out.println("b is " + b); 
- b = true; 
- System.out.println("b is " + b); 
- // a boolean value can control the if statement 
- if(b) System.out.println("This is executed."); 
- b = false; 
- if(b) System.out.println("This is not executed."); 
- // outcome of a relational operator is a boolean value 
- System.out.println("10 > 9 is " + (10 > 9)); 
- } 
- } 
- 这个程序的运行结果如下所示：
- b is false 
- b is true 
- This is executed. 
- 10 > 9 is true 
-*VB中的布尔表达式简化复杂的表达式
-**拆分复杂的判断并引入新的布尔变量
-**把复杂的表达式做成布尔函数
-**用决策表代替复杂的条件
+====辅助调试的代码心得（工号C6518 戎祥）====
+*不要自动地把产品版的限制强加于开发版之上
+**在调试模式下，Word在空闲循环中加入了一些代码，它们每隔几秒钟就检查一次对象的完整性，这样有助于快速检测到数据的损坏，也方便了
+对错误的诊断
+*计划移除调试辅助的代码
+**使用ant和make这样的版本控制工具和make工具（在开发模式下，你可以让make工具把所有的调试代码包含进来一起编译，
+而产品模式下又可以让make工具把那些你不希望包含在商用版本的调试代码排除在外）
+**使用内置预处理器，例子：
+ #define DEBUG
+ ...
+
+ #if defined(DEBUG)
+ //debugging code
+ ...
+ #endif
+**使用调试存根，例子:
+ void DoSomething
+     SOME_TYPE *POINTER;
+     ...
+     } {
+     // 检查传入的指针是否有效的子程序
+     CheckPointer(pointer);
+     ...
+
+     }
+ 在开发阶段，CheckPointer（）子程序会对传入的指针进行全面的检查，比如：
+ void CheckPointer(void*pointer) {
+     //执行第一项检查---可能是检查它不为NULL
+     //执行第二项检查---可能是检查地址的合法
+     //执行第三项检查---可能是检查它所指向的数据完好无损
+     ...
+     //z执行N项检查
+     }
 -----------------------------------------------------------------------------------------------------------------
 ====数组的心得（工号C6518 戎祥）====
 *数组是最简单和最常用的结构化数据类型
@@ -1432,9 +1436,17 @@ Debug.Assert(actionPerformed) ' Couldn't perform action
  // 3.new 并且赋值方式
  int[] i3 = new int[]{1,2,3};   //注意：数组声明的时候不能够指定长度，在实例化时才能指定。
 *需要注意的几点：
-**确认所有数组下标都没有超出数组的边界
-**考虑用容器来取代数组，或者将数组作为顺序化结构来处理
-**检查数组的边界点
+*确认所有数组下标都没有超出数组的边界，举个例子：
+ 很简单 int[][] qq = int[length1][length2];
+ length  就是长度的意思 。 我说 数组长度为4，但是他编号是从0编起， [0 ,1,2,3] 这个长度为4，
+ 但是如果你要取出 qq[4] ,此时会越界。
+ 你的代码最后一行则体现这个道理。
+*检查数组的边界点，举个例子：
+ 坏代码
+ int i,a[10];
+ for(i=0;i<=12;i++){
+  a[i] = 15;
+ }      //如果是java程序，出现数组越界时，会抛出ArrayIndexOutOfBoundsException异常。
 *检查一个数组是否包含某个值 
  String[] stringArray = { "a", "b", "c", "d", "e" };  
  boolean b = Arrays.asList(stringArray).contains("a");  
@@ -1460,9 +1472,27 @@ Debug.Assert(actionPerformed) ' Couldn't perform action
       char* tmp = "12345678";
       p = (char* )(tmp+4);
       //p[-1] = ?,   p[-5] = ?。     
-    return 0; 
+   
+      return 0; 
  }           //此题重点在于负号，很简单，考察对指针了解的广度方面
 
+**if-then语句
+ If ActiveCell.Value >50 Then 
+ MsgBox "The exact value is " & ActiveCell.Value 
+ Debug.Print ActiveCell.Adress & ": " & ActiveCell.Value 
+ End If
+*其他的循环句式
+**例如：do-while,for,foreach
+ 递增
+ for (int i = 0; i < 100; i++)
+ {
+    Console.WriteLine(i);
+ }
+ 递减
+ for (int i = 100; i > 0 ; i--)
+ {
+ Console.WriteLine(i);
+  }
 ====8.4-8.5（李婷婷）====
 ----
 ====8.4 异常====
