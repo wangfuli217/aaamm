@@ -1220,57 +1220,6 @@ char *（*pr）； *pr是一个存储的值为指针的变量，pr就是存储�
 *不要用全局数据来存放中间值，需要改变值时，在修改后重新赋值给全局数据。
 *不要通过大对象存储全局数据的方式来进行传递，浪费内存空间。
 
-====15.2 case语句====
-在C语言中还提供了一种多路判定语句switch,在这种结构里可以实现，一个条件符合时程序执行若干条语句。
-*语法形式常用心得（工号C6428 葛川川）
-<nowiki>
-switch(表达式)
-{   case 常量表达式1：语句序列1
-case 常量表达式2：语句序列2
-.
-.
-.
-case 常量表达式n：语句序列n
-default： 语句序列n+1
-}
-</nowiki>
-其中，
-①switch、case和default是C语言关键字，default是可以缺省的项；
-②switch后的表达式必须为整型或字符型表达式；
-③case后的常量表达式称为标号，且标号须互不相同，case与标号之间必须留有空格；
-④必要时，某些case标号后的语句序列可以不写，但冒号不可省；
-⑤语句序列可以是一条也可以是多条，且多条不需组合成复合语句。
-*执行过程简述（工号C6428 葛川川）
-首先计算switch后表达式的值，然后寻找与其相等的case标号，如果找到了则从该case后的语句序列开始执行下去，不再进行判断，直至遇break或switch结构结束；如果没有找到与switch表达式的值相等的case标号，则执行default后的语句序列或退出switch结构（default缺省的情况下）。
-*break使用与否的对比（工号C6428 葛川川）
-break，它是一个使程序立即从switch结构或循环中退出的语句
-设变量grade是字符型的,代表成绩的等级，以下程序段则实现根据学生成绩的等级来输出相应的分数范围：
-<nowiki>
-switch(grade)
-{case ‘A’:printf(“90~100\n”);break;
-case ‘B’:printf(“80~89\n”); break;
-case ‘C’:printf(“70~79\n”); break;
-case ‘D’:printf(“60~69\n”); break;
-case ‘E’:printf(“ 0~59\n”); break;
-default: printf(“error!\n”);
-}
-</nowiki>
-执行以上程序段时，若grade的值为‘A’则输出结果是：90~100回车；若grade的值为‘D’则输出结果是：60~69回车；若grade的值超出A-E这五个等级之外，例如’G’则输出结果是：error!回车。
-如果将所有的break语句去掉，程序变成：
-<nowiki>
-switch(grade)
-{case ‘A’:printf(“90~100\n”);
-case ‘B’:printf(“80~89\n”);
-case ‘C’:printf(“70~79\n”);
-case ‘D’:printf(“60~69\n”);
-case ‘E’:printf(“ 0~59\n”);
-default: printf(“error!\n”); }
-则程序找到一个入口之后会一直执行到switch结束，例如，若grade的值为‘C’则输出结果是：70~79
-60~69
-0~59
-error!
-</nowiki>
-显然，后面三行的信息我们是不需要的，所以实际应用中要善于使用break语句。
 
 
 ====16.2 循环控制（工号C6427 肖秀丽）====
