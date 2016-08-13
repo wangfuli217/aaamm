@@ -589,6 +589,56 @@ Switch ( commandShortcutLetter ) {
 </pre>
     如果把默认子句用于错误检测以外的其他目的，那就意味着每一种情况的选择都是正确的。请仔细检查以确认每一个可能进入case语句的值都是合法的。如果发现一些不合法的值，那就重写这些语句，让默认子句去执行错误检测。
 
+=====case语法形式常用心得（工号C6428 葛川川）=====
+<pre>
+switch(表达式)
+{   case 常量表达式1：语句序列1
+case 常量表达式2：语句序列2
+.
+.
+.
+case 常量表达式n：语句序列n
+default： 语句序列n+1
+}
+</pre>
+其中
+①switch、case和default是C语言关键字，default是可以缺省的项；
+②switch后的表达式必须为整型或字符型表达式；
+③case后的常量表达式称为标号，且标号须互不相同，case与标号之间必须留有空格；
+④必要时，某些case标号后的语句序列可以不写，但冒号不可省；
+⑤语句序列可以是一条也可以是多条，且多条不需组合成复合语句。
+=====执行过程简述（工号C6428 葛川川）=====
+首先计算switch后表达式的值，然后寻找与其相等的case标号，如果找到了则从该case后的语句序列开始执行下去，不再进行判断，直至遇break或switch结构结束；如果没有找到与switch表达式的值相等的case标号，则执行default后的语句序列或退出switch结构（default缺省的情况下）。
+=====break使用与否的对比（工号C6428 葛川川）=====
+break，它是一个使程序立即从switch结构或循环中退出的语句
+设变量grade是字符型的,代表成绩的等级，以下程序段则实现根据学生成绩的等级来输出相应的分数范围：
+<pre>
+switch(grade)
+{case ‘A’:printf(“90~100\n”);break;
+case ‘B’:printf(“80~89\n”); break;
+case ‘C’:printf(“70~79\n”); break;
+case ‘D’:printf(“60~69\n”); break;
+case ‘E’:printf(“ 0~59\n”); break;
+default: printf(“error!\n”);
+}
+</pre>
+执行以上程序段时，若grade的值为‘A’则输出结果是：90~100回车；若grade的值为‘D’则输出结果是：60~69回车；若grade的值超出A-E这五个等级之外，例如’G’则输出结果是：error!回车。
+如果将所有的break语句去掉，程序变成：
+<pre>
+switch(grade)
+{case ‘A’:printf(“90~100\n”);
+case ‘B’:printf(“80~89\n”);
+case ‘C’:printf(“70~79\n”);
+case ‘D’:printf(“60~69\n”);
+case ‘E’:printf(“ 0~59\n”);
+default: printf(“error!\n”); }
+则程序找到一个入口之后会一直执行到switch结束，例如，若grade的值为‘C’则输出结果是：70~79
+60~69
+0~59
+error!
+</pre>
+显然，后面三行的信息我们是不需要的，所以实际应用中要善于使用break语句。
+
 
 =====case子句的排序要有意义（C6604 郭思）=====
 　　我们都知道case子句是顺序执行的，如果是只有两三个选项的case语句，顺序就不那么重要；但是如果用case来解决复杂的问题，要处理多个事件，那顺序就很重要。所以case子句的排序要有一定的规则。
