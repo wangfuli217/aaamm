@@ -785,6 +785,52 @@ switch(n){
 *即使不需要default处理，也应该保留一个空的default语句。
 *不要为了使用case语句可以制造一个变量。case语句应该用于处理简单的、容易分类的数据。如果数据不简单易于分类，请使用if-else语句。
 
+=====不要为了使用case语句而刻意造一个变量（工号 C6595 时昌彬）=====
+*case语句应该用于处理简单的，容易分类的数据。否则请使用if-then-else语句串。
+'''Java示例：刻意制造一个虚假的case变量——糟糕的实践'''
+<pre>
+action = userCommand[0];
+switch ( action ){
+	case 'c':
+		Copy();
+		break;
+	case 'd':
+		DeleteCharacter();
+		break;
+	case 'f':
+		Format();
+		break;
+	case 'h';
+		Help();
+		break;
+	...
+	default:
+		HandleUserInputError(ErrorType.InvalidUserCommand );
+
+}
+</pre>
+这里控制case语句的变量是action。在本例中action是通过截取userCommand 字符串——一个用户输入的字符串——的第一个字符创建的。
+如果用户输入的是'Copy',那么case语句就会截取第一个'c',并且正确的调用Copy（）子程序；然而如果用户输入的是'calmbake',或者'cellulite',那么这个
+case语句还是会截取'c',并调用Copy（）。case语句中的default子句所执行的错误信息检测也会失效。
+'''Java示例: 使用if-then-else语句串代替虚假的case变量——良好的实践'''
+<pre>
+if （UserCommand.equals(COMMAND_STRING_COPY)）{
+	Copy();
+}
+else if (UserCommand.equals(COMMAND_STRING_DELETE)){
+	DeleteCharacter();
+}
+else if (UserCommand.equals(COMMAND_STRING_FORMAT)){
+	Format();
+}
+else if (UserCommand.equals(COMMAND_STRING_HELP)){
+	Help();
+}
+...
+else{
+	HandleUserInputError(ErrorType.InvalidUserCommand );
+}
+</pre>
 
 === 第16章 控制循环===
 
@@ -1778,6 +1824,31 @@ lings(b);
 *让入口有和出口一目了然，把内务操作代码放在一处
 *命名要准确，且各自用于一个用途。
 *仔细考虑循环，确保在每一种情况下正常运行和退出。
+
+=====在嵌套循环中使用有意义的变量名来提高其可读性（工号 C6595 时昌彬）=====
+*一层循环使用i,j,k还说的过去，但多层循环就应该使用有意义的变量名
+'''Java示例：糟糕的循环变量名'''
+<pre>
+for (int i = 0; i < numPayCodes; i++ ){
+	for( int j = 0;j < 12; j++){
+		for( int k = 0;k < numDivisions; k++ ){
+		sun = sum + transaction[i][j][k];
+		}
+	}
+}
+</pre>
+透过i,j,k根本看不出transactionde的内容
+'''Java示例：好的循环变量名'''
+<pre>
+for (int payCodeIdx = 0; payCodeIdx < numPayCodes; payCodeIdx ++ ){
+	for( int month = 0;month  < 12; month ++){
+		for( int divisionIdx = 0;divisionIdx  < numDivisions; divisionIdx ++ ){
+		sun = sum + transaction[payCodeIdx][month][divisionIdx];
+		}
+	}
+}
+</pre>
+计算机能同样轻松阅读这两种循环；然而对于人来说，阅读第二种循环要比第一种循环容易得多。
 
 ====16.3 轻松创建循环——由内而外   （刘思）====
 =====从简单情况开始并由内向外生成代码能轻松创建循环。=====
@@ -3335,6 +3406,47 @@ else{
 discount = 0.0;
 }
 </pre>
+=====通过重复检测条件中的某一部分来简化嵌套的if语句（工号 C6595 时昌彬）=====
+'''C++示例：糟糕的深层嵌套代码'''
+<pre>
+if (inputStatus == InputStatus_Success){
+	//lots of code
+	...
+	if (printerRoutine != NULL){
+		//lots of code
+		...
+		if (SetupPage()){
+			//lots of code
+			...
+			if(AllocMem(& printDate)){
+				//lots of code
+			}
+		}	
+	}
+}
+</pre>
+其中//lots of code 部分意指这个子程序中含有足够多的代码，足以占好几屏，或者超出打印纸的边界。下面是用重复检测取代嵌套后重写的代码：
+'''C++示例：利用重复检测的非嵌套代码 '''
+<pre>
+if (inputStatus == InputStatus_Success){
+	//lots of code
+	...
+	if (printerRoutine != NULL){
+		//lots of code
+		...
+	}
+}
+if ((inputStatus == InputStatus_Success)&&(printerRoutine != NULL)
+	&&SetupPage()){
+	//lots of code
+	...
+	if(AllocMem( &printDate)){
+		//lots of code
+		...
+	}
+}	
+</pre>
+这个例子很贴近实际，因为它表明你不能无偿的减少嵌套层次；作为减少嵌套层次的代价，你必须要容忍使用一个更复杂的判断。不过把嵌套层次从4层缩减至了2层是很大的改进所以值得考虑。
 
 =====把嵌套if转换成case语句=====
 *你可以用case语句重写一些判断，特别是那些含有整数的判断，而不是去用一长串if和else。
