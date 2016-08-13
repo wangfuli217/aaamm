@@ -1144,6 +1144,7 @@ while((score < targetScore) && ( ratingIncrement !=1)){
 	rating = rating + ratingIncrement;
 }
 </pre>
+例子中的前两行代码又在while循环中后两行中重复出现了。在修改的时候，你很容易忘记让两组代码保持一致。如果别的程序员来修改这段代码，很可能不会注意到这两组代码应该同步地修改。
 '''好代码：'''
 <pre>
 score = 0;
