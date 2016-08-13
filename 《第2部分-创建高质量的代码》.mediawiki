@@ -473,6 +473,80 @@ Class A{
  if(optionalString.isPresent()) { 
   System.out.println(optionalString.get());
  }
+*避免在方法中出现多个return语句（工号C6524 李洋）
+**在你的方法中，确保只有一个 退出点。不要在一个方法中使用多于一个return语句。
+*坏的代码：
+ private boolean isEligible(int age){
+   if(age > 18){
+     return true;
+   }else{
+     return false;
+   }
+ }
+*好的代码：
+ private boolean isEligible(int age){
+   boolean result;
+   if(age > 18){
+     result = true;
+   }else{
+     result = false;
+   }
+   return result;
+ }
+*避免重复使用同样的字符串（工号C6524 李洋）
+**如果代码中需要在多个地方使用同一个字符串，那就创建一个字符串常量来使用，这样大大降低了代码的出错率，也是的代码容易看懂。
+*坏的代码：
+ private void someMethod(){
+   logger.log("My Application" + e);
+   ....
+   ....
+   logger.log("My Application" + f);
+ }
+*好的代码：
+ public static final String MY_APP = "My Application";
+ private void someMethod(){
+   logger.log(MY_APP + e);
+   ....
+   ....
+   logger.log(MY_APP + f);
+ }
+*尽量减少对变量的重复计算（工号C6524 李洋）
+**首先要尽量避免使用比较复杂的表达式，这样的表达式不利于变量数据的说明。
+**在以下的例子中，循环条件被反复计算，如果不使用复杂表达式，而使循环条件值不变的话，程序会跑的更加的快。
+*坏的代码：
+ for(int i=0;i<list.size();i++)
+*改进的代码：
+ for(int i=0,len=list.size();i<len;i++)
+*挺高性能的可维护性（工号C6524 李洋）
+**合理的使用异常(Exception)抛出，可以很好地提高性能的可维护性，但要注意的是正确的做法为：对异常进行分类处理,并进行封装输出。而不是单一的抛出异常，这样使得看代码时完全找不得check点。
+*坏的代码：
+ public void doStuff()
+ {
+   try
+   {
+     //do something
+   } catch (Exception e)
+   {
+     e.printStackTrace();
+   }
+ } 
+*好的代码：
+ public void doStuff()
+ {
+   try
+   {
+     //do something
+   }
+   catch (FileNotFoundException e)
+   {
+     log.info("文件未找到!文件为:xxx");
+   }
+   catch (SecurityException e) 
+   {
+     log.error("无权访问,原因:xxx");
+     e.printStackTrace();
+   }
+ }
 ====6.4-6.5（陶晓鸣）====
 ====6.4创建类的原因（C6514 陶晓鸣）====
 *学习编码这么久，对于创建类大家应该都很熟悉，但是有没有想过我们为什么要创建类？或者说我们在什么情况下要创建类？下面我们说说创建类的几点原因：<br />
