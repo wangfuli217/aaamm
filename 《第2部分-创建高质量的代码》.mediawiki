@@ -1669,6 +1669,67 @@ class Sub extends Base{
 在构造函数中抛出受检查的异常会加重上层代码的负担，也可能会导致某些后续代码不再继续执行。
 这样的规则应该在程序开发的初级阶段就制定好相应的规则，这样使异常的处理标准化，将对程序的开发带来极大的便利
 
+*异常处理的语法规则（工号C6519 何茂森）
+::try代码块不能单独存在
+try语句不能脱离catch代码块或finally代码块而单独存在，try代码块后面至少有一个catch代码块或finally代码块，例如下面这段代码：
+<pre>
+//java反例：
+public static void main(String args[])throws SpecialException{ 
+	try{  
+		new Sample().methodA(-1);  
+		System.out.println("main");  
+  	   }  //编译错误，不允许出现孤立的try代码块  
+ 
+  	   System.out.println("Finally");  
+	}
+}
+</pre> 
+单独的try语句在程序里面的话，编译会报错，应该至少做如下的修改：
+<pre>
+//java反例：
+public static void main(String args[])throws SpecialException{ 
+	try{  
+		new Sample().methodA(-1);  
+		System.out.println("main");  
+  	   }  //编译错误，不允许出现孤立的try代码块  
+ 
+  	  System.out.println("Finally");  
+	}
+	catch(Exception e){
+	...//处理代码
+	throws e
+}
+}
+</pre> 
+::try代码块后面可以只跟finally代码块。例如下面这段代码：
+<pre>
+public static void main(String args[])throws SpecialException{  
+try{  
+    new Sample().methodA(-1);  
+    System.out.println("main");  
+  }finally{  
+    System.out.println("Finally");  
+  }  
+} 
+</pre>
+上面的例子中就没有catch语句，而是直接在try语句后面接finally语句，这在java异常里面也是合法的，可以使用。。
+::try代码块后面有多个catch代码块
+上面的例子是try代码后面没有接catch代码块或者只接了一个，而实际上，try代码后面也可以接多个catch代码块，例如：
+<pre>
+try{  
+	code1;  //可能抛出FileNotFoundException  
+}catch(SQLException e){  
+	System.out.println("SQLException");  
+}catch(IOException e){  
+	System.out.println("IOException");  
+}catch(Exception e){  
+	System.out.println("Exception");  
+} 
+</pre>
+java 会把实际抛出的异常依次和各个catch代码块里面声明的异常类型匹配，如果异常对象为某个异常类型或者其子类的实例，就会执行这个catch代码块，而不会再去执行其他的代码块。
+
+----
+
 ====8.6 辅助调试代码====
 *尽早引入辅助调试的代码。（工号C6519 何茂森）
 在程序开发的前期，越早引入辅助调试的代码，其能够提供的帮助也就越大。
