@@ -810,8 +810,8 @@ switch ( action ){
 }
 </pre>
 这里控制case语句的变量是action。在本例中action是通过截取userCommand 字符串——一个用户输入的字符串——的第一个字符创建的。
-如果用户输入的是'Copy',那么case语句就会截取第一个'c',并且正确的调用Copy（）子程序；然而如果用户输入的是'calmbake',或者'cellulite',那么这个
-case语句还是会截取'c',并调用Copy（）。case语句中的default子句所执行的错误信息检测也会失效。
+如果用户输入的是'Copy',那么case语句就会截取第一个'c',并且正确的调用Copy（）子程序；然而如果用户输入的是'calmbake',或者'cellulite',那么这个case语句还是会截取'c',并调用Copy（）。case语句中的default子句所执行的错误信息检测也会失效。
+
 '''Java示例: 使用if-then-else语句串代替虚假的case变量——良好的实践'''
 <pre>
 if （UserCommand.equals(COMMAND_STRING_COPY)）{
@@ -1837,7 +1837,7 @@ for (int i = 0; i < numPayCodes; i++ ){
 	}
 }
 </pre>
-透过i,j,k根本看不出transactionde的内容
+*透过i,j,k根本看不出transactionde的内容
 '''Java示例：好的循环变量名'''
 <pre>
 for (int payCodeIdx = 0; payCodeIdx < numPayCodes; payCodeIdx ++ ){
@@ -3425,8 +3425,8 @@ if (inputStatus == InputStatus_Success){
 	}
 }
 </pre>
-其中//lots of code 部分意指这个子程序中含有足够多的代码，足以占好几屏，或者超出打印纸的边界。下面是用重复检测取代嵌套后重写的代码：
-'''C++示例：利用重复检测的非嵌套代码 '''
+*其中//lots of code 部分意指这个子程序中含有足够多的代码，足以占好几屏，或者超出打印纸的边界。下面是用重复检测取代嵌套后重写的代码：
+'''C++示例：利用重复检测的非嵌套代码'''
 <pre>
 if (inputStatus == InputStatus_Success){
 	//lots of code
