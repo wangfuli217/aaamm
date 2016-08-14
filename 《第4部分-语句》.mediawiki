@@ -118,7 +118,9 @@ ComputePersonnelExpense
 DispalyExpenseSummary//调用了四个子程序访问了ExpenseData数据成员后的数据
 </pre>
 *这个代码没有使用那些让顺序依赖关系变得明显的技巧，完全就是单纯的加上注释，这个肯定不如那些好的编写技术，只有在维护一些要求特别严格的代码时，或者由于一些原因，没办法改进代码本身了，那么再使用这个方法来弥补不足吧。
-**可以参照一种更好的方法如下：
+
+====把子程序变成输入后更新并返回（工号C6632 梁运）====
+可以参照一种更好的方法如下：
 '''好代码'''
 <pre>
 expenData = InitializeExpenseData（expenData）;
