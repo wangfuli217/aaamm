@@ -170,10 +170,10 @@ public class Man{
 我们都知道封装是面向对象的重要原则，并尽可能的隐藏对象内部的细节。如果你不知道某个子程序的可访问性应该设为private,public还是protected那么建议你采用最严格且可执行的访问级别。
 *不要建只有一个实例的类（工号C6522 董飞）
 一个类中只有一个实例很有可能是你把类和对象混淆了，这时你应该重新建一个对象而不是重新建一个类。
-*不要建互相依赖的类（工号C6522 董飞）
+:::不要建互相依赖的类（工号C6522 董飞）
 循环依赖就是A类中的子程序调用了B类中的子程序。然后B类中的子程序又调用了A类中的子程序。循环依赖会让系统难于测试，因为你既无法单独测试A类，也无法单独测试B类。
-*'''坏的代码'''
 <pre>
+//坏的代码
 class Dog {
 	    public void eat(){
 	    	Cat.sleep();
@@ -186,45 +186,113 @@ class Cat {
 	    }
 }
 </pre>
-*不要建抽象类，应该建接口（工号C6522 董飞）
+:::不要建抽象类，应该建接口（工号C6522 董飞）
 我们都知道接口是比抽象类更抽象的类，接口的抽象能力非常有价值，因为接口中的每个子程序都在朝着一个共同的目标而工作。如果类的接口不能展现出一种一致的抽象，它的内聚性就会减弱。
-*'''坏的代码'''
 <pre>
+//坏的代码
 abstract class Dog {
 	  abstract void eat();
 	  abstract void sleep();
 	  void play (String s){};//我们应该把这个子程序重新整合到其他类中。
 }
 </pre>
-*'''好的代码'''
 <pre>
+//好的代码
 interface Dog {
 	  void eat();
 	  void sleep();
 }
 </pre>
-*类中不要包含无用的信息（工号C6522 董飞）
-有时我们会发现，某个类中一半子程序使用着该类的一般数据，而另一半子程序使用着另一半数据。这时你就把两个类会在一起用了，应该把它们拆分成两个类来用。
-*什么是单例类？（工号C6522 董飞）
-单例类就是只有唯一一个对象实例的类。构建单例类时我们可以把该类的所有构造方法隐藏起来，然后对外提供一个私有的（private）构造方法来访问该类的唯一实例。
-*'''例子'''
+:::类中不要包含无用的信息（工号C6522 董飞）
+有时我们会发现，某个类中一半子程序使用着该类的一半数据，而另一半子程序使用着另一半数据。这时你就把两个类混在一起用了，应该把它们拆分成两个类来用。
 <pre>
-public class Singleton {
-    private static Singleton uniqueInstance = null;
-    private Singleton() {}    //私有的构造方法
-    public static Singleton getInstance() {
-    if (uniqueInstance == null) {
-           uniqueInstance = new Singleton(); //创建实例
-       }
-       return uniqueInstance;
-    }
+//坏的代码
+class A {
+	  int a;
+	  int b;
+public int x(){
+   a=a+1；
+   return a；
+}
+public int y(){
+   a=a+1；
+   return a；
+}
+}
 </pre>
-*避免代码重复（工号C6522 董飞）
-如果两个类中用到了同一段代码，那么这时你就应该把这段相同的代码放入一个新的子程序，再让这两个类来调用。这样不仅节约了空间，同时也方便了以后对代码的修改。
-*不要在代码的主流程写判断语句（工号C6522 董飞）
-把判断语句写在方法中，可以调高代码的可读性降低代码的复杂度，同时方法的名字也可以很好的该括处该判断的目的。
-*'''坏的代码'''
 <pre>
+//好的代码
+class A {
+	  int a;
+public int x(){
+   a=a+1；
+   return a；
+}
+}
+class B{
+  int b;
+public int y(){
+   b=b+1；
+   return b；
+}
+}
+</pre>
+:::不要建无关紧要的类（工号C6522 董飞）
+如果一个类只有一些数据但没有方法，那么他就是一个无关紧要的类。那么我们应该把这些数据成员写到相应的类中。
+<pre>
+//错误代码
+public class A {
+     int a;
+     int b;
+}
+</pre><pre>
+//正确代码
+public class B {
+     int a;
+     int b;
+     public int add(){
+       int c=a+b;
+       return c;
+}
+}
+</pre>
+:::避免代码重复（工号C6522 董飞）
+如果两个类中用到了同一段代码，那么这时你就应该把这段相同的代码放入一个新的子程序，再让这两个类来调用。这样不仅节约了空间，同时也方便了以后对代码的修改。
+<pre>
+//不好的代码
+Class A{
+   int a;
+   int b;
+   int c=a+b;
+} 
+Class B{
+   int a;
+   int b;
+   int c=a+b;
+}
+</pre>
+<pre>
+//好的代码
+Class A{
+   public static void a(){
+      C.add(1,2);
+}
+}
+Class B{
+   public static void b(){
+      C.add(3,4);
+}
+Class C{
+   public int add(int a,int b){  
+     int c=a+b; 
+}
+}
+</pre>
+上面的代码中两个类共用的部分只是一个求和的方法，如果它们共用的部分很多的话这样做就变得很有意义。
+:::不要在代码的主流程写判断语句（工号C6522 董飞）
+把判断语句写在方法中，可以调高代码的可读性降低代码的复杂度，同时方法的名字也可以很好的该括处该判断的目的。
+<pre>
+//不好的代码
 Class A{
    int a;
    int b;
@@ -233,8 +301,8 @@ Class A{
 }
 } 
 </pre>
-*'''好的代码'''
 <pre>
+//好的代码
 Class A{
    public int maxNum(int a,int b){  //把判断语句写在方法中代码的主流程和判断代码都变得更加清晰。
        if(a>b){
