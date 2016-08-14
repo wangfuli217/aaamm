@@ -611,6 +611,94 @@ Class A{
      e.printStackTrace();
    }
  }
+准确使用对仗词（工号C6524 李洋）
+*子程序的命名时遵守对仗词的命名规则有助于保持一致性，从而提高可读性，反之则会容易使人迷惑，减低程序可读性。
+*常见的对仗词
+ add/remove      increment/decrement    open/close
+ begin/end       insert/delete          show/hide
+ create/destroy  lock/unlock            source/target
+ first/last      min/max                start/stop
+ get/put         next/previous          up/down
+ get/set         old/new                ···
+使用局部变量作为子程序参数（工号C6524 李洋）
+*不要把传入子程序的参数直接用作子程序的工作变量，应该使用局部变量。
+*直接使用传入参数作为工作变量，并不是根据实际情况进行命名，降低了程序的可读性；并且原参数在程序执行过程中会改变原有的值，如果后来再想去使用原值就可能引起错误。
+*坏的代码
+ int sample( int inputVal ) {
+       inputVal = inputVal * CurrentMultiplier( inputVal );
+       inputVal = inputVal + CurrentAdder( inputVal );
+       ···
+       return inputVal;
+ }
+*好的代码
+ int sample( int inputVal ) {
+       int workingVal = inputVal;
+       workingVal = workingVal * CurrentMultiplier( workingVal );
+       workingVal = workingVal + CurrentAdder( workingVal );
+       ···
+       return inputVal;
+ }
+减少使用递归调用（工号C6524 李洋）
+*使用递归时，如果递归的执行次数过多，就容易造成栈溢出（这是一个潜在的Bug）和程序执行过慢的问题。
+*因为java的栈是有一定长度的，递归调用会一直向栈里面push数据，等到无法push的时候就会发生异常，这种时候要考虑更换递归调用。
+*下述坏例子当执行到五千条结果左右时就会报异常,而好的代码可以一直跑下去，并且速度更快。
+*坏的代码
+ public class RecursionTest {  
+    public static void recursion(int totalTimes,int time) {  
+        if(totalTimes > 1) {  
+            System.out.println("这是第 " +  time + "次调用！");  
+            totalTimes--;  
+            time++;  
+            recursion(totalTimes, time);  
+        }  
+        else {  
+            System.out.println("调用结束，共调用了" + time + "次");  
+            return;  
+        }  
+    }  
+    public static void main(String[] args) {  
+        int totalTimes = 1000000;  
+        int time = 1;  
+        long startTime = System.currentTimeMillis();  
+        System.out.println("嵌套调用起始时间：" + startTime);  
+        recursion(totalTimes, time);  
+        System.out.println("嵌套调用结束时间：" + System.currentTimeMillis());  
+        System.out.println("总耗时：" + (System.currentTimeMillis() - startTime));  
+        System.out.println("------------------------------------------------------------");  
+    }    
+ }  
+*好的代码
+ public class RecursionTest {
+    public static void cycle(int totalTimes, int time) {  
+        if(totalTimes > 1) {  
+	    System.out.println("这是第 " +  time + "次调用！");  
+        }  
+        else {  
+	    System.out.println("调用结束，共调用了" + time + "次");  
+	}  
+    }
+    public static void main(String[] args) {    
+        int totalTimes = 10000000;  
+        int time = 1; 
+    	long startTime = System.currentTimeMillis();  
+	startTime = System.currentTimeMillis();  
+	System.out.println("循环调用起始时间：" + startTime);  
+	for (int index = totalTimes; index > 0; index--) {  
+	    cycle(index, time);  
+	    time++;  
+	}  
+	System.out.println("循环调用结束时间：" + System.currentTimeMillis());  
+	System.out.println("总耗时：" + (System.currentTimeMillis() - startTime));
+	System.out.println("------------------------------------------------------------");  
+    }  
+ }
+尽量少使用静态变量（工号6524 李洋）
+*当某个对象被定义为stataic变量所引用，那么gc（Gabage Collection）通常是不会回收这个对象所占有的内存。
+*如下面的例子所示，静态变量b的生命周期与A类同步，如果A类不会卸载，那么b对象会常驻内存，直到程序终止。 
+*坏的代码
+ public class A{   
+    static b = new B();   
+ }
 ====6.4-6.5（陶晓鸣）====
 ====6.4创建类的原因（C6514 陶晓鸣）====
 *学习编码这么久，对于创建类大家应该都很熟悉，但是有没有想过我们为什么要创建类？或者说我们在什么情况下要创建类？下面我们说说创建类的几点原因：<br />
