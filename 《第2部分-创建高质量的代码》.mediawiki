@@ -1907,6 +1907,79 @@ try{
 } 
 </pre>
 java 会把实际抛出的异常依次和各个catch代码块里面声明的异常类型匹配，如果异常对象为某个异常类型或者其子类的实例，就会执行这个catch代码块，而不会再去执行其他的代码块。
+::try、catch、finally代码的作用域分别独立。
+try、catch、finally三个代码块中变量的作用域分别独立而不能相互访问。如果要在三个块中都可以访问，则需要将变量定义到这些块的外面。例如下面的例子：
+<pre>
+//java反例
+	try{
+	System.out.println("执行throwException方法");
+	    throw new Exception();
+	}catch(Exception e){
+		System.out.println("在throwException方法中捕获并处理");
+		throw e;
+	}
+	finally{
+		throw e;
+	}
+</pre>
+上述代码中finally代码块里面抛出了e这个异常，但是在该代码块里面并没有声明，因此程序如果执行到这里的话会报错，应做如下修改：
+<pre>
+//java正例
+	try{
+	System.out.println("执行throwException方法");
+	    throw new Exception();
+	}catch(Exception e){
+		System.out.println("在throwException方法中捕获并处理例外");
+		throw e;
+	}
+	finally{
+	Exception e =new Exception();
+	throw e;
+	}
+</pre>
+
+::throw语句后不允许有紧跟其他语句，因为这些没有机会执行。
+当程序执行到throw语句的时候一般就会结束程序，此语句之后不应该再出现其他语句，例如下面这段代码：
+<pre>
+//java反例
+	try{
+	System.out.println("执行throwException方法");
+	    throw new Exception();
+	}catch(Exception e){
+		System.out.println("在throwException方法中捕获并处理");
+		throw e;
+		System.out.println("已抛出异常");
+	}
+</pre>
+上述代码中，catch语句中throw e;之后又进行输出，但是最后面的这句代码并不会被执行，所以在throw之后不应该再有代码语句出现，应做如下修改：
+<pre>
+//java正例
+	try{
+	System.out.println("执行throwException方法");
+	    throw new Exception();
+	}catch(Exception e){
+		System.out.println("在throwException方法中捕获并处理");
+		throw e;
+		//此处不应再出现执行语句。
+	}
+</pre>
+
+*JAVA异常的转型（工号C6519 何茂森）
+所谓的异常转型是指当程序捕获到异常后，将异常以新的类型再抛出，这样做能够使异常的信息更加直观，例如下面这段代码：
+<pre>
+public void run() throws MyException{ 
+	... 
+	try{ 
+	... 
+	}catch(IOException e){ 
+	... 
+	throw new MyException(); 
+	}finally{ 
+	... 
+	} 
+}
+</pre>
+上面的例子就是将捕获到的异常以throw new MyException();  的形式抛出，而不是IOException。这就是异常的转型。对于处理不了的异常或者要转型的异常，一定要在方法的声明处抛出异常。
 
 ----
 
