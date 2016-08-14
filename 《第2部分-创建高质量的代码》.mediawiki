@@ -670,11 +670,11 @@ Class A{
 *好的代码
  public class RecursionTest {
     public static void cycle(int totalTimes, int time) {  
-        if(totalTimes > 1) {  
-	    System.out.println("这是第 " +  time + "次调用！");  
+        if(totalTimes > 1) {
+            System.out.println("这是第 " +  time + "次调用！");  
         }  
         else {  
-	    System.out.println("调用结束，共调用了" + time + "次");  
+            System.out.println("调用结束，共调用了" + time + "次");  
 	}  
     }
     public static void main(String[] args) {    
