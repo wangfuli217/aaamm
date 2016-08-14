@@ -463,14 +463,10 @@ Class A{
            "参数内容为："+mess);  
      }  
  }
- public class B extends A{  
-     public B(){  
-        System.out.println("调用了B的无参构造函数");  
-     }  
-     public B(String mess){  
-        super(mess);  
-        System.out.println("调用了B的有参构造函数\n"+  
-           "参数内容为："+mess);  
+ public class Test{  
+     public static void main(String [] args){  
+         B b_01=new B();  
+         B b_02=new B("你好");  
      }  
  }  
 *代码输出结果：
