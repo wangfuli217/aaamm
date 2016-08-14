@@ -130,10 +130,48 @@ DispalyExpenseSummary
 </pre>
 *这是把这些子程序转变成输入expenData，并把更新过的expenData作为输出加以返回的函数，这样代码中包含的顺序依赖关系就更明显了。
 
-====组织直线型代码应注意（工号C6616 兰杰）====
+====组织直线型代码的注意要点（工号C6616 兰杰）====
 *组织直线型代码的最主要原则是按照依赖关系进行排列。
 *可以用好的子程序名，参数列表、注释内务管理变量来让依赖关系变得更明显。
 *如果代码之间没有顺序依赖关系，那就设法使相关的语句尽可能接近。
+*'''''坏代码'''''
+<pre>
+//跳来跳去的糟糕代码  
+MarketingData marketingData;  
+SalesData salesData;  
+TravelData travelData;  
+  
+travelData.ComputeQuarterly();  
+salesData.ComputeQuarterly();  
+marketingData.ComputeQuarterly();  
+  
+salesData.ComputeAnnual();  
+marketingData.ComputeAnnual();  
+travelData.ComputeAnnual();  
+  
+salesData.Print();  
+travelData.Print();  
+marketingData.Print();
+</pre>
+
+*'''''好代码'''''
+<pre>
+//组织良好的顺序代码，能从头到尾阅读  
+MarketingData marketingData;  
+marketingData.ComputeQuarterly();  
+marketingData.ComputeAnnual();  
+marketingData.Print();  
+  
+SalesData salesData;  
+salesData.ComputeQuarterly();  
+salesData.ComputeAnnual();  
+salesData.Print();  
+  
+TravelData travelData;  
+travelData.ComputeQuarterly();  
+travelData.ComputeAnnual();  
+travelData.Print();
+</pre>
 
 ====14.2 顺序无关的语句           （陈渊）====
 
@@ -2123,8 +2161,26 @@ public string Compare(int value1,int value2 ){
 }
 </pre>
 
-=====可以用Exit Sub方法来简化复杂的错误处理（工号C6616 兰杰）=====
-*'''''Visual Basic示例：更实际的利用访问子句澄清正常路径的代码'''''
+=====用Exit Sub（早退出）简化复杂的错误处理（工号C6616 兰杰）=====
+
+*'''''坏代码'''''
+<pre>
+if file.validName() Then
+   if file.Open() Then
+      if encryptionKey.vaild() Then
+         if file.Decrypt(encryptionKey) Then
+            'lost of code       //深层嵌套，遮蔽了正常执行的代码
+            ...
+         End if
+      End if
+   End if
+End if
+</pre>
+处理复杂的错误，比如在执行正常操作之前要进行大量的错误条件检测时，像上面这段代码一样，
+
+子程序缩在4个if语句里面，代码的缩进层过深，遮蔽了正常执行代码的路径。
+
+*'''''好代码'''''
 <pre>
 //发现错误以后将不执行后续代码
 Tf not file.vaildName() Then
@@ -2148,8 +2204,9 @@ Tf not file.Decrypt( encryptionKey ) Then
 End If
 ....
 </pre>
-这种Exit Sub方法避免的深层嵌套，而且在集中相关语句方面做得更好。
-Exit Sub方法的可读性和可维护性也更好。
+这种Exit Sub方法避免了深层嵌套，在执行正常代码之前先检查错误条件，发现错误以后将不执行后续代码。
+画面更加美观，代码可读性和可维护性也更好。
+
 
 ====17.2 递归                   （郭思）====
 　　递归，就是在运行的过程中调用自己。它通常把一个大型复杂的问题转化成一个与原问题相似的规模较小的问题来求解，递归只需少量的程序就可以描述出多次的重复计算，大大的减少了程序的代码量。
@@ -2244,17 +2301,18 @@ int factorial(int number){
 </pre>  
 
 =====用递归对付复杂事物很有价值（工号C6616 兰杰）=====
+假设有一个表示迷宫的数据类型。迷宫就是一个网格，通常可以往不止一个方向移到。如何才能写出一个走出
+迷宫的程序呢？使用递归，答案就会显而易见。
 *'''''C++示例：用递归穿越迷宫'''''
 <pre>
 bool FindPathThroughMaze( Maze maze , Point position ){
-   if ( AlreadyThird( maze, position ) ) {    //检测这个点有没有试过
+   if ( AlreadyThird( maze, position ) ) {    //检测这个点有没有试过，防止产生无穷递归
      return false;
   }
-   if ( ThisIsTheExit( maze, position ) ) {  //检测是不是迷宫出口
+   if ( ThisIsTheExit( maze, position ) ) {  //检测是不是迷宫出口，若返回true，子程序也返回true
      return true;
   }
-  RememberPosition( maze, position );  //记住这个点已经尝试过了
-//子程序尝试上下左右以找到路径
+  RememberPosition( maze, position );  //记住这个点已经尝试过了，消除因产生回环路径而出现无穷递归的可能
   if （ MoveLefe ( maze, psition, &newPosition ) ）{
     if ( FindPathThroughMaze( maze, newPosition ) ) {
      return true;
@@ -2275,11 +2333,12 @@ bool FindPathThroughMaze( Maze maze , Point position ){
      return true;
   }
  }
+//子程序尝试上下左右以找到路径，若返回true，则找到了出口，结束递归
 ruturn false;
 }
 </pre>
-从入口开始，尝试所有可能的路径，并且走过的点不会走两次，直到找到出去的路。
-
+从入口开始，尝试上下左右以找到路径，向左不行的话，会尝试向上下或者向右，直到找到出去的路。
+并且经过某个点的时候会留下记号，所以同一个点不会走两次。
 ====17.3 goto                   （兰杰）====
 =====要在特定场合下谨慎地使用goto（工号C6616 兰杰）=====
 
