@@ -332,7 +332,7 @@ If ( ! SomeTest ) {
 
 
 
-==== 判断语句if else 使用心得（工号C6609 黄佳欣）====
+===== 判断语句if else 使用心得（工号C6609 黄佳欣）=====
 *把正常情况的处理放在if处理的后面，不要放在else的后面。这样的代码可阅读性更强。
 '''坏代码：'''
 <pre>
@@ -407,7 +407,7 @@ if（!A=B）{
 	//这种情况下A不赋值。
 }
 </pre>
-====if语句心得1（工号C6609 黄佳欣）====
+=====if语句心得1（工号C6609 黄佳欣）=====
 *if语句中有多个逻辑运算的时候，每个逻辑运算都用括号括起来，这样便于代码阅读。<br>
 '''坏代码：'''
 <pre>
@@ -425,7 +425,7 @@ if（（A = B ）&&（ C = D））{
 	B=C+D;//B等于C+D
 }
 </pre>
-====if语句心得2（工号C6609 黄佳欣）====
+=====if语句心得2（工号C6609 黄佳欣）=====
 *if语句中有多个逻辑运算（and 和 or）的时候，使用&&和||,可以加快代码运行速度。<br>
 '''坏代码：'''
 <pre>
@@ -443,7 +443,7 @@ if（（（A = B ）&&（ C = D））|| (（A = C ）&&（ B = D））{
 	B=C+D;//B等于C+D
 }
 </pre>
-====if语句心得3（工号C6609 黄佳欣）====
+=====if语句心得3（工号C6609 黄佳欣）=====
 *使用if ...else if ...else 进行多个判断的时候，要把最常见或者最容易出现的情况放到最前面，以最常见或者最容易出现的情况来排顺序，做判断。假如 A = 1 是最多出现的最多，A = 2 是差不多出现的排第二，A = 3 是差不多出现的排第三。（实际上这种情况使用swith更好，在本例子中只是为了表现if语句。）<br>
 '''坏代码：'''
 <pre>
@@ -469,7 +469,7 @@ if（A = 1）{
 	//do nothing
 }
 </pre>
-====case 语句的善用心得1（工号C6609 黄佳欣）====
+=====case 语句的善用心得1（工号C6609 黄佳欣）=====
 *使用case简化对应的操作，也让代码变得更清晰。使用上面的例子：<br>
 '''坏代码：''
 <pre>'
@@ -499,7 +499,7 @@ switch（A）{
 	//do nothing
 }
 </pre>
-====case 语句的善用心得2（工号C6609 黄佳欣）====
+=====case 语句的善用心得2（工号C6609 黄佳欣）=====
 *不要为了使用case语句而刻意的制造一个变量。这是判断用户操作的代码，copy，delete，fmoat，help。
 '''坏代码：'''
 <pre>
@@ -536,7 +536,7 @@ if(UserCommand.equals(COMMAND_STRING_COPY)){
 	HandleUserInputError(ErrorType.InvalidUserCommand);//异常处理
 }
 </pre>
-====case 语句的善用心得3（工号C6609 黄佳欣）====
+=====case 语句的善用心得3（工号C6609 黄佳欣）=====
 *把default子句只用于检查真正的默认情况，不要把它作为最后一种判断情况来处理，这样会失去default子句检测错误的能力。假如A只能等于1,2,3 的情况：<br>
 '''坏代码：'''
 <pre>
@@ -1167,7 +1167,7 @@ System.out.println(book);
 *何时使用for循环何时使用foreach循环（工号C6618 陈渊）
 上述已经说到任何的foreach语句都可以改写为for语句，所以说for循环更通用，但是在很多时候使用foreach循环会很省事，那么怎么判断何时使用for循环何时使用foreach循环,其实和简单foreach循环有一个很大的特点就是你可以一个容器内的全部元素都做相同的操作。就像上面那个例子，books看做一个容器，里面有各种各样的书，都做输出书的操作这样用foreach循环用就特别省力。当你想精确控制循环的过程，对每个元素要做不同操作的时候，就必须用for循环。
 
-====带退出的循环（工号C6609 黄佳欣）====
+=====带退出的循环（工号C6609 黄佳欣）=====
 *一个带退出循环通常由循环头，循环体（包括）和循环尾组成，如：
 <pre>
 Do
@@ -1180,13 +1180,13 @@ Loop
 '''坏代码：'''
 <pre>
 score = 0;
-GetNextRating( &ratingIncrement );
-rating = rating + ratingIncrement;
+GetNextRating( &ratingIncrement );//注意下面也出现了
+rating = rating + ratingIncrement;//注意下面也出现了
 while((score < targetScore) && ( ratingIncrement !=1)){
 	GetNextScore( &scoreIncrement );
 	score = score + scoreIncrement;
-	GetNextRating( &ratingIncrement );
-	rating = rating + ratingIncrement;
+	GetNextRating( &ratingIncrement );//和上面的代码一样，在修改的时候，你很容易忘记。
+	rating = rating + ratingIncrement;//和上面的代码一样，在修改的时候，你很容易忘记。
 }
 </pre>
 例子中的前两行代码又在while循环中后两行中重复出现了。在修改的时候，你很容易忘记让两组代码保持一致。如果别的程序员来修改这段代码，很可能不会注意到这两组代码应该同步地修改。<br>
@@ -1196,8 +1196,8 @@ score = 0;
 GetNextRating( &ratingIncrement );
 rating = rating + ratingIncrement;
 while( true ){
-	GetNextRating( &ratingIncrement );
-	rating = rating + ratingIncrement;
+	GetNextRating( &ratingIncrement );//只出现一次
+	rating = rating + ratingIncrement;//只出现一次
 	if((score < targetScore) && ( ratingIncrement !=1)){
 		break;
 	}
@@ -1206,11 +1206,11 @@ while( true ){
 }
 </pre>
 这样写代码会更清晰点，不会出现以上的这种情况。
-====非正常的带退出循环（工号C6609 黄佳欣）====
+=====非正常的带退出循环（工号C6609 黄佳欣）=====
 *非正常的带退出循环，另一种利用带退出循环避免一个半循环的情况。<br>
 '''坏代码：'''
 <pre>
-goto Start;
+goto Start;//goto语句通常不用，主要因为它将使程序层次不清，且不易读。
 while( expressing ){
 	//do something
 	...
@@ -1226,14 +1226,14 @@ while（true）{
 	//do something else
 	...
 	if(!(expression)){
-		break;
+		break;//使用break直接退出循环。
 	}
 	//do something
 	...
 }
 </pre>
 你可以不用goto而达到同样的目的，如上例所示。使用break直接退出循环。
-====什么时候使用for循环（工号C6609 黄佳欣）====
+=====什么时候使用for循环（工号C6609 黄佳欣）=====
 *在适当的情况下多使用FOR循环，FOR循环把循环的控制代码集中在一起，从而有助于写成可读性强的循环。
 '''坏代码：'''
 <pre>
@@ -1244,14 +1244,15 @@ while（i<100）{
 	i++;
 }
 </pre>
+这样的代码，循环的控制代码比较分散，如果是比较大的循环，可读性就比较差了，代码的量也比较多。<br>
 '''好代码：'''
+下面的代码就比较一目了然，很清晰，读性比较强。<br>
 <pre>
 a = 0;
 for(i = 1;i<100;i++){
 	a = a+ i;
 }
 </pre>
-
 
 ====16.2 循环控制                （徐杰）====
 =====代码进入循环的五大指导原则。（工号C6621 徐杰）=====
