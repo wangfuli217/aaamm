@@ -25,6 +25,7 @@
 **[https://tcexam.org/ tcexam的官网]
 *DB请用Mysql
 *开发语言是Php,Javascript,能用上AngularJs的Team加分
+*系统必须构筑在云服务器上（aws(免费的)或者阿里云（收费的，请自理））
 *各个据点的所有成果物都通过GitHub管理
 **[https://github.com/C3140/lkg-exam-sz 苏州]
 **[https://github.com/C3140/lkg-exam-wx 无锡]
