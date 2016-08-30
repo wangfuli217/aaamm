@@ -24,6 +24,7 @@
 **[https://github.com/C3140/tcexam 相关代码]  以这个URL中的代码为开发的Base，不要用官网中的
 **[https://tcexam.org/ tcexam的官网]
 *DB请用Mysql
+*开发语言是Php,Javascript,能用上AngularJs的Team加分
 *各个据点的所有成果物都通过GitHub管理
 **[https://github.com/C3140/lkg-exam-sz 苏州]
 **[https://github.com/C3140/lkg-exam-wx 无锡]
