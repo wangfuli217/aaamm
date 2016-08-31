@@ -24,7 +24,8 @@
 **[https://github.com/C3140/tcexam 相关代码]  以这个URL中的代码为开发的Base，不要用官网中的
 **[https://tcexam.org/ tcexam的官网]
 *DB请用Mysql
-*开发语言是Php,Javascript,能用上AngularJs的Team加分
+*开发语言是Php,Javascript,能用上AngularJs的Team加分。
+*Web系统必须是PHP开发，其他辅助工具可以用别的语言。
 *系统必须构筑在云服务器上（aws(免费的)或者阿里云（收费的，请自理））
 *各个据点的所有成果物都通过GitHub管理
 **[https://github.com/C3140/lkg-exam-sz 苏州]
@@ -44,7 +45,11 @@
 *每次CheckPoint我都会进行打分
 *打分项包含，整理说明能力，团队是否团结，之前学习的代码大全是否应用，代码写的是否好，测试是否写的好，系统是否没有Bug。
 *总分最高的Team优秀
+*概要设计书里面说要实现的东西没有实现算不合格
+*用起来bug很多不合格
+*实装的代码和设计不一样不合格
 *在竞赛中没有发挥作用的人将被淘汰，所以请大家一定找到自己在团队中的位置，作用
+
 
 
 
