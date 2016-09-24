@@ -29,7 +29,7 @@
 *系统必须构筑在云服务器上（aws(免费的)或者阿里云（收费的，请自理））
 *各个据点的所有成果物都通过GitHub管理
 **[https://github.com/C3140/lkg-exam-sz 苏州]
-[https://github.com/C6516/tcexam 苏州代码]
+***[https://github.com/C6516/tcexam 苏州代码]
 **[https://github.com/C3140/lkg-exam-wx 无锡]
 **[https://github.com/C3140/lkg-exam-rg 如皋]
 *请各个据点将之前任务分配的PPT也放到GitHub中，并且将Link写在下面
