@@ -1,1 +1,7 @@
-print("hello word")
+import os
+
+
+
+print(os.getcwd())
+
+print(os.listdir("/home"))
