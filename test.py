@@ -10,7 +10,7 @@ print(os.listdir(os.getcwd()))
 
 f=open("ddd/bbb","w+")
 
-f.write(time.time())
+f.write(str(time.time()))
 f.write("\n")
 f.close()
 
