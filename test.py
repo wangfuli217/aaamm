@@ -8,7 +8,7 @@ print(os.listdir("/home"))
 print(os.listdir(os.getcwd()))
 
 
-f=os.open("ddd/bbb","aw")
+f=os.open("ddd/bbb","w+")
 
 f.write(time.time())
 f.write("\n")
