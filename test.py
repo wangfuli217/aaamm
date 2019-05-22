@@ -17,4 +17,5 @@ f.close()
 
 print(open("ddd/bbb","r").read())
 
-print(os.stat("ddd/bbb""))
+print(os.stat("ddd/bbb"))
+
